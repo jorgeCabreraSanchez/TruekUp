@@ -83,10 +83,6 @@ function home() {
   });
 
 
-  // $("#main-desplegable-categorias").on("mouseout", ".dropdown__level1__item", function () {
-  //   $(this).removeClass("dropdown__level1__item--marked");    
-  // });
-
 }
 
 function mostrarBodyHome() {
