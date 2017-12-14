@@ -1,5 +1,11 @@
 /*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
 $(document).ready(function () {
+  home();
+});
+//Termina de cargar la página
+
+
+function home() {
   mostrarBodyHome();
 
   $.ajax({
@@ -11,6 +17,7 @@ $(document).ready(function () {
       contador = 1;
       subcategorias = [];
       $.each(json, (id, value) => {
+        //Cargo el carousel
         if (first) {
           first = false;
           $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img></div>').appendTo('#carousel');
@@ -23,12 +30,15 @@ $(document).ready(function () {
           }
         }
 
+        /*Cargo las categorias y me guardo las subcategorias en un Array llamado subcategorias[] 
+         con la key de la id de la categoria a la que pertenece. */
         $('<li class="list-group-item dropdown__level1__item" id=' + id + '>' + value.categoria + '</li>').appendTo("#main-desplegable-categorias");
         subcategorias[id] = [];
         $.each(value.subcategorias, (index, subcategoria) => {
           subcategorias[id] = value.subcategorias;
         });
       });
+      //Fin recorrer JSON
 
     },
 
@@ -36,11 +46,14 @@ $(document).ready(function () {
       alert('Disculpe, existió un problema trayendo las categorias. Error: ' + error);
     }
   });
-
-  $("#main-browser").on("click", function () {
+  //Acaba petición AJAX
+ 
+  //Mostrar la capa de categorias
+  $("#main-browser,#browser-icon").on("click", function () {
     if ($("#main-drop").hasClass("mostrar")) {
       $("#main-drop").removeClass("mostrar");
       $("#main-browser").removeClass("browser-extended");
+      $("#main-desplegable-categorias").children(".dropdown__level1__item--marked").removeClass("dropdown__level1__item--marked");
     } else {
       $("#main-drop").addClass("mostrar");
       $("#main-browser").addClass("browser-extended");
@@ -49,16 +62,20 @@ $(document).ready(function () {
 
   });
 
-  $("#button-cancel").on("click",function(){
-    $("#main-browser").value("");
+  $("#button-cancel").on("click", function () {
+    console.log("Entra");
+    $("#main-browser").val("");
   });
 
   $("#main-desplegable-categorias").on("mouseover", ".dropdown__level1__item", function () {
+    $("#main-desplegable-categorias").children(".dropdown__level1__item--marked").removeClass("dropdown__level1__item--marked");
+    $(this).addClass("dropdown__level1__item--marked");
     $("#main-desplegable-subcategorias").html("");
     $.each(subcategorias[this.id], (id, value) => {
-      $('<li class="list-group-item dropdown__level2__item"><a class="dropdown__level2__link" href="" id="c1">' + value.nombre + '</a></li>').appendTo("#main-desplegable-subcategorias");
+      $('<li class="list-group-item dropdown__level2__item"><a class="dropdown__level2__link" href="" id="' + id + '">' + value.nombre + '</a></li>').appendTo("#main-desplegable-subcategorias");
     })
-    if($("#main-desplegable-subcategorias")){
+
+    if ($("#main-desplegable-subcategorias")) {
       console.log("Sobresale");
     } else {
       console.log("NO sobresale");
@@ -66,10 +83,11 @@ $(document).ready(function () {
   });
 
 
-});
+  // $("#main-desplegable-categorias").on("mouseout", ".dropdown__level1__item", function () {
+  //   $(this).removeClass("dropdown__level1__item--marked");    
+  // });
 
-
-
+}
 
 function mostrarBodyHome() {
   $(".main-conteiner").html('<div class="row">' +
@@ -82,11 +100,11 @@ function mostrarBodyHome() {
 
 
     '<div class="row main-browser-dropdown-conteiner">' +
-    
+
     '<div class="col-lg-12">' +
 
-    '<div class="browser" id="main-browser">' +
-    '<i class="fa fa-search browser__icon browser__icon--search" aria-hidden="true"></i>' +
+    '<div class="browser">' +
+    '<i class="fa fa-search browser__icon browser__icon--search" id="browser-icon" aria-hidden="true"></i>' +
     '<input type="text" class="browser__textfield" id="main-browser" placeholder="¿Que buscas?">' +
     '<button class="browser__button browser__button--search" type="button">Buscar</button>' +
     '<button class="browser__button browser__button--cancel" id="button-cancel" type="button">' +
@@ -94,7 +112,7 @@ function mostrarBodyHome() {
     '</button>' +
     '</div>' +
 
-    '<div class="main-dropdown" id="main-drop">'+
+    '<div class="main-dropdown" id="main-drop">' +
     '<div class="card dropdown">' +
     '<ul class="list-group list-group-flush dropdown__level1" id="main-desplegable-categorias">' +
     '<!-- Aqui van las categorias            -->' +
@@ -103,17 +121,17 @@ function mostrarBodyHome() {
     '<!-- Aqui van las subcategorias                                     -->' +
     '</ul>' +
     '</div>' +
-    '</div>'+
+    '</div>' +
 
-    '</div>'+
-    '</div>'+
+    '</div>' +
+    '</div>' +
 
-    
-    
 
-    
-    
-  
+
+
+
+
+
 
     '<!-- <div class="row"> -->' +
 

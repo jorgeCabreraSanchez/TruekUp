@@ -75,7 +75,7 @@ body {
 .main-dropdown{
     display:none !important;  
     position: absolute; 
-    z-index: 2;
+    z-index: 200;
     opacity: 0.9; 
     width: calc(100% - 30px);
 }
