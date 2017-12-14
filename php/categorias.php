@@ -14,7 +14,7 @@
         }
     }
     $stmt -> close();
-
+//linea comentada prueba
     $sql = "SELECT * FROM categorias";
     
     if ($stmt = $conn -> prepare($sql)) {
