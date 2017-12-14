@@ -22,10 +22,14 @@ function home() {
         if (value.imagen != null) {
           if (first) {
             first = false;
-            $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img></div>').appendTo('#carousel');
+            $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-caption d-none d-md-block">'+
+            '<h1>Amplia tus horizontes</h1>'+            
+            '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>').appendTo('#indicators');
           } else {
-            $('<div class="carousel-item"><img class="d-block img-fluid" src=' + value.imagen + '></img></div>').appendTo('#carousel');
+            $('<div class="carousel-item"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-caption d-none d-md-block">'+
+            '<h1>Amplia tus horizontes</h1>'+            
+            '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="' + contador + '"></li>').appendTo('#indicators');
             contador++;
           }
@@ -53,6 +57,18 @@ function home() {
     }
   });
   //Acaba petición AJAX
+
+  //Si escribe se autocompleta
+  // $("#main-browser").on("keyup",function(){
+  //   console.log($(this));
+  //   if($(this).is(':empty')){
+  //     console.log("Esta vacio");      
+  //     $("#main-desplegable-categorias","#main-desplegable-subcategorias").removeClass("ocultar");
+  //   } else {
+  //     console.log("pasa aqui");
+  //     $("#main-desplegable-categorias","#main-desplegable-subcategorias").addClass("ocultar");
+  //   }    
+  // });
 
   //Mostrar la capa de categorias
   $("#main-browser,#browser-icon").on("click", function () {
@@ -101,11 +117,22 @@ function home() {
 
 function mostrarBodyHome() {
   $(".main-conteiner").html('<div class="row">' +
-    '<div class="col-lg-9 main-conteiner-text">' +
-    '<span class="main-text">Amplia tus horizontes</span>' +
-    '</div>' +
-    '  </div>' +
-    '<!-- <div class="row"> -->' +
+  
+      '<div class="col-lg-12 col-carousel">' +
+  
+      '<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">' +
+      '<ol class="carousel-indicators" id="indicators">' +
+      '<!-- Para pasar las fotos -->' +
+      '</ol>' +
+      '<div class="carousel-inner" id="carousel">' +
+      '<!-- Aquí van las fotos del carousel -->' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '<!-- /.col-lg-9 -->' +
+  
+      '</div>' +
+      '<!-- /.row -->' +
 
 
 
@@ -139,25 +166,7 @@ function mostrarBodyHome() {
     '</div>' +
     '</div>' +
 
-    '<!-- <div class="row"> -->' +
-
-    '<div class="row">' +
-
-    '<div class="col-lg-12 col-carousel">' +
-
-    '<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">' +
-    '<ol class="carousel-indicators" id="indicators">' +
-    '<!-- Para pasar las fotos -->' +
-    '</ol>' +
-    '<div class="carousel-inner" id="carousel">' +
-    '<!-- Aquí van las fotos del carousel -->' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '<!-- /.col-lg-9 -->' +
-
-    '</div>' +
-    '<!-- /.row -->' +
+    '<!-- <div class="row"> -->' +    
 
     '<div id="contenedor-mid" class="container middle-conteiner">' +
     '</div>');

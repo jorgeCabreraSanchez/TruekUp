@@ -48,7 +48,7 @@
 }
 
 .dropdown__level2__item:nth-last-child(1) {           
-    border-bottom: 0px !important;
+    
     @include border-bottom-left-radius(0px);
     @include border-bottom-right-radius(0px);
 }

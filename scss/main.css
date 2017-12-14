@@ -107,6 +107,7 @@ body {
 
 .main-browser-dropdown-conteiner {
   margin-top: 25px;
+  margin-bottom: 20px;
 }
 
 .main-browser-dropdown-conteiner-mini {
@@ -314,7 +315,6 @@ body {
 }
 
 .dropdown__level2__item:nth-last-child(1) {
-  border-bottom: 0px !important;
   border-bottom-left-radius: 0px !important;
   -webkit-border-bottom-left-radius: 0px !important;
   -moz-border-bottom-left-radius: 0px !important;
