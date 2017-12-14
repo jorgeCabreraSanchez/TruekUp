@@ -4,7 +4,7 @@ $(document).ready(function () {
 });
 //Termina de cargar la página
 
-
+// patata
 function home() {
   mostrarBodyHome();
 
