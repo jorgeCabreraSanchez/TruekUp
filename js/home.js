@@ -38,12 +38,12 @@ function home() {
         $.each(value.subcategorias, (index, subcategoria) => {
           subcategorias[id] = value.subcategorias;
           if (subcategoria.imagen != null) {
-            subcategoriasImagen.push(subcategoria.imagen);            
+            subcategoriasImagen.push(subcategoria.imagen);
           }
         });
 
       });
-      
+
       //Fin recorrer JSON
       mostrarMiddleContainer();
     },
@@ -60,11 +60,11 @@ function home() {
     //Crear capa solo para el textfield --> Tamaño pequeño
     if ($(window).width() < 575) {
       if (!$("#navbar,#contenedor,#footer").hasClass("ocultar")) {
-        $("<div class='main-browser-min' id='main-browser-min'><span class='contenedor-boton-invisible'><button type='button' class='boton-invisible'><i class='fa fa-times boton-invisible__icon' aria-hidden='true'></i></button></span></div>").append($("#main-browser-dropdown-conteiner")).appendTo("body");
+        $("<div class='main-browser-min' id='main-browser-min'><span class='contenedor-boton-invisible' id='contenedor-boton-invisible'><button type='button' class='boton-invisible'><i class='fa fa-times boton-invisible__icon' aria-hidden='true'></i></button></span></div>").append($("#main-browser-dropdown-conteiner")).appendTo("body");
         $("#navbar,#contenedor,#footer").addClass("ocultar");
         $("#main-browser-dropdown-conteiner").addClass("main-browser-dropdown-conteiner-mini");
         //La x del texfield en tamaño pequeño
-        $("#main-browser-min").on("click", function () {
+        $("#contenedor-boton-invisible").on("click", function () {
           quitarMainBrowserMin();
         });
       }
@@ -93,18 +93,10 @@ function home() {
     $(this).addClass("dropdown__level1__item--marked");
     $("#main-desplegable-subcategorias").html("");
     $.each(subcategorias[this.id], (id, value) => {
-      $('<li class="list-group-item dropdown__level2__item"><a class="dropdown__level2__link" href="" id="' + id + '"><img class="dropdown__level2__icon" src="'+value.icono+'" alt="">'  + value.nombre + '</a></li>').appendTo("#main-desplegable-subcategorias");
+      $('<li class="list-group-item dropdown__level2__item"><a class="dropdown__level2__link" href="" id="' + id + '"><img class="dropdown__level2__icon" src="' + value.icono + '" alt="">' + value.nombre + '</a></li>').appendTo("#main-desplegable-subcategorias");
     })
   });
 
-
-<<<<<<< HEAD
-  // $("#main-desplegable-categorias").on("mouseout", ".dropdown__level1__item", function () {
-  //   $(this).removeClass("dropdown__level1__item--marked");    
-  // });
-
-=======
->>>>>>> 209758c57d437db53090eaad6d51bf2ee10892ec
 }
 
 function mostrarBodyHome() {
@@ -176,9 +168,8 @@ function quitarMainBrowserMin() {
   $("#main-browser-dropdown-conteiner").removeClass("main-browser-dropdown-conteiner-mini");
   $("#main-browser-dropdown-conteiner").insertBefore($("#contenedor").children("div")[1]);
   $("#main-browser-min").remove();
-  if ($("#main-drop").hasClass("mostrar")) {
-    $("#main-drop").removeClass("mostrar");
-  }
+  $("#main-drop").removeClass("mostrar");
+  $("#main-browser").val("");
 }
 
 function mostrarMiddleContainer() {
@@ -234,16 +225,16 @@ function mostrarMiddleContainer() {
   if (dt.getMonth() + 1 >= 5 && dt.getMonth() + 1 <= 9) {
     estacion = "verano";
   } else {
-    estacion = "invierno";    
+    estacion = "invierno";
   };
 
-  contador = 1; 
+  contador = 1;
   subcategoriasImagen.forEach(url => {
-    
-      nombreEntero = $("#img" + contador).attr("src") + estacion +"/"+  url.split("/")[1];
-      $("#img" + contador).attr("src", nombreEntero);            
-      contador++;
-    
+
+    nombreEntero = $("#img" + contador).attr("src") + estacion + "/" + url.split("/")[1];
+    $("#img" + contador).attr("src", nombreEntero);
+    contador++;
+
   });
 
 };
