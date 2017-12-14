@@ -15,7 +15,7 @@
     }
     $stmt -> close();
     $sql = "SELECT * FROM categorias";
-    
+    //añado linea
     // prueba linea editada en mi rama
     if ($stmt = $conn -> prepare($sql)) {
         $stmt -> execute();
