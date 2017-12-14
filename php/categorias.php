@@ -16,6 +16,7 @@
     $stmt -> close();
     $sql = "SELECT * FROM categorias";
     
+    // prueba linea editada en mi rama
     if ($stmt = $conn -> prepare($sql)) {
         $stmt -> execute();
         $stmt -> bind_result($id, $nombre, $imagen);
