@@ -5,7 +5,7 @@ $(document).ready(function () {
 });
 //Termina de cargar la página
 
-
+// patata
 function home() {
   mostrarBodyHome();
 
@@ -98,6 +98,13 @@ function home() {
   });
 
 
+<<<<<<< HEAD
+  // $("#main-desplegable-categorias").on("mouseout", ".dropdown__level1__item", function () {
+  //   $(this).removeClass("dropdown__level1__item--marked");    
+  // });
+
+=======
+>>>>>>> 209758c57d437db53090eaad6d51bf2ee10892ec
 }
 
 function mostrarBodyHome() {
