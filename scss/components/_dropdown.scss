@@ -49,6 +49,8 @@
 
 .dropdown__level2__item:nth-last-child(1) {           
     border-bottom: 0px !important;
+    @include border-bottom-left-radius(0px);
+    @include border-bottom-right-radius(0px);
 }
 
 .dropdown__level2__item:nth-child(1) {           
@@ -69,3 +71,16 @@
     padding-top: 5px !important;
     padding-bottom: 5px !important;
 }
+
+.dropdown__level2__icon {
+    text-decoration: none !important;
+    width: 5% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    margin-right: 10px !important;
+    }
+    
+    

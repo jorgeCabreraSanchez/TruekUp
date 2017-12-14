@@ -8,9 +8,9 @@
 
     if ($stmt = $conn -> prepare($sql)) {
         $stmt -> execute();
-        $stmt -> bind_result($id, $nombre, $idCategoria);
+        $stmt -> bind_result($id, $nombre, $idCategoria,$imagen,$icono);
         while ($stmt->fetch()) {
-            $subcategorias[$idCategoria][$id] = array("id" => $id, "nombre" => $nombre);
+            $subcategorias[$idCategoria][$id] = array("id" => $id, "nombre" => $nombre,"imagen" => $imagen,"icono" => $icono);
         }
     }
     $stmt -> close();
