@@ -73,13 +73,13 @@ CREATE TABLE IF NOT EXISTS `subcategorias` (
   CONSTRAINT `FKCategoria` FOREIGN KEY (`idCategoria`) REFERENCES `categorias` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.subcategorias: ~19 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.subcategorias: ~18 rows (aproximadamente)
 /*!40000 ALTER TABLE `subcategorias` DISABLE KEYS */;
 INSERT INTO `subcategorias` (`id`, `nombre`, `idCategoria`, `imagen`, `icono`) VALUES
 	(1, 'Baloncesto', 6, NULL, 'images/iconos/012-basketball.png'),
 	(2, 'Futbol', 6, NULL, 'images/iconos/011-soccer-ball.png'),
 	(3, 'Tennis', 6, NULL, 'images/iconos/010-tennis.png'),
-	(4, 'Moto cross', 5, 'verano/cross.jpg', ''),
+	(4, 'Motocross', 5, 'verano/cross.jpg', ''),
 	(6, 'Bádminton', 6, NULL, 'images/iconos/009-badminton.png'),
 	(7, 'Golf', 6, NULL, 'images/iconos/008-golfer.png'),
 	(8, 'Balonmano', 6, NULL, 'images/iconos/007-handball.png'),
