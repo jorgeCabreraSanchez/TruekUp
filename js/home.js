@@ -22,12 +22,12 @@ function home() {
         if (value.imagen != null) {
           if (first) {
             first = false;
-            $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-caption d-none d-md-block">' +
+            $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
               '<h1>Amplia tus horizontes</h1>' +
               '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>').appendTo('#indicators');
           } else {
-            $('<div class="carousel-item"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-caption d-none d-md-block">' +
+            $('<div class="carousel-item"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
               '<h1>Amplia tus horizontes</h1>' +
               '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="' + contador + '"></li>').appendTo('#indicators');
@@ -39,10 +39,12 @@ function home() {
          con la key de la id de la categoria a la que pertenece. */
         $('<li class="list-group-item dropdown__level1__item" id=' + id + '>' + value.categoria + '</li>').appendTo("#main-desplegable-categorias");
         subcategorias[id] = [];
+        i = 1;
         $.each(value.subcategorias, (index, subcategoria) => {
-          subcategorias[id] = value.subcategorias;
-          if (subcategoria.imagen != null) {
-            subcategoriasImagen.push(subcategoria.imagen);
+          subcategorias[id] = value.subcategorias;                         
+          if (subcategoria.imagen != null && subcategoria.imagen.indexOf(estacion()) != -1 && i <= 3 ) {
+            subcategoriasImagen[subcategoria.id] = { 'nombre' : subcategoria.nombre, 'imagen' : subcategoria.imagen };
+            i++;            
           }
         });
 
@@ -63,13 +65,17 @@ function home() {
     console.log($(this));
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
+      $("#main-desplegable-productos").removeClass("mostrar");
     } else {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
+      $("#main-desplegable-productos").addClass("mostrar");
       $.ajax({
         url: 'php/autocompletar.php',
-        data : { key : $(this).val() },                      
+        data: {
+          key: $(this).val()
+        },
         type: 'POST',
-        dataType: 'json',       
+        dataType: 'json',
         success: function (json) {
           $.each(json, (idSubcategoria, value) => {
             $.each(value, (id, value) => {
@@ -79,7 +85,7 @@ function home() {
         },
         error: function (jqXHR, status, error) {
           //No digo nada
-        }       
+        }
       });
     }
   });
@@ -204,7 +210,7 @@ function mostrarMiddleContainer() {
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
     ' <h4 class="card-title">' +
-    ' <a class="titulo-categoria"href="#">Running</a>' +
+    ' <a id="titulo1" class="titulo-categoria"href="#"></a>' +
     '</div>' +
     ' <div class="card h-80">' +
     '<a id="imagen-cat href="#">' +
@@ -219,7 +225,7 @@ function mostrarMiddleContainer() {
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
     ' <h4 class="card-title">' +
-    ' <a href="#">Acuaticos</a>' +
+    ' <a id="titulo2" href="#"></a>' +
     '</div>' +
     ' <div class="card h-80">' +
     '<a href="#">' +
@@ -234,7 +240,7 @@ function mostrarMiddleContainer() {
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
     ' <h4 class="card-title">' +
-    ' <a href="#">Montaña</a>' +
+    ' <a id="titulo3" href="#"></a>' +
     '</div>' +
     ' <div class="card h-80">' +
     '<a href="#">' +
@@ -246,21 +252,27 @@ function mostrarMiddleContainer() {
     '</div>' +
     ' </div>');
 
-  //Guardamos el mes actual en una variable
+   //Guardamos el mes actual en una variable   
+
+   contador = 1;
+  console.log(subcategoriasImagen);
+  subcategoriasImagen.forEach(url => {    
+    nombreEntero = $("#img" + contador).attr("src") + url.imagen;
+    $("#img" + contador).attr("src", nombreEntero);    
+    $("#titulo" + contador).html(url.nombre);
+    contador++;
+  });
+
+};
+
+function estacion(){
   var dt = new Date();
+  var estacion;
   if (dt.getMonth() + 1 >= 5 && dt.getMonth() + 1 <= 9) {
     estacion = "verano";
   } else {
     estacion = "invierno";
   };
+  return estacion;
+}
 
-  contador = 1;
-  subcategoriasImagen.forEach(url => {
-
-    nombreEntero = $("#img" + contador).attr("src") + estacion + "/" + url.split("/")[1];
-    $("#img" + contador).attr("src", nombreEntero);
-    contador++;
-
-  });
-
-};

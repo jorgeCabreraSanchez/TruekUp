@@ -75,6 +75,16 @@ body {
     }
 }
 
+.carousel-text{
+    background-color: white;
+    opacity: 0.5;
+    padding: 15px 0px !important;
+    color: black;
+    width: 50% !important;
+    margin: 0 auto;
+    @include border-radius(5px);
+}
+
 .main-dropdown {
     display: none !important;
     position: absolute;
