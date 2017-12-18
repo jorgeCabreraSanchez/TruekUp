@@ -41,10 +41,13 @@ function home() {
         subcategorias[id] = [];
         i = 1;
         $.each(value.subcategorias, (index, subcategoria) => {
-          subcategorias[id] = value.subcategorias;                         
-          if (subcategoria.imagen != null && subcategoria.imagen.indexOf(estacion()) != -1 && i <= 3 ) {
-            subcategoriasImagen[subcategoria.id] = { 'nombre' : subcategoria.nombre, 'imagen' : subcategoria.imagen };
-            i++;            
+          subcategorias[id] = value.subcategorias;
+          if (subcategoria.imagen != null && subcategoria.imagen.indexOf(estacion()) != -1 && i <= 3) {
+            subcategoriasImagen[subcategoria.id] = {
+              'nombre': subcategoria.nombre,
+              'imagen': subcategoria.imagen
+            };
+            i++;
           }
         });
 
@@ -61,32 +64,37 @@ function home() {
   //Acaba petición AJAX
 
   //Si escribe se autocompleta
-  $("#main-browser").on("keyup", function () {
-    console.log($(this));
+  $("#main-browser").on("keyup", function (event) {
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
-    } else {
-      $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
-      $("#main-desplegable-productos").addClass("mostrar");
-      $.ajax({
-        url: 'php/autocompletar.php',
-        data: {
-          key: $(this).val()
-        },
-        type: 'POST',
-        dataType: 'json',
-        success: function (json) {
-          $.each(json, (idSubcategoria, value) => {
-            $.each(value, (id, value) => {
-              $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + id + '"><img class="dropdown__level2__icon" src="' + value.icono + '" alt="">' + value.nombre + '</a></li>').appendTo("#main-desplegable-subcategorias");
+      $("#main-desplegable-productos").children().remove();
+    } else {      
+      if (event.which == 13) {
+        //Se muestran los productos relacionados con lo introducido
+      } else {
+        $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
+        $("#main-desplegable-productos").addClass("mostrar");        
+        $.ajax({
+          url: 'php/autocompletar.php',
+          data: {
+            key : $(this).val()
+          },
+          type: 'GET',
+          dataType: 'json',
+          success: function (json) {   
+            $("#main-desplegable-productos").children().remove();            
+            $.each(json, (id, value) => {
+              $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + value.id + '">' + value.palabra + '</a></li>').appendTo("#main-desplegable-productos");
             });
-          });
-        },
-        error: function (jqXHR, status, error) {
-          //No digo nada
-        }
-      });
+          },
+          error: function (jqXHR, status, error) {
+            //No digo nada
+          }
+        });
+        //Acaba peticion Ajax
+      }
+
     }
   });
 
@@ -133,7 +141,11 @@ function home() {
     })
   });
 
+
+  $("#login").on("click", login);
 }
+//Acaba el HOME --> ready del home
+
 
 function mostrarBodyHome() {
   $(".main-conteiner").html('<div class="row">' +
@@ -206,7 +218,7 @@ function quitarMainBrowserMin() {
 
 function mostrarMiddleContainer() {
   $(".middle-conteiner").html('<div class="row row-middle">' +
-    '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>'+    
+    '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>' +
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
     ' <h4 class="card-title">' +
@@ -252,20 +264,18 @@ function mostrarMiddleContainer() {
     '</div>' +
     ' </div>');
 
-   //Guardamos el mes actual en una variable   
+  //Guardamos el mes actual en una variable   
 
-   contador = 1;
-  console.log(subcategoriasImagen);
-  subcategoriasImagen.forEach(url => {    
+  contador = 1;  
+  subcategoriasImagen.forEach(url => {
     nombreEntero = $("#img" + contador).attr("src") + url.imagen;
-    $("#img" + contador).attr("src", nombreEntero);    
+    $("#img" + contador).attr("src", nombreEntero);
     $("#titulo" + contador).html(url.nombre);
     contador++;
   });
-
 };
 
-function estacion(){
+function estacion() {
   var dt = new Date();
   var estacion;
   if (dt.getMonth() + 1 >= 5 && dt.getMonth() + 1 <= 9) {
@@ -274,5 +284,9 @@ function estacion(){
     estacion = "invierno";
   };
   return estacion;
-}
+};
 
+
+function login() {
+
+};
