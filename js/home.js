@@ -47,7 +47,6 @@ function home() {
             i++;            
           }
         });
-
       });
 
       //Fin recorrer JSON
@@ -132,6 +131,8 @@ function home() {
       $('<li class="list-group-item dropdown__level2__item"><a class="dropdown__level2__link" href="" id="' + id + '"><img class="dropdown__level2__icon" src="' + value.icono + '" alt="">' + value.nombre + '</a></li>').appendTo("#main-desplegable-subcategorias");
     })
   });
+
+  $("#btn-registrarse").on("click",registrarse);
 
 }
 
@@ -277,3 +278,8 @@ function estacion(){
   return estacion;
 }
 
+function registrarse(){ 
+    
+    
+    
+}

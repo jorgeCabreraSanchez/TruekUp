@@ -11,12 +11,6 @@
     @include border-bottom-right-radius(5px);
 }
 
-<<<<<<< HEAD
-.dropdown__level1 {
-    width: 40% !important;
-    border-right: 1px solid rgba(0, 0, 0, .125) !important;    
-    display: inline-block !important;
-=======
 .dropdown__notlevel{
     width: 100% !important;
     border-right: 1px solid rgba(0, 0, 0, .125) !important;    
@@ -46,26 +40,18 @@
     width: 40% !important;
     border-right: 1px solid rgba(0, 0, 0, .125) !important;    
     display: flex;
->>>>>>> jorge
 }
 
 .dropdown__level1__item {
     width: 100% !important;
 }
 
-<<<<<<< HEAD
-.dropdown__level1__item:hover {
-    background-color: #ffb94f60;
-}
-
-=======
 .dropdown__level1__item--marked {
     background-color: #ffb94f60;
 }
 
 
 
->>>>>>> jorge
 .dropdown__level1__item:nth-last-child(1) {           
     border-bottom: 0px !important;
 }
@@ -80,24 +66,16 @@
 
 .dropdown__level2__item {
     border-top: 0px !important;
-<<<<<<< HEAD
-    border-right: 10px transparent solid !important;
-=======
     // border-right: 10px transparent solid !important;
->>>>>>> jorge
     border-bottom: 2px rgba(0, 0, 0, .125) solid !important;
     padding: 0px !important;
     width: 100%;    
 }
 
 .dropdown__level2__item:nth-last-child(1) {           
-<<<<<<< HEAD
-    border-bottom: 0px !important;
-=======
     
     @include border-bottom-left-radius(0px);
     @include border-bottom-right-radius(0px);
->>>>>>> jorge
 }
 
 .dropdown__level2__item:nth-child(1) {           
@@ -117,9 +95,6 @@
     align-items: center;
     padding-top: 5px !important;
     padding-bottom: 5px !important;
-<<<<<<< HEAD
-}
-=======
 }
 
 .dropdown__level2__icon {
@@ -134,4 +109,3 @@
     }
     
     
->>>>>>> jorge
