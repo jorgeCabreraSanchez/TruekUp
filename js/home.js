@@ -264,9 +264,7 @@ function mostrarMiddleContainer() {
 
 };
 
-	$("#btn-registrarse").click(function(){
-		alert('Evento click');
-	});
+
 
 function estacion(){
   var dt = new Date();

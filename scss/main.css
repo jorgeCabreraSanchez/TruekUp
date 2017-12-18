@@ -18,13 +18,10 @@ body {
   }
 }
 
-<<<<<<< HEAD
-=======
 .navbar {
   z-index: 100 !important;
 }
 
->>>>>>> jorge
 .navbar-logo {
   width: 100px;
 }
@@ -78,12 +75,6 @@ body {
   }
 }
 
-<<<<<<< HEAD
-.main-dropdown {
-  display: none !important;
-  position: absolute;
-  z-index: 2;
-=======
 .carousel-text {
   background-color: white;
   opacity: 0.5;
@@ -105,7 +96,6 @@ body {
   display: none !important;
   position: absolute;
   z-index: 200;
->>>>>>> jorge
   opacity: 0.9;
   width: calc(100% - 30px);
 }
@@ -114,10 +104,6 @@ body {
   display: flex !important;
 }
 
-<<<<<<< HEAD
-.main-browser-dropdown-conteiner {
-  margin-top: 25px;
-=======
 .ocultar {
   display: none !important;
 }
@@ -144,13 +130,10 @@ body {
 .main-browser-dropdown-conteiner-mini {
   margin-left: 20px;
   margin-right: 20px;
->>>>>>> jorge
 }
 
 .main-browser-conteiner {
   width: 100%;
-<<<<<<< HEAD
-=======
   z-index: 201;
 }
 
@@ -168,7 +151,6 @@ body {
 .row-middle {
   display: flex;
   text-align: center;
->>>>>>> jorge
 }
 
 @media (min-width: 992px) {
