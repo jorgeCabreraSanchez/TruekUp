@@ -18,6 +18,13 @@ body {
     }
 }
 
+<<<<<<< HEAD
+=======
+.navbar {
+    z-index: 100 !important;
+}
+
+>>>>>>> jorge
 .navbar-logo {
     width: 100px;
 }
@@ -71,6 +78,7 @@ body {
     }
 }
 
+<<<<<<< HEAD
 
 .main-dropdown{
     display:none !important;  
@@ -90,4 +98,83 @@ body {
 
 .main-browser-conteiner{    
     width: 100%;
+=======
+.carousel-text{
+    background-color: white;
+    opacity: 0.5;
+    padding: 15px 0px !important;
+    color: black;
+    width: 50% !important;
+    margin: 0 auto;
+    @include border-radius(5px);
+}
+
+.row-middle-title{
+    color: #007bff;
+}
+
+.main-dropdown {
+    display: none !important;
+    position: absolute;
+    z-index: 200;
+    opacity: 0.9;
+    width: calc(100% - 30px);
+}
+
+.mostrar {
+    display: flex !important;
+}
+
+.ocultar {
+    display: none !important;
+}
+
+@media (max-width:576px) {
+    .mostrar-pantalla-completa {        
+        position: fixed;
+        z-index: 200;
+        width: 100%;
+        margin-top: 0px !important;
+        padding-top: 25px;
+        height: 100%;
+        opacity: 1;
+        top: 0;
+        left: 0;
+    }
+}
+
+.main-browser-dropdown-conteiner {
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.main-browser-dropdown-conteiner-mini{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.main-browser-conteiner {
+    width: 100%;
+    z-index: 201;
+}
+
+.main-browser-min{
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+}
+
+.contenedor-boton-invisible{    
+    margin-left: 17px;
+    display:flex;    
+}
+
+.row-middle{
+    display: flex; 
+    text-align: center; 
+}
+
+.titulo-categoria{
+    
+>>>>>>> jorge
 }
