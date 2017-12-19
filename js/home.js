@@ -17,6 +17,7 @@ function home() {
       first = true;
       contador = 1;
       subcategorias = [];
+      //Recorro las categorias
       $.each(json, (id, value) => {
         //Cargo el carousel
         if (value.imagen != null) {
@@ -40,6 +41,7 @@ function home() {
         $('<li class="list-group-item dropdown__level1__item" id=' + id + '>' + value.categoria + '</li>').appendTo("#main-desplegable-categorias");
         subcategorias[id] = [];
         i = 1;
+        //Recorro las subCategorias
         $.each(value.subcategorias, (index, subcategoria) => {
           subcategorias[id] = value.subcategorias;
           if (subcategoria.imagen != null && subcategoria.imagen.indexOf(estacion()) != -1 && i <= 3) {

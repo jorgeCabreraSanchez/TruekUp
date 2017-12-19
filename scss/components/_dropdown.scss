@@ -40,6 +40,7 @@
     width: 40% !important;
     border-right: 1px solid rgba(0, 0, 0, .125) !important;    
     display: flex;
+    overflow: auto !important;
 }
 
 .dropdown__level1__item {
