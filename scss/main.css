@@ -166,6 +166,10 @@ body {
   transition: all 0.3s;
 }
 
+.navbar {
+  z-index: 201 !important;
+}
+
 .browser {
   border: 1px solid #ced4da;
   border-radius: 5px !important;
@@ -303,6 +307,7 @@ body {
   width: 100% !important;
   border-right: 1px solid rgba(0, 0, 0, 0.125) !important;
   display: none;
+  overflow: auto !important;
 }
 
 .dropdown__notlevel__item {

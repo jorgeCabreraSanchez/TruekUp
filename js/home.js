@@ -1,5 +1,5 @@
 /*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
-subcategoriasImagen = [];
+palabrasClave = [];
 $(document).ready(function () {
   home();
 });
@@ -16,6 +16,7 @@ function home() {
     success: function (json) {
       first = true;
       contador = 1;
+      subcategoriasImagen = [];
       subcategorias = [];
       //Recorro las categorias
       $.each(json, (id, value) => {
@@ -44,7 +45,7 @@ function home() {
         //Recorro las subCategorias
         $.each(value.subcategorias, (index, subcategoria) => {
           subcategorias[id] = value.subcategorias;
-          if (subcategoria.imagen != null && subcategoria.imagen.indexOf(estacion()) != -1 && i <= 3) {
+          if (subcategoria.imagen != null && subcategoria.imagen.startsWith(estacion()) && i <= 3) {
             subcategoriasImagen[subcategoria.id] = {
               'nombre': subcategoria.nombre,
               'imagen': subcategoria.imagen
@@ -71,34 +72,58 @@ function home() {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
       $("#main-desplegable-productos").children().remove();
-    } else {      
+      anterior = undefined;
+    } else {
       if (event.which == 13) {
         //Se muestran los productos relacionados con lo introducido
       } else {
-        $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
-        $("#main-desplegable-productos").addClass("mostrar");        
-        $.ajax({
-          url: 'php/autocompletar.php',
-          data: {
-            key : $(this).val()
-          },
-          type: 'GET',
-          dataType: 'json',
-          success: function (json) {   
-            $("#main-desplegable-productos").children().remove();            
-            $.each(json, (id, value) => {
-              $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + value.id + '">' + value.palabra + '</a></li>').appendTo("#main-desplegable-productos");
-            });
-          },
-          error: function (jqXHR, status, error) {
-            //No digo nada
-          }
-        });
-        //Acaba peticion Ajax
-      }
+        if (!$("#main-desplegable-productos").hasClass("mostrar")) {
+          $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
+          $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
+          $("#main-desplegable-productos").addClass("mostrar");
+        }
+        if (typeof anterior === 'undefined') {
+          anterior = $(this).val();
+        }
+        if (anterior.length < $(this).val().length) {          
+          palabrasClave = palabrasClave.filter(n => {            
+            return n.palabra.startsWith($(this).val());            
+          });
+          console.log(palabrasClave);
+          $.each(palabrasClave, (id, value) => {
+            añadirPalabraclave(value);
+          });
+          console.log(palabrasClave);
+        } else {
 
+          $.ajax({
+            url: 'php/autocompletar.php',
+            data: {
+              key: $(this).val()
+            },
+            type: 'GET',
+            dataType: 'json',
+            success: function (json) {
+              $("#main-desplegable-productos").children().remove();              
+              $.each(json, (id, value) => {
+                palabrasClave.push({"id": value.id, "palabra": value.palabra });
+                añadirPalabraclave(value);
+              });
+            },
+            error: function (jqXHR, status, error) {
+              //No digo nada
+            }
+          });
+          //Acaba peticion Ajax
+        }
+        //Acaba mas pequeña la palabra
+        anterior = $(this).val();
+      }
+      //Acabe tecla normal
     }
+    //Acaba no esta vacio
   });
+  //Acaba autocompletar
 
   //Mostrar la capa de categorias
   $("#main-browser,#browser-icon").on("click", function () {
@@ -146,7 +171,9 @@ function home() {
 
   $("#login").on("click", login);
 }
-//Acaba el HOME --> ready del home
+//Acaba el HOME --> ready del home /////////////////
+//////////////////////////////////////
+/////////////////////////
 
 
 function mostrarBodyHome() {
@@ -206,21 +233,10 @@ function mostrarBodyHome() {
     '<!-- <div class="row"> -->' +
 
     '<div id="contenedor-mid" class="container middle-conteiner">' +
-    '</div>');
-};
+    '<div class="row row-middle">' +
 
-function quitarMainBrowserMin() {
-  $("#navbar,#contenedor,#footer").removeClass("ocultar");
-  $("#main-browser-dropdown-conteiner").removeClass("main-browser-dropdown-conteiner-mini");
-  $("#main-browser-dropdown-conteiner").insertBefore($("#contenedor").children("div")[1]);
-  $("#main-browser-min").remove();
-  $("#main-drop").removeClass("mostrar");
-  $("#main-browser").val("");
-}
-
-function mostrarMiddleContainer() {
-  $(".middle-conteiner").html('<div class="row row-middle">' +
     '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>' +
+
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
     ' <h4 class="card-title">' +
@@ -234,7 +250,7 @@ function mostrarMiddleContainer() {
     // '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>' +
     // '  </div>' +
     '</div>' +
-    ' </div>' +
+    '</div>' +
 
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
@@ -249,7 +265,7 @@ function mostrarMiddleContainer() {
     // '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>' +
     // '  </div>' +
     '</div>' +
-    ' </div>' +
+    '</div>' +
 
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
@@ -264,11 +280,22 @@ function mostrarMiddleContainer() {
     // '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>' +
     // '  </div>' +
     '</div>' +
-    ' </div>');
+    '</div>' +
 
-  //Guardamos el mes actual en una variable   
+    '</div>');
+};
 
-  contador = 1;  
+function quitarMainBrowserMin() {
+  $("#navbar,#contenedor,#footer").removeClass("ocultar");
+  $("#main-browser-dropdown-conteiner").removeClass("main-browser-dropdown-conteiner-mini");
+  $("#main-browser-dropdown-conteiner").insertBefore($("#contenedor").children("div")[1]);
+  $("#main-browser-min").remove();
+  $("#main-drop").removeClass("mostrar");
+  $("#main-browser").val("");
+}
+
+function mostrarMiddleContainer() {
+  contador = 1;
   subcategoriasImagen.forEach(url => {
     nombreEntero = $("#img" + contador).attr("src") + url.imagen;
     $("#img" + contador).attr("src", nombreEntero);
@@ -292,3 +319,7 @@ function estacion() {
 function login() {
 
 };
+
+function añadirPalabraclave(value) {
+  $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + value.id + '">' + value.palabra + '</a></li>').appendTo("#main-desplegable-productos");
+}
