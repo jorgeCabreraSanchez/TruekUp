@@ -83,19 +83,7 @@ function home() {
           $("#main-desplegable-productos").addClass("mostrar");
         }
         if (typeof anterior === 'undefined') {
-          anterior = $(this).val();
-        }
-        if (anterior.length < $(this).val().length) {          
-          palabrasClave = palabrasClave.filter(n => {            
-            return n.palabra.startsWith($(this).val());            
-          });
-          console.log(palabrasClave);
-          $.each(palabrasClave, (id, value) => {
-            añadirPalabraclave(value);
-          });
-          console.log(palabrasClave);
-        } else {
-
+          // anterior = $(this).val();
           $.ajax({
             url: 'php/autocompletar.php',
             data: {
@@ -104,9 +92,13 @@ function home() {
             type: 'GET',
             dataType: 'json',
             success: function (json) {
-              $("#main-desplegable-productos").children().remove();              
+              $("#main-desplegable-productos").children().remove();
+              palabrasClave = [];
               $.each(json, (id, value) => {
-                palabrasClave.push({"id": value.id, "palabra": value.palabra });
+                palabrasClave.push({
+                  "id": value.id,
+                  "palabra": value.palabra
+                });
                 añadirPalabraclave(value);
               });
             },
@@ -114,9 +106,24 @@ function home() {
               //No digo nada
             }
           });
-          //Acaba peticion Ajax
+          //Acaba peticion Ajax       
+        } else {
+
+          $("#main-desplegable-productos").children().remove();
+          if (anterior.length < $(this).val().length && $(this).val().length > 2) {
+            lista = palabrasClaveAmpliado;
+          } else {
+            lista = palabrasClave;
+          }
+          palabrasClaveAmpliado = lista.filter(n => {
+            return ~n.palabra.toLowerCase().indexOf($(this).val().toLowerCase());
+          });
+          $.each(palabrasClaveAmpliado, (id, value) => {
+            añadirPalabraclave(value);
+          });
         }
-        //Acaba mas pequeña la palabra
+        //Primera letra
+        //else añade mas letras        
         anterior = $(this).val();
       }
       //Acabe tecla normal
