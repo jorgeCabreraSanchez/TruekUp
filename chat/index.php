@@ -22,11 +22,11 @@
 	}
 
 	$(document).ready(function(){
-		var websocket = new WebSocket("ws://172.16.205:8090/chat/php-socket.php"); 
+		var websocket = new WebSocket("ws://192.168.1.8:8090/chat/php-socket.php"); 
 		websocket.onopen = function(event) { 
 			showMessage("<div class='chat-connection-ack'>Connection is established!</div>");		
 		}
-		websocket.onmessage = function(event) {
+		websocket.onmessage = function(event) {			
 			var Data = JSON.parse(event.data);
 			showMessage("<div class='"+Data.message_type+"'>"+Data.message+"</div>");
 			$('#chat-message').val('');

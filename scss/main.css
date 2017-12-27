@@ -153,6 +153,10 @@ body {
   text-align: center;
 }
 
+.nav-item {
+  display: flex;
+}
+
 @media (min-width: 992px) {
   .nav-item--highlighted {
     margin-right: 10px;
@@ -417,6 +421,9 @@ body {
   font-size: 30px;
   color: #636363 !important;
 }
- 
 
- /*# sourceMappingURL= main.css.map */
+.window-modal {
+  opacity: 1 !important;
+  display: flex;
+}
+/*# sourceMappingURL=main.css.map */

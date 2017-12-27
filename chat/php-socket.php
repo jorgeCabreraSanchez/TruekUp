@@ -3,20 +3,20 @@ define('HOST_NAME',"localhost");
 define('PORT',"8090");
 $null = NULL;
 
-require_once("class.chathandler.php");
+require_once("class.chathandler.php"); //Como el include pero emite un compiler error Fatal --> Se detiene la secuencia  de comandos
 $chatHandler = new ChatHandler();
 
-$socketResource = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-socket_set_option($socketResource, SOL_SOCKET, SO_REUSEADDR, 1);
-socket_bind($socketResource, 0, PORT);
+$socketResource = socket_create(AF_INET, SOCK_STREAM, SOL_TCP); //1. TCP y UDP IPv4 //2.Orientado a conexiones, full duplex (bidireccional)
+socket_set_option($socketResource, SOL_SOCKET, SO_REUSEADDR, 1); //2.Recuperas opcioness a nivel de socket, //3. Informa si las direcciones locales pueden ser rechazadas. //4.Valor opcional
+socket_bind($socketResource,0, PORT); //0 Acepta todas las conexiones
 socket_listen($socketResource);
 
 $clientSocketArray = array($socketResource);
 while (true) {
 	$newSocketArray = $clientSocketArray;
-	socket_select($newSocketArray, $null, $null, 0, 10);
+	socket_select($newSocketArray, $null, $null, 0, 10); //4. Consulta instantanea de 0
 	
-	if (in_array($socketResource, $newSocketArray)) {
+	if (in_array($socketResource, $newSocketArray)) { //Busca si en el array newSocketArray contiene socketResource
 		$newSocket = socket_accept($socketResource);
 		$clientSocketArray[] = $newSocket;
 		

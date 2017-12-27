@@ -7,6 +7,7 @@ $(document).ready(function () {
 
 // patata
 function home() {
+  mostrarNavHome();
   mostrarBodyHome();
 
   $.ajax({
@@ -183,6 +184,38 @@ function home() {
 /////////////////////////
 
 
+function mostrarNavHome() {
+  nav = '<div class="container nav-container">' +
+    '<img class="navbar-brand navbar-logo" src="images/logoPequeno.png">' +
+
+    '<!-- Boton Collapse -->' +
+
+    '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"' +
+    'aria-expanded="false" aria-label="Toggle navigation">' +
+    '<span class="navbar-toggler-icon"></span>' +
+    '</button>' +
+
+    ' <!-- Menu Principal -->   ' +
+    ' <div class="collapse navbar-collapse nav-main-collapse" id="navbarResponsive">' +
+    '<ul class="navbar-nav ml-auto">' +
+    '<li class="nav-item active nav-item--highlighted">' +
+    '<a class="nav-link nav-link--movement" href="#">Home</a>' +
+    '</li>' +
+    '<li class="nav-item  nav-item--highlighted">' +
+    '<button class="nav-link boton-invisible" id="login">Entrar</button>' +
+    '</li>' +
+    '<li class="nav-item nav-item--highlighted">' +
+    '<a class="nav-link" href="">Registrarse</a>' +
+    '</li>' +
+    '</ul>' +
+    '</div>' +
+
+
+    '</div>';
+  $("#navbar").append(nav);
+};
+
+
 function mostrarBodyHome() {
   $(".main-conteiner").html('<div class="row">' +
 
@@ -324,8 +357,32 @@ function estacion() {
 
 
 function login() {
+  if ($("body").hasClass("modal-open")) {
+    $("#miModal").remove();
+    $("body").removeClass("modal-open");
+    $("body").removeClass("window-modal-open");
+  } else {
+    // ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+    //   '<div class="modal-dialog" role="document">' +
+    //   '<div class="modal-content">' +
+    //   '<div class="modal-header">' +
+    //   '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+    //   '<span aria-hidden="true">&times;</span>' +
+    //   '</button>' +
+    //   '<h4 class="modal-title" id="myModalLabel">Esto es un modal</h4>' +
+    //   '</div>' +
+    //   ' <div class="modal-body">' +
+    //   'Texto del modal' +
+    //   '</div>' +
+    //   '</div>' +
+    //   '</div>' +
+    //   '</div>;';
 
+    // $("body").append(ventanaModal);
+  }
 };
+
+// pointer-events con el valor “none”
 
 function añadirPalabraclave(value) {
   $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + value.id + '">' + value.palabra + '</a></li>').appendTo("#main-desplegable-productos");

@@ -2,7 +2,7 @@
 -- Host:                         127.0.0.1
 -- Versión del servidor:         10.2.11-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win64
--- HeidiSQL Versión:             9.4.0.5125
+-- HeidiSQL Versión:             9.5.0.5196
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `busquedaproductos` (
   CONSTRAINT `FK_producto` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.busquedaproductos: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.busquedaproductos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `busquedaproductos` DISABLE KEYS */;
 INSERT INTO `busquedaproductos` (`idProducto`, `idPalabraClave`) VALUES
 	(8, 5),
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `palabrasclave` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.palabrasclave: ~14 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.palabrasclave: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `palabrasclave` DISABLE KEYS */;
 INSERT INTO `palabrasclave` (`id`, `palabra`) VALUES
 	(1, 'Balones'),
@@ -139,6 +139,17 @@ INSERT INTO `subcategorias` (`id`, `nombre`, `idCategoria`, `imagen`, `icono`) V
 	(20, 'Running', 4, 'verano/running.jpg', ''),
 	(21, 'Motos de Agua', 1, 'verano/motosdeagua.jpg', '');
 /*!40000 ALTER TABLE `subcategorias` ENABLE KEYS */;
+
+-- Volcando estructura para tabla bdtruekup.usuarios
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `usuario` varchar(20) NOT NULL,
+  `contraseña` varchar(20) NOT NULL,
+  PRIMARY KEY (`usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Volcando datos para la tabla bdtruekup.usuarios: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
