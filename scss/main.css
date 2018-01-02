@@ -219,6 +219,7 @@ body {
 
 .browser__button--cancel {
   display: flex;
+  width: 37px;
 }
 
 .browser__button--search {
@@ -424,6 +425,157 @@ body {
 
 .window-modal {
   opacity: 1 !important;
-  display: flex;
+  display: block;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+  from {
+    width: 0px;
+  }
+  to {
+    width: auto;
+  }
+}
+
+/* Standard syntax */
+@keyframes example {
+  from {
+    width: 0px;
+  }
+  to {
+    width: auto;
+  }
+}
+
+.window-dialog {
+  transform: translate(0, 0%) !important;
+  margin: 40px;
+  margin-top: 54px;
+  overflow: hidden;
+  -webkit-animation-name: example;
+  /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1s;
+  /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 1s;
+}
+
+@media (min-width: 576px) {
+  .window-dialog {
+    margin: 53px auto !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .window-dialog {
+    margin: 64px auto !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .window-dialog {
+    margin: 75px auto !important;
+  }
+}
+
+.modal-open {
+  overflow: hidden;
+  padding-right: 17px;
+}
+
+.navbar-modal-open {
+  padding-right: 33px;
+}
+
+.login__header {
+  display: grid;
+  grid-template-columns: 5% 95%;
+  grid-template-rows: 5% 95%;
+  grid-template-areas: "cancel ." ". title";
+}
+
+.login__header__cancel {
+  color: #515253;
+  grid-area: cancel;
+  justify-self: start;
+}
+
+.login__header__title {
+  color: #17a2b8;
+  grid-area: title;
+  justify-self: center;
+  margin-right: 5%;
+}
+
+.login__body {
+  color: #212121;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas: "email" "password" "entrar";
+  padding-top: 30px;
+}
+
+.login__body__input {
+  margin-bottom: 15px;
+  height: 35px;
+  justify-self: center;
+  padding: 5px;
+  border-radius: 5px !important;
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  -o-border-radius: 5px !important;
+  outline: none !important;
+  border: 1px solid #b9b9b9;
+  font-size: 14px;
+  line-height: 1.42857143;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.login__body__input:focus {
+  border-color: #5ca6c9;
+  box-shadow: 0 0 3px #5ca6c9;
+}
+
+.login__body__input--email {
+  grid-area: email;
+}
+
+.login__body__input--password {
+  grid-area: password;
+}
+
+.login__body__entrar {
+  grid-area: entrar;
+  justify-self: center;
+  padding: 5px 20px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  outline: none !important;
+  background-color: #36c3d9;
+  border-radius: 20px !important;
+  -webkit-border-radius: 20px !important;
+  -moz-border-radius: 20px !important;
+  -o-border-radius: 20px !important;
+  border: 1px solid #38cde4;
+}
+
+.login__body__entrar:hover {
+  background-color: #1ddaf7;
+  border: 1px solid #38cee6;
+}
+
+.login__body__error {
+  grid-area: error;
+  justify-self: center;
+  color: red;
+  margin: 10px;
+  font-size: 14px;
+  margin-top: -7px;
 }
 /*# sourceMappingURL=main.css.map */

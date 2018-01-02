@@ -83,8 +83,7 @@ function home() {
           $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
           $("#main-desplegable-productos").addClass("mostrar");
         }
-        if (typeof anterior === 'undefined') {
-          // anterior = $(this).val();
+        if (typeof anterior === 'undefined') {          
           $.ajax({
             url: 'php/autocompletar.php',
             data: {
@@ -112,7 +111,7 @@ function home() {
 
           $("#main-desplegable-productos").children().remove();
           if (anterior.length < $(this).val().length && $(this).val().length > 2) {
-            lista = palabrasClaveAmpliado;
+            lista = palabrasClaveAmpliado;            
           } else {
             lista = palabrasClave;
           }
@@ -122,9 +121,7 @@ function home() {
           $.each(palabrasClaveAmpliado, (id, value) => {
             añadirPalabraclave(value);
           });
-        }
-        //Primera letra
-        //else añade mas letras        
+        }               
         anterior = $(this).val();
       }
       //Acabe tecla normal
@@ -177,7 +174,51 @@ function home() {
   });
 
 
-  $("#login").on("click", login);
+  $("#login").on("click", (event) => {
+    $("body").addClass("modal-open");
+    $("#navbar").addClass("navbar-modal-open");
+    ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+      '<div class="modal-dialog window-dialog" role="document">' +
+      '<div class="modal-content login">' +
+      '<div class="modal-header login__header">' +            
+      '<button type="button" class="boton-invisible login__header__cancel">'+
+      '<i class="fa fa-times" aria-hidden="true"></i>'+     
+      '</button>'+
+      '<h3 class="modal-title login__header__title">Log in</h3>' +      
+      '</div>'+
+      '<div class="modal-body login__body">' +    
+      '<input type="email" id="login-email" class="login__body__input login__body__input--email" placeholder="correo@ejemplo.com">'+
+      '<input type="password" maxlength="20" id="login-password" class="login__body__input login__body__input--password" placeholder="Contraseña">'+
+      '<input type="button" id="login-entrar" class="login__body__entrar" value="Entrar">'+
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '<!-- Termina Div -->' +
+      '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
+
+    $("body").append(ventanaModal);
+
+    $("#login-entrar").on("click",login);
+
+    // $(document).on("click", (event) => {
+    //   console.log("Dentro");
+    //   if ($(event.target).closest('.modal-content').length == 0) {
+    //     console.log("Clicka fuera");
+    //     // if($('#menucontainer').is(":visible")) {
+    //     $("#miModal").remove();
+    //     $("#modal-backdrop").remove();
+    //     $("body").removeClass("modal-open");
+    //     $("#navbar").removeClass("navbar-modal-open");
+    //     document.removeEventListener("click", event);
+    //     // }
+    //   } else {
+    //     console.log("Clicka dentro");
+    //   }
+    // });
+
+  });
+
 }
 //Acaba el HOME --> ready del home /////////////////
 //////////////////////////////////////
@@ -356,33 +397,61 @@ function estacion() {
 };
 
 
-function login() {
-  if ($("body").hasClass("modal-open")) {
-    $("#miModal").remove();
-    $("body").removeClass("modal-open");
-    $("body").removeClass("window-modal-open");
-  } else {
-    // ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
-    //   '<div class="modal-dialog" role="document">' +
-    //   '<div class="modal-content">' +
-    //   '<div class="modal-header">' +
-    //   '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
-    //   '<span aria-hidden="true">&times;</span>' +
-    //   '</button>' +
-    //   '<h4 class="modal-title" id="myModalLabel">Esto es un modal</h4>' +
-    //   '</div>' +
-    //   ' <div class="modal-body">' +
-    //   'Texto del modal' +
-    //   '</div>' +
-    //   '</div>' +
-    //   '</div>' +
-    //   '</div>;';
-
-    // $("body").append(ventanaModal);
+function login(){   
+  if( $("#login-error").length ){
+    // Si existe       
+    $("#login-error").remove();
+    $(".login__body").css("grid-template-rows","repeat(3, 1fr)");
+    $(".login__body").css("grid-template-areas","'email' 'password' 'entrar'");
   }
-};
+  if(loginVerify()){    
+    $.ajax({
+      url: 'php/login.php',
+      data: {
+        email: $("#login-email").val(),
+        password: SHA1($("#login-password").val())
+      },
+      type: 'GET',
+      dataType: 'text',
+      success: function (igual) {                
+        if(igual == "TRUE"){
+
+        } else {
+          loginBad();
+        }
+      },
+      error: function (jqXHR, status, error) {
+        //No digo nada
+      }
+    });
+    //Acaba peticion AJAX
+  } else {          
+    loginBad();
+  }
+}
+
+function loginout() {
+
+
+
+}
 
 // pointer-events con el valor “none”
+
+function loginBad(){
+  $(".login__body").css("grid-template-rows","repeat(2,1fr) 10% 1fr");    
+  $(".login__body").css("grid-template-areas","'email' 'password' 'error' 'entrar'");    
+  $('<span class="login__body__error" id="login-error">Usuario o contraseña incorrectos</span>').insertBefore("#login-entrar");
+}
+
+function loginVerify(){
+  estado = true;
+  var email = $("#login-email").val();
+  if(email.length == 0 || email.indexOf("@") == -1 || $("#login-password").val().length == 0){
+    estado = false;
+  }   
+  return estado;
+}
 
 function añadirPalabraclave(value) {
   $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + value.id + '">' + value.palabra + '</a></li>').appendTo("#main-desplegable-productos");
