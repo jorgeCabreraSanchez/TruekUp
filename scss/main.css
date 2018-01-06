@@ -12,6 +12,10 @@ body {
   margin-left: 0px;
 }
 
+.navbar {
+  z-index: 201 !important;
+}
+
 @media (min-width: 576px) {
   .nav-container {
     margin-left: 30px;
@@ -153,25 +157,28 @@ body {
   text-align: center;
 }
 
-.nav-item {
+.navbar-list__item {
   display: flex;
+  padding-bottom: 10px !important;
+  padding-top: 10px !important;
 }
 
 @media (min-width: 992px) {
-  .nav-item--highlighted {
+  .navbar-list__item--highlighted {
     margin-right: 10px;
   }
-  .nav-item--highlighted:hover {
+  .navbar-list__item--highlighted:hover {
     border-bottom: 1px solid white;
   }
 }
 
-.nav-link--movement {
-  transition: all 0.3s;
+.navbar-list__item--perfil {
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  padding-left: 10px !important;
 }
 
-.navbar {
-  z-index: 201 !important;
+.navbar-list__item__imagen {
+  margin-left: 10px;
 }
 
 .browser {
@@ -512,8 +519,8 @@ body {
   color: #212121;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-areas: "email" "password" "entrar";
+  grid-template-rows: repeat(2, 1fr) 10% 1fr;
+  grid-template-areas: "email" "password" "remember" "entrar";
   padding-top: 30px;
 }
 
@@ -563,6 +570,7 @@ body {
   -moz-border-radius: 20px !important;
   -o-border-radius: 20px !important;
   border: 1px solid #38cde4;
+  cursor: pointer;
 }
 
 .login__body__entrar:hover {
@@ -574,8 +582,73 @@ body {
   grid-area: error;
   justify-self: center;
   color: red;
-  margin: 10px;
+  margin-bottom: 15px;
   font-size: 14px;
   margin-top: -7px;
+}
+
+.login__body__remember {
+  grid-area: remember;
+  justify-self: center;
+  margin-bottom: 15px;
+  color: #838383;
+  font-size: 14px;
+  cursor: default;
+  height: 21px;
+  justify-content: center;
+  display: flex;
+  position: relative;
+}
+
+.login__body__checkbox__text {
+  margin-left: 5px;
+  overflow: hidden;
+  margin-bottom: 0px;
+}
+
+.login__body__checkbox {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  background-color: #eee;
+  height: 16px;
+  border-radius: 2px;
+  align-self: center;
+  position: absolute;
+  left: -20px;
+}
+
+.login__body__checkbox:hover {
+  background-color: #ccc;
+}
+
+.login__body__checkbox:checked {
+  background-color: #17a2b8;
+}
+
+.login__body__checkbox:after {
+  content: "a";
+  position: absolute;
+  display: none;
+}
+
+.login__body__checkbox:checked ~ .login__body__checkbox:after {
+  display: block;
+}
+
+.login__body__checkbox:after {
+  left: -20px;
+  width: 7px;
+  height: 15px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.login__body__checkbox:focus {
+  outline: none;
 }
 /*# sourceMappingURL=main.css.map */

@@ -1,5 +1,6 @@
 /*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
 palabrasClave = [];
+id = null;
 $(document).ready(function () {
   home();
 });
@@ -83,7 +84,7 @@ function home() {
           $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
           $("#main-desplegable-productos").addClass("mostrar");
         }
-        if (typeof anterior === 'undefined') {          
+        if (typeof anterior === 'undefined') {
           $.ajax({
             url: 'php/autocompletar.php',
             data: {
@@ -111,7 +112,7 @@ function home() {
 
           $("#main-desplegable-productos").children().remove();
           if (anterior.length < $(this).val().length && $(this).val().length > 2) {
-            lista = palabrasClaveAmpliado;            
+            lista = palabrasClaveAmpliado;
           } else {
             lista = palabrasClave;
           }
@@ -121,7 +122,7 @@ function home() {
           $.each(palabrasClaveAmpliado, (id, value) => {
             añadirPalabraclave(value);
           });
-        }               
+        }
         anterior = $(this).val();
       }
       //Acabe tecla normal
@@ -179,17 +180,18 @@ function home() {
     $("#navbar").addClass("navbar-modal-open");
     ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
       '<div class="modal-dialog window-dialog" role="document">' +
-      '<div class="modal-content login">' +
-      '<div class="modal-header login__header">' +            
-      '<button type="button" class="boton-invisible login__header__cancel">'+
-      '<i class="fa fa-times" aria-hidden="true"></i>'+     
-      '</button>'+
-      '<h3 class="modal-title login__header__title">Log in</h3>' +      
-      '</div>'+
-      '<div class="modal-body login__body">' +    
-      '<input type="email" id="login-email" class="login__body__input login__body__input--email" placeholder="correo@ejemplo.com">'+
-      '<input type="password" maxlength="20" id="login-password" class="login__body__input login__body__input--password" placeholder="Contraseña">'+
-      '<input type="button" id="login-entrar" class="login__body__entrar" value="Entrar">'+
+      '<div class="modal-content login" id="window-modal">' +
+      '<div class="modal-header login__header">' +
+      '<button type="button" class="boton-invisible login__header__cancel">' +
+      '<i class="fa fa-times" aria-hidden="true"></i>' +
+      '</button>' +
+      '<h3 class="modal-title login__header__title">Log in</h3>' +
+      '</div>' +
+      '<div class="modal-body login__body">' +
+      '<input type="email" id="login-email" class="login__body__input login__body__input--email" placeholder="correo@ejemplo.com">' +
+      '<input type="password" maxlength="20" id="login-password" class="login__body__input login__body__input--password" placeholder="Contraseña">' +
+      '<div class="login__body__remember"><input type="checkbox" id="remember" class="login__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
+      '<input type="button" id="login-entrar" class="login__body__entrar" value="Entrar">' +
       '</div>' +
       '</div>' +
       '</div>' +
@@ -199,26 +201,12 @@ function home() {
 
     $("body").append(ventanaModal);
 
-    $("#login-entrar").on("click",login);
+    $("#login-entrar").on("click", login);
 
-    // $(document).on("click", (event) => {
-    //   console.log("Dentro");
-    //   if ($(event.target).closest('.modal-content').length == 0) {
-    //     console.log("Clicka fuera");
-    //     // if($('#menucontainer').is(":visible")) {
-    //     $("#miModal").remove();
-    //     $("#modal-backdrop").remove();
-    //     $("body").removeClass("modal-open");
-    //     $("#navbar").removeClass("navbar-modal-open");
-    //     document.removeEventListener("click", event);
-    //     // }
-    //   } else {
-    //     console.log("Clicka dentro");
-    //   }
-    // });
+    // $(document).on("click", loginout);
 
-  });
-
+  });  
+  
 }
 //Acaba el HOME --> ready del home /////////////////
 //////////////////////////////////////
@@ -238,15 +226,15 @@ function mostrarNavHome() {
 
     ' <!-- Menu Principal -->   ' +
     ' <div class="collapse navbar-collapse nav-main-collapse" id="navbarResponsive">' +
-    '<ul class="navbar-nav ml-auto">' +
-    '<li class="nav-item active nav-item--highlighted">' +
-    '<a class="nav-link nav-link--movement" href="#">Home</a>' +
+    '<ul class="navbar-nav navbar-list ml-auto" id="navbar-list">' +
+    '<li class="navbar-list__item active navbar-list__item--highlighted">' +
+    '<button class="nav-link boton-invisible" id="home">Home</button>' +
     '</li>' +
-    '<li class="nav-item  nav-item--highlighted">' +
+    '<li class="navbar-list__item  navbar-list__item--highlighted">' +
     '<button class="nav-link boton-invisible" id="login">Entrar</button>' +
     '</li>' +
-    '<li class="nav-item nav-item--highlighted">' +
-    '<a class="nav-link" href="">Registrarse</a>' +
+    '<li class="navbar-list__item navbar-list__item--highlighted">' +
+    '<button class="boton-invisible nav-link" href="">Registrarse</button>' +
     '</li>' +
     '</ul>' +
     '</div>' +
@@ -397,14 +385,15 @@ function estacion() {
 };
 
 
-function login(){   
-  if( $("#login-error").length ){
+function login() {
+  if ($("#login-error").length) {
     // Si existe       
     $("#login-error").remove();
-    $(".login__body").css("grid-template-rows","repeat(3, 1fr)");
-    $(".login__body").css("grid-template-areas","'email' 'password' 'entrar'");
+    $(".login__body").css("grid-template-rows", "repeat(2, 1fr) 10% 1fr");
+    $(".login__body").css("grid-template-areas", "'email' 'password' 'rembember' 'entrar'");
+    $(".login__body__remember").css("margin-bottom", "13px");
   }
-  if(loginVerify()){    
+  if (loginVerify()) {
     $.ajax({
       url: 'php/login.php',
       data: {
@@ -412,44 +401,71 @@ function login(){
         password: SHA1($("#login-password").val())
       },
       type: 'GET',
-      dataType: 'text',
-      success: function (igual) {                
-        if(igual == "TRUE"){
-
+      dataType: 'JSON',
+      success: function (json) {
+        console.log(json);
+        if (json["igual"] == "TRUE") {
+          quitarLogin();          
+          id =  json["id"];    
+          logueado(json["nombre"],json["imagen"]);
         } else {
           loginBad();
         }
       },
       error: function (jqXHR, status, error) {
-        //No digo nada
+        console.log("Ocurrio un error al traer el usuario");
       }
     });
     //Acaba peticion AJAX
-  } else {          
+  } else {
     loginBad();
   }
 }
 
-function loginout() {
+// function loginout() {
+//     console.log(this.target);
+//     console.log("Dentro");
+//     if ($(event.target).closest('#window-modal').length == 0) {
+//       console.log("Clicka fuera");        
+//       quitarLogin();        
+//     } else {
+//       console.log("Clicka dentro");
+//     }
+// }
 
+function quitarLogin() {
+  $("#miModal").remove();
+  $("#modal-backdrop").remove();
+  $("body").removeClass("modal-open");
+  $("#navbar").removeClass("navbar-modal-open");
+  // document.removeEventListener("click", event);
+}
 
-
+function logueado(nombre,imagen){
+  while($("#navbar-list").children().length != 1){
+    $("#navbar-list").children()[1].remove();    
+  } 
+  $("<li class='navbar-list__item navbar-list__item--perfil navbar-list__item--highlighted' id='perfil'>"+
+  "<button class='nav-link nav-link--movement boton-invisible'>" + 
+  "<span>"+nombre+"</span>" + "  <img class='navbar-list__item__imagen' src='images/usuarios/"+imagen+"-35x30'></img></button>"+  
+  "</li>").appendTo($("#navbar-list"));
 }
 
 // pointer-events con el valor “none”
 
-function loginBad(){
-  $(".login__body").css("grid-template-rows","repeat(2,1fr) 10% 1fr");    
-  $(".login__body").css("grid-template-areas","'email' 'password' 'error' 'entrar'");    
+function loginBad() {
+  $(".login__body").css("grid-template-rows", "repeat(2,1fr) repeat(2, 10%) 1fr");
+  $(".login__body").css("grid-template-areas", "'email' 'password' 'remember' 'error' 'entrar'");
+  $(".login__body__remember").css("margin-bottom", "20px");
   $('<span class="login__body__error" id="login-error">Usuario o contraseña incorrectos</span>').insertBefore("#login-entrar");
 }
 
-function loginVerify(){
+function loginVerify() {
   estado = true;
   var email = $("#login-email").val();
-  if(email.length == 0 || email.indexOf("@") == -1 || $("#login-password").val().length == 0){
+  if (email.length == 0 || email.indexOf("@") == -1 || $("#login-password").val().length == 0) {
     estado = false;
-  }   
+  }
   return estado;
 }
 

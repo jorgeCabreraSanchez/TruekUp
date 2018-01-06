@@ -1,4 +1,8 @@
-
+@mixin appearance($type){
+	appearance: $type;
+    -moz-appearance: $type;
+    -webkit-appearance: $type;
+}
 
 @mixin border-radius($radius) {
 	border-radius: $radius !important;
