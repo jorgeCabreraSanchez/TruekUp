@@ -142,13 +142,20 @@ INSERT INTO `subcategorias` (`id`, `nombre`, `idCategoria`, `imagen`, `icono`) V
 
 -- Volcando estructura para tabla bdtruekup.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
-  `usuario` varchar(20) NOT NULL,
-  `contraseña` varchar(20) NOT NULL,
-  PRIMARY KEY (`usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  `apellidos` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `contraseña` varchar(1000) NOT NULL,
+  `imagen` varchar(50) NOT NULL DEFAULT '0.jpg',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.usuarios: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.usuarios: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `email`, `contraseña`, `imagen`) VALUES
+	(1, 'jorge', 'cabrera sánchez', 'jorge@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0.jpg');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -10,6 +10,7 @@ $(document).ready(function () {
 function home() {
   mostrarNavHome();
   mostrarBodyHome();
+  loginVerifyServer(null,null);
 
   $.ajax({
     url: 'php/categorias.php',
@@ -205,8 +206,9 @@ function home() {
 
     // $(document).on("click", loginout);
 
-  });  
-  
+    
+  });
+
 }
 //Acaba el HOME --> ready del home /////////////////
 //////////////////////////////////////
@@ -393,29 +395,15 @@ function login() {
     $(".login__body").css("grid-template-areas", "'email' 'password' 'rembember' 'entrar'");
     $(".login__body__remember").css("margin-bottom", "13px");
   }
-  if (loginVerify()) {
-    $.ajax({
-      url: 'php/login.php',
-      data: {
-        email: $("#login-email").val(),
-        password: SHA1($("#login-password").val())
-      },
-      type: 'GET',
-      dataType: 'JSON',
-      success: function (json) {
-        console.log(json);
-        if (json["igual"] == "TRUE") {
-          quitarLogin();          
-          id =  json["id"];    
-          logueado(json["nombre"],json["imagen"]);
-        } else {
-          loginBad();
-        }
-      },
-      error: function (jqXHR, status, error) {
-        console.log("Ocurrio un error al traer el usuario");
-      }
-    });
+  if (loginVerify()) {     
+    console.log("Respuesta: " + loginVerifyServer($("#login-email").val(),SHA1($("#login-password").val())));
+    if(loginVerifyServer($("#login-email").val(),SHA1($("#login-password").val())) == "TRUE"){
+      console.log("Bien");
+      // quitarLogin();      
+    } else {      
+      console.log("mal");
+      loginBad();
+    }
     //Acaba peticion AJAX
   } else {
     loginBad();
@@ -433,22 +421,25 @@ function login() {
 //     }
 // }
 
-function quitarLogin() {
-  $("#miModal").remove();
-  $("#modal-backdrop").remove();
-  $("body").removeClass("modal-open");
-  $("#navbar").removeClass("navbar-modal-open");
-  // document.removeEventListener("click", event);
-}
+// function quitarLogin() {
+//   $("#miModal").remove();
+//   $("#modal-backdrop").remove();
+//   $("body").removeClass("modal-open");
+//   $("#navbar").removeClass("navbar-modal-open");
+//   // document.removeEventListener("click", event);
+// }
 
-function logueado(nombre,imagen){
-  while($("#navbar-list").children().length != 1){
-    $("#navbar-list").children()[1].remove();    
-  } 
-  $("<li class='navbar-list__item navbar-list__item--perfil navbar-list__item--highlighted' id='perfil'>"+
-  "<button class='nav-link nav-link--movement boton-invisible'>" + 
-  "<span>"+nombre+"</span>" + "  <img class='navbar-list__item__imagen' src='images/usuarios/"+imagen+"-35x30'></img></button>"+  
-  "</li>").appendTo($("#navbar-list"));
+function logueado(nombre, imagen) {
+  while ($("#navbar-list").children().length != 1) {
+    $("#navbar-list").children()[1].remove();
+  }
+
+  img = imagen.split(".")[0] + "-35x30." + imagen.split(".")[1];
+
+  $("<li class='navbar-list__item navbar-list__item--perfil navbar-list__item--highlighted' id='perfil'>" +
+    "<button class='nav-link nav-link--movement boton-invisible'>" +
+    "<span>" + nombre + "</span>" + "  <img class='navbar-list__item__imagen' src='images/usuarios/" + img + "'></img></button>" +
+    "</li>").appendTo($("#navbar-list"));
 }
 
 // pointer-events con el valor “none”
@@ -472,3 +463,41 @@ function loginVerify() {
 function añadirPalabraclave(value) {
   $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + value.id + '">' + value.palabra + '</a></li>').appendTo("#main-desplegable-productos");
 }
+
+function loginVerifyServer(email,password){
+  if($("#remember").length && $("#remember").prop("checked")){
+    checked = "true";
+  } else {
+    checked = "false";
+  }
+  
+  devolver = "FALSE";
+  $.ajax({
+    url: 'php/login.php',
+    data: {
+      email: email,
+      password: password,
+      checked: checked
+    },
+    type: 'GET',
+    dataType: 'JSON',
+    success: function (json) {    
+      entra = true;   
+      console.log(json);           
+      if (json["igual"] == "TRUE") {            
+        devolver = "TRUE";                   
+        id = json["id"];
+        logueado(json["nombre"], json["imagen"]);   
+        console.log("Dentro de  la funcion: " + devolver)     ;
+      }                                   
+    },
+    error: function (jqXHR, status, error) {
+      console.log("Ocurrio un error al traer el usuario");
+    },    
+  });   
+  
+  console.log("Fuera de la funcion AJAX: " + devolver);
+  return devolver;   
+  
+}
+

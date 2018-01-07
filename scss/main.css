@@ -22,10 +22,6 @@ body {
   }
 }
 
-.navbar {
-  z-index: 100 !important;
-}
-
 .navbar-logo {
   width: 100px;
 }
@@ -628,19 +624,19 @@ body {
 }
 
 .login__body__checkbox:after {
-  content: "a";
+  content: "";
   position: absolute;
   display: none;
 }
 
-.login__body__checkbox:checked ~ .login__body__checkbox:after {
-  display: block;
+.login__body__checkbox:checked::after {
+  display: block !important;
 }
 
 .login__body__checkbox:after {
-  left: -20px;
+  left: 6px;
   width: 7px;
-  height: 15px;
+  height: 14px;
   border: solid white;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
