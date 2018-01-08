@@ -1,3 +1,9 @@
+@mixin appearance($type){
+	appearance: $type;
+    -moz-appearance: $type;
+    -webkit-appearance: $type;
+}
+
 @mixin border-radius($radius) {
 	border-radius: $radius !important;
 	-webkit-border-radius: $radius !important;
@@ -32,4 +38,3 @@
 	-moz-border-bottom-right-radius: $radius !important;
 	-o-border-bottom-right-radius: $radius !important;
 }
-

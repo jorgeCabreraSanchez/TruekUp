@@ -12,14 +12,14 @@ body {
     margin-left: 0px;
 }
 
+.navbar {
+    z-index: 201 !important;
+}
+
 @media (min-width:576px) {
     .nav-container {
         margin-left: 30px;
     }
-}
-
-.navbar {
-    z-index: 100 !important;
 }
 
 .navbar-logo {

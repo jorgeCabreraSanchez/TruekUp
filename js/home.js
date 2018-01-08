@@ -1,14 +1,14 @@
 /*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
-palabrasClave = [];
 $(document).ready(function () {
   home();
 });
 //Termina de cargar la página
 
-// patata
 function home() {
   mostrarNavHome();
   mostrarBodyHome();
+  loginVerifyServer(null, null);
+
 
 
   $.ajax({
@@ -85,9 +85,15 @@ function home() {
           $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
           $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
           $("#main-desplegable-productos").addClass("mostrar");
+          anterior = undefined;
         }
-        if (typeof anterior === 'undefined') {
-          // anterior = $(this).val();
+
+        if (event.which == 9) {
+          $(this).val() = palabrasClaveAmpliado[0];
+        }
+
+
+        if ($(this).val().length == 1 && typeof anterior === 'undefined') {
           $.ajax({
             url: 'php/autocompletar.php',
             data: {
@@ -98,13 +104,21 @@ function home() {
             success: function (json) {
               $("#main-desplegable-productos").children().remove();
               palabrasClave = [];
-              $.each(json, (id, value) => {
+              $.each(json, (index, value) => {
                 palabrasClave.push({
                   "id": value.id,
                   "palabra": value.palabra
                 });
                 añadirPalabraclave(value);
               });
+              console.log(palabrasClave);
+              if (palabrasClave.length == 0) {
+                value = {
+                  id: 0,
+                  palabra: "No se ha obtenido ningún resultado para tu búsqueda"
+                };
+                añadirPalabraclave(value);
+              }
             },
             error: function (jqXHR, status, error) {
               //No digo nada
@@ -114,20 +128,30 @@ function home() {
         } else {
 
           $("#main-desplegable-productos").children().remove();
-          if (anterior.length < $(this).val().length && $(this).val().length > 2) {
+          if (event.which != 8 && $(this).val().length != 2) {
             lista = palabrasClaveAmpliado;
           } else {
             lista = palabrasClave;
           }
+
           palabrasClaveAmpliado = lista.filter(n => {
             return ~n.palabra.toLowerCase().indexOf($(this).val().toLowerCase());
           });
-          $.each(palabrasClaveAmpliado, (id, value) => {
+          
+          if (palabrasClaveAmpliado.length == 0) {
+            value = {
+              id: 0,
+              palabra: "No se ha encontrado ninguna palabra"
+            };
             añadirPalabraclave(value);
-          });
+          } else {
+            $.each(palabrasClaveAmpliado, (index, value) => {
+              añadirPalabraclave(value);
+            });
+          }
+          
+
         }
-        //Primera letra
-        //else añade mas letras        
         anterior = $(this).val();
       }
       //Acabe tecla normal
@@ -180,7 +204,40 @@ function home() {
   });
 
 
-  $("#login").on("click", login);
+  
+  $("#login").on("click", (event) => {
+    $("body").addClass("modal-open");
+    $("#navbar").addClass("navbar-modal-open");
+    ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+      '<div class="modal-dialog window-dialog" role="document">' +
+      '<div class="modal-content login" id="window-modal">' +
+      '<div class="modal-header login__header">' +
+      '<button type="button" class="boton-invisible login__header__cancel">' +
+      '<i class="fa fa-times" aria-hidden="true"></i>' +
+      '</button>' +
+      '<h3 class="modal-title login__header__title">Log in</h3>' +
+      '</div>' +
+      '<div class="modal-body login__body">' +
+      '<input type="email" id="login-email" class="login__body__input login__body__input--email" placeholder="correo@ejemplo.com">' +
+      '<input type="password" maxlength="20" id="login-password" class="login__body__input login__body__input--password" placeholder="Contraseña">' +
+      '<div class="login__body__remember"><input type="checkbox" id="remember" class="login__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
+      '<input type="button" id="login-entrar" class="login__body__entrar" value="Entrar">' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '<!-- Termina Div -->' +
+      '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
+
+    $("body").append(ventanaModal);
+
+    $("#login-entrar").on("click", login);
+
+    // $(document).on("click", loginout);
+
+
+  });
+    
   $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", mostrarProductos);
 
 }
@@ -202,15 +259,15 @@ function mostrarNavHome() {
 
     ' <!-- Menu Principal -->   ' +
     ' <div class="collapse navbar-collapse nav-main-collapse" id="navbarResponsive">' +
-    '<ul class="navbar-nav ml-auto">' +
-    '<li class="nav-item active nav-item--highlighted">' +
-    '<a class="nav-link nav-link--movement" href="#">Home</a>' +
+    '<ul class="navbar-nav navbar-list ml-auto" id="navbar-list">' +
+    '<li class="navbar-list__item active navbar-list__item--highlighted">' +
+    '<button class="nav-link boton-invisible" id="home">Home</button>' +
     '</li>' +
-    '<li class="nav-item  nav-item--highlighted">' +
+    '<li class="navbar-list__item  navbar-list__item--highlighted">' +
     '<button class="nav-link boton-invisible" id="login">Entrar</button>' +
     '</li>' +
-    '<li class="nav-item nav-item--highlighted">' +
-    '<a class="nav-link" href="">Registrarse</a>' +
+    '<li class="navbar-list__item navbar-list__item--highlighted">' +
+    '<button class="boton-invisible nav-link" href="">Registrarse</button>' +
     '</li>' +
     '</ul>' +
     '</div>' +
@@ -374,37 +431,117 @@ function estacion() {
 
 
 function login() {
-  if ($("body").hasClass("modal-open")) {
-    $("#miModal").remove();
-    $("body").removeClass("modal-open");
-    $("body").removeClass("window-modal-open");
-  } else {
-    // ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
-    //   '<div class="modal-dialog" role="document">' +
-    //   '<div class="modal-content">' +
-    //   '<div class="modal-header">' +
-    //   '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
-    //   '<span aria-hidden="true">&times;</span>' +
-    //   '</button>' +
-    //   '<h4 class="modal-title" id="myModalLabel">Esto es un modal</h4>' +
-    //   '</div>' +
-    //   ' <div class="modal-body">' +
-    //   'Texto del modal' +
-    //   '</div>' +
-    //   '</div>' +
-    //   '</div>' +
-    //   '</div>;';
-
-    // $("body").append(ventanaModal);
+  if ($("#login-error").length) {
+    // Si existe       
+    $("#login-error").remove();
+    $(".login__body").css("grid-template-rows", "repeat(2, 1fr) 10% 1fr");
+    $(".login__body").css("grid-template-areas", "'email' 'password' 'rembember' 'entrar'");
+    $(".login__body__remember").css("margin-bottom", "13px");
   }
-};
+  if (loginVerify()) {
+    console.log("Respuesta: " + loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())));
+    if (loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())) == "TRUE") {
+      console.log("Bien");
+      // quitarLogin();      
+    } else {
+      console.log("mal");
+      loginBad();
+    }
+    //Acaba peticion AJAX
+  } else {
+    loginBad();
+  }
+}
+
+// function loginout() {
+//     console.log(this.target);
+//     console.log("Dentro");
+//     if ($(event.target).closest('#window-modal').length == 0) {
+//       console.log("Clicka fuera");        
+//       quitarLogin();        
+//     } else {
+//       console.log("Clicka dentro");
+//     }
+// }
+
+// function quitarLogin() {
+//   $("#miModal").remove();
+//   $("#modal-backdrop").remove();
+//   $("body").removeClass("modal-open");
+//   $("#navbar").removeClass("navbar-modal-open");
+//   // document.removeEventListener("click", event);
+// }
+
+function logueado(nombre, imagen) {
+  while ($("#navbar-list").children().length != 1) {
+    $("#navbar-list").children()[1].remove();
+  }
+
+  img = imagen.split(".")[0] + "-35x30." + imagen.split(".")[1];
+
+  $("<li class='navbar-list__item navbar-list__item--perfil navbar-list__item--highlighted' id='perfil'>" +
+    "<button class='nav-link nav-link--movement boton-invisible'>" +
+    "<span>" + nombre + "</span>" + "  <img class='navbar-list__item__imagen' src='images/usuarios/" + img + "'></img></button>" +
+    "</li>").appendTo($("#navbar-list"));
+}
 
 // pointer-events con el valor “none”
+
+function loginBad() {
+  $(".login__body").css("grid-template-rows", "repeat(2,1fr) repeat(2, 10%) 1fr");
+  $(".login__body").css("grid-template-areas", "'email' 'password' 'remember' 'error' 'entrar'");
+  $(".login__body__remember").css("margin-bottom", "20px");
+  $('<span class="login__body__error" id="login-error">Usuario o contraseña incorrectos</span>').insertBefore("#login-entrar");
+}
+
+function loginVerify() {
+  estado = true;
+  var email = $("#login-email").val();
+  if (email.length == 0 || email.indexOf("@") == -1 || $("#login-password").val().length == 0) {
+    estado = false;
+  }
+  return estado;
+}
 
 function añadirPalabraclave(value) {
   $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + value.id + '">' + value.palabra + '</a></li>').appendTo("#main-desplegable-productos");
 }
 
+function loginVerifyServer(email, password) {
+  if ($("#remember").length && $("#remember").prop("checked")) {
+    checked = "true";
+  } else {
+    checked = "false";
+  }
+
+  devolver = "FALSE";
+  $.ajax({
+    url: 'php/login.php',
+    data: {
+      email: email,
+      password: password,
+      checked: checked
+    },
+    type: 'GET',
+    dataType: 'JSON',
+    success: function (json) {
+      entra = true;
+      console.log(json);
+      if (json["igual"] == "TRUE") {
+        devolver = "TRUE";
+        id = json["id"];
+        logueado(json["nombre"], json["imagen"]);
+        console.log("Dentro de  la funcion: " + devolver);
+      }
+    },
+    error: function (jqXHR, status, error) {
+      console.log("Ocurrio un error al traer el usuario");
+    },
+  });
+
+  console.log("Fuera de la funcion AJAX: " + devolver);
+  return devolver;
+}
 
 //Cargar productos de las subcategorias
 function mostrarProductos() {
@@ -451,6 +588,7 @@ function mostrarProductos() {
 
 function cambiarColor() {
   id = this.children[0].id;
+  var id = this.children[0].id;
   if ($("#" + id).hasClass("estrella-footer")) {
     $("#" + id).removeClass("estrella-footer");
   } else {
