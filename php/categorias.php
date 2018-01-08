@@ -19,12 +19,12 @@
     
     if ($stmt = $conn -> prepare($sql)) {
         $stmt -> execute();
-        $stmt -> bind_result($id, $nombre, $imagen);
+        $stmt -> bind_result($id, $nombre, $imagen, $icono);
         while ($stmt->fetch()) {
             if (isset($subcategorias[$id])) {
-                $categorias[$id] = array("categoria" => $nombre,"imagen" => $imagen, "subcategorias" => $subcategorias[$id]);
+                $categorias[$id] = array("categoria" => $nombre,"imagen" => $imagen, "icono" => $icono, "subcategorias" => $subcategorias[$id]);
             } else {
-                $categorias[$id] = array("categoria" => $nombre,"imagen" => $imagen, "subcategorias" => "");
+                $categorias[$id] = array("categoria" => $nombre,"imagen" => $imagen, "icono" => $icono, "subcategorias" => "");
             }
         }
     }

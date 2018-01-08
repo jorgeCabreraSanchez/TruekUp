@@ -53,9 +53,9 @@
 @media (min-width:576px) {
     .browser__icon--search {
         display: flex !important;
-        font-size: 25px;
+        font-size: 20px;
         margin-left: 10px;
-        padding-top: 10px;
+        margin-top: 12px;
     }
     .browser__textfield {
         width: 87% !important;
@@ -75,7 +75,7 @@
 
     .browser__icon--search{
         font-size: 27px !important;
-        padding-top: 17px !important;
+        margin-top: 19px !important;
     }
     .browser__textfield {
         width: 82% !important;        

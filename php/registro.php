@@ -39,8 +39,8 @@ else{
 if ($conn->query($query) === TRUE) {
 
 echo "<br />" . "<h2>" . "Usuario Creado Exitosamente!" . "</h2>";
-echo "<h4>" . "Bienvenido: " . $_POST['username'] . "</h4>" . "\n\n";
-echo "<h5>" . "Hacer Login: " . "<a href='login.html'>Login</a>" . "</h5>"; 
+echo "<h4>" . "Bienvenido: " . $_POST['nombre'] . "</h4>" . "\n\n";
+echo "<h5>" . "Hacer Login: " . "<a href='../index.html'>Login</a>" . "</h5>"; 
 }
 
 else {
