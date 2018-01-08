@@ -1,16 +1,14 @@
 /*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
-palabrasClave = [];
 id = null;
 $(document).ready(function () {
   home();
 });
 //Termina de cargar la página
 
-// patata
 function home() {
   mostrarNavHome();
   mostrarBodyHome();
-  loginVerifyServer(null,null);
+  loginVerifyServer(null, null);
 
   $.ajax({
     url: 'php/categorias.php',
@@ -84,8 +82,15 @@ function home() {
           $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
           $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
           $("#main-desplegable-productos").addClass("mostrar");
+          anterior = undefined;
         }
-        if (typeof anterior === 'undefined') {
+
+        if (event.which == 9) {
+          $(this).val() = palabrasClaveAmpliado[0];
+        }
+
+
+        if ($(this).val().length == 1 && typeof anterior === 'undefined') {
           $.ajax({
             url: 'php/autocompletar.php',
             data: {
@@ -96,13 +101,21 @@ function home() {
             success: function (json) {
               $("#main-desplegable-productos").children().remove();
               palabrasClave = [];
-              $.each(json, (id, value) => {
+              $.each(json, (index, value) => {
                 palabrasClave.push({
                   "id": value.id,
                   "palabra": value.palabra
                 });
                 añadirPalabraclave(value);
               });
+              console.log(palabrasClave);
+              if (palabrasClave.length == 0) {
+                value = {
+                  id: 0,
+                  palabra: "No se ha encontrado ninguna palabra"
+                };
+                añadirPalabraclave(value);
+              }
             },
             error: function (jqXHR, status, error) {
               //No digo nada
@@ -112,17 +125,29 @@ function home() {
         } else {
 
           $("#main-desplegable-productos").children().remove();
-          if (anterior.length < $(this).val().length && $(this).val().length > 2) {
+          if (event.which != 8 && $(this).val().length != 2) {
             lista = palabrasClaveAmpliado;
           } else {
             lista = palabrasClave;
           }
+
           palabrasClaveAmpliado = lista.filter(n => {
             return ~n.palabra.toLowerCase().indexOf($(this).val().toLowerCase());
           });
-          $.each(palabrasClaveAmpliado, (id, value) => {
+
+          if (palabrasClaveAmpliado.length == 0) {
+            value = {
+              id: 0,
+              palabra: "No se ha encontrado ninguna palabra"
+            };
             añadirPalabraclave(value);
-          });
+          } else {
+            $.each(palabrasClaveAmpliado, (index, value) => {
+              añadirPalabraclave(value);
+            });
+          }
+          
+
         }
         anterior = $(this).val();
       }
@@ -206,7 +231,7 @@ function home() {
 
     // $(document).on("click", loginout);
 
-    
+
   });
 
 }
@@ -395,12 +420,12 @@ function login() {
     $(".login__body").css("grid-template-areas", "'email' 'password' 'rembember' 'entrar'");
     $(".login__body__remember").css("margin-bottom", "13px");
   }
-  if (loginVerify()) {     
-    console.log("Respuesta: " + loginVerifyServer($("#login-email").val(),SHA1($("#login-password").val())));
-    if(loginVerifyServer($("#login-email").val(),SHA1($("#login-password").val())) == "TRUE"){
+  if (loginVerify()) {
+    console.log("Respuesta: " + loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())));
+    if (loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())) == "TRUE") {
       console.log("Bien");
       // quitarLogin();      
-    } else {      
+    } else {
       console.log("mal");
       loginBad();
     }
@@ -464,13 +489,13 @@ function añadirPalabraclave(value) {
   $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + value.id + '">' + value.palabra + '</a></li>').appendTo("#main-desplegable-productos");
 }
 
-function loginVerifyServer(email,password){
-  if($("#remember").length && $("#remember").prop("checked")){
+function loginVerifyServer(email, password) {
+  if ($("#remember").length && $("#remember").prop("checked")) {
     checked = "true";
   } else {
     checked = "false";
   }
-  
+
   devolver = "FALSE";
   $.ajax({
     url: 'php/login.php',
@@ -481,23 +506,22 @@ function loginVerifyServer(email,password){
     },
     type: 'GET',
     dataType: 'JSON',
-    success: function (json) {    
-      entra = true;   
-      console.log(json);           
-      if (json["igual"] == "TRUE") {            
-        devolver = "TRUE";                   
+    success: function (json) {
+      entra = true;
+      console.log(json);
+      if (json["igual"] == "TRUE") {
+        devolver = "TRUE";
         id = json["id"];
-        logueado(json["nombre"], json["imagen"]);   
-        console.log("Dentro de  la funcion: " + devolver)     ;
-      }                                   
+        logueado(json["nombre"], json["imagen"]);
+        console.log("Dentro de  la funcion: " + devolver);
+      }
     },
     error: function (jqXHR, status, error) {
       console.log("Ocurrio un error al traer el usuario");
-    },    
-  });   
-  
-  console.log("Fuera de la funcion AJAX: " + devolver);
-  return devolver;   
-  
-}
+    },
+  });
 
+  console.log("Fuera de la funcion AJAX: " + devolver);
+  return devolver;
+
+}
