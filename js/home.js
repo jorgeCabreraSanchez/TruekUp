@@ -41,7 +41,7 @@ function home() {
 
         /*Cargo las categorias y me guardo las subcategorias en un Array llamado subcategorias[] 
          con la key de la id de la categoria a la que pertenece. */
-        $('<li class="list-group-item dropdown__level1__item" id=' + id + '><img src='+ value.icono +'>' + "  " + value.categoria + '</li>').appendTo("#main-desplegable-categorias");
+        $('<li class="list-group-item dropdown__level1__item" id=' + id + '><img src=' + value.icono + '>' + "  " + value.categoria + '</li>').appendTo("#main-desplegable-categorias");
         subcategorias[id] = [];
         i = 1;
         //Recorro las subCategorias
@@ -49,9 +49,11 @@ function home() {
           subcategorias[id] = value.subcategorias;
           if (subcategoria.imagen != null && subcategoria.imagen.startsWith(estacion()) && i <= 3) {
             subcategoriasImagen[subcategoria.id] = {
+              'id':subcategoria.id,
               'nombre': subcategoria.nombre,
               'imagen': subcategoria.imagen
             };
+            console.log(subcategoriasImagen[subcategoria.id]);
             i++;
           }
         });
@@ -180,7 +182,7 @@ function home() {
 
   $("#login").on("click", login);
   $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", mostrarProductos);
-  
+
 }
 //Acaba el HOME --> ready del home /////////////////
 //////////////////////////////////////
@@ -280,52 +282,47 @@ function mostrarBodyHome() {
 
     '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>' +
 
-    '<div class="col-lg-4 col-md-6 mb-4">' +
-    '<div class="card-body">' +
-    ' <h4 class="card-title">' +
-    ' <a id="titulo1" class="titulo-categoria"href="#"></a>' +
-    '</div>' +
-    ' <div class="card h-80">' +
-    '<a id="imagen-cat href="#">' +
-    '<img id="img1" class="card-img-top" src="./images/middle/" alt="">' +
-    '</a>' +
+    // '<div class="col-lg-4 col-md-6 mb-4">' +
     // '<div class="card-body">' +
-    // '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>' +
-    // '  </div>' +
-    '</div>' +
-    '</div>' +
+    // ' <h4 class="card-title">' +
+    // ' <a id="titulo1" class="titulo-categoria"href="#"></a>' +
+    // '</div>' +
+    // ' <div class="card h-80">' +
+    // '<a id="imagen-cat href="#">' +
+    // '<img id="img1" class="card-img-top" src="./images/middle/" alt="">' +
+    // '</a>' +
+    // '</div>' +
+    // '</div>' +
 
-    '<div class="col-lg-4 col-md-6 mb-4">' +
-    '<div class="card-body">' +
-    ' <h4 class="card-title">' +
-    ' <a id="titulo2" href="#"></a>' +
-    '</div>' +
-    ' <div class="card h-80">' +
-    '<a href="#">' +
-    '<img id="img2" class="card-img-top" src="./images/middle/" alt="">' +
-    '</a>' +
+    // '<div class="col-lg-4 col-md-6 mb-4">' +
     // '<div class="card-body">' +
-    // '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>' +
-    // '  </div>' +
-    '</div>' +
-    '</div>' +
+    // ' <h4 class="card-title">' +
+    // ' <a id="titulo2" href="#"></a>' +
+    // '</div>' +
+    // ' <div class="card h-80">' +
+    // '<a href="#">' +
+    // '<img id="img2" class="card-img-top" src="./images/middle/" alt="">' +
+    // '</a>' +
+    // '</div>' +
+    // '</div>' +
 
-    '<div class="col-lg-4 col-md-6 mb-4">' +
-    '<div class="card-body">' +
-    ' <h4 class="card-title">' +
-    ' <a id="titulo3" href="#"></a>' +
-    '</div>' +
-    ' <div class="card h-80">' +
-    '<a href="#">' +
-    '<img id="img3" class="card-img-top" src="./images/middle/" alt="">' +
-    '</a>' +
+    // '<div class="col-lg-4 col-md-6 mb-4">' +
     // '<div class="card-body">' +
-    // '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>' +
-    // '  </div>' +
+    // ' <h4 class="card-title">' +
+    // ' <a id="titulo3" href="#"></a>' +
+    // '</div>' +
+    // ' <div class="card h-80">' +
+    // '<a href="#">' +
+    // '<img id="img3" class="card-img-top" src="./images/middle/" alt="">' +
+    // '</a>' +
+    // '</div>' +
+    // '</div>' +
     '</div>' +
     '</div>' +
-
     '</div>');
+
+
+    
 };
 
 function quitarMainBrowserMin() {
@@ -338,13 +335,30 @@ function quitarMainBrowserMin() {
 }
 
 function mostrarMiddleContainer() {
-  contador = 1;
-  subcategoriasImagen.forEach(url => {
-    nombreEntero = $("#img" + contador).attr("src") + url.imagen;
-    $("#img" + contador).attr("src", nombreEntero);
-    $("#titulo" + contador).html(url.nombre);
-    contador++;
+  // contador = 1;
+  // subcategoriasImagen.forEach(url => {
+
+  //   nombreEntero = $("#img" + contador).attr("src") + url.imagen;
+  //   $("#img" + contador).attr("src", nombreEntero);
+  //   $("#titulo" + contador).html(url.nombre);
+  //   contador++;
+  // });
+  subcategoriasImagen.forEach(url=>{
+    $("<div class='col-lg-4 col-md-6 mb-4'>" +
+    "<div class='card-body'>" +
+    " <h4 class='card-title'>" +
+    " <a id="+url.id+" href='#'>"+url.nombre+"</a>" +
+    "</div>" +
+    "<div class='card h-80'>" +
+    "<a href='#'>" +
+    "<img id="+url.id+" class='card-img-top' src="+'images/middle/'+url.imagen+" alt=''>" +
+    "</a>" +
+    "</div>" +
+    "</div>").appendTo("#contenedor-mid-interior");
   });
+  $(".card-title").on("click", mostrarProductos);
+  $(".card-img-top").on("click",mostrarProductos);
+
 };
 
 function estacion() {
@@ -394,7 +408,7 @@ function añadirPalabraclave(value) {
 
 //Cargar productos de las subcategorias
 function mostrarProductos() {
-  contador=0;
+  contador = 0;
   $.ajax({
     url: 'php/productos.php',
     data: {
@@ -404,7 +418,7 @@ function mostrarProductos() {
     dataType: 'json',
     success: function (json) {
       $("#contenedor-mid-interior").html("");
-     
+
       json.forEach(n => {
         $("<div class='col-lg-4 col-md-6 mb-4'>" +
           "<div class='card h-100'>" +
@@ -417,31 +431,31 @@ function mostrarProductos() {
           "<p class='card-text'>" + n.descripcion + "</p>" +
           "</div>" +
           "<div class='card-footer'>" +
-          "<big id ="+ n.id +"><i class='fa fa-star' aria-hidden='true'></i></big>" +
+          "<big id =" + n.id + "><i class='fa fa-star' aria-hidden='true'></i></big>" +
           "</div>" +
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
-          
+
       });
-      $(".card").on("click","div.card-footer", cambiarColor);
-      
+      $(".card").on("click", "div.card-footer", cambiarColor);
+
     },
     error: function (jqXHR, status, error) {
-      
+
     }
-    
+
   });
-  
+
 }
 
 
-function cambiarColor(){
- id=this.children[0].id;
- if($("#"+id).hasClass("estrella-footer")){
-  $("#"+id).removeClass("estrella-footer");
- }else{
-  $("#"+id).addClass("estrella-footer");
- }
- 
- 
+function cambiarColor() {
+  id = this.children[0].id;
+  if ($("#" + id).hasClass("estrella-footer")) {
+    $("#" + id).removeClass("estrella-footer");
+  } else {
+    $("#" + id).addClass("estrella-footer");
+  }
+
+
 }
