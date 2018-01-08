@@ -244,9 +244,9 @@ body {
 @media (min-width: 576px) {
   .browser__icon--search {
     display: flex !important;
-    font-size: 25px;
+    font-size: 20px;
     margin-left: 10px;
-    padding-top: 10px;
+    margin-top: 12px;
   }
   .browser__textfield {
     width: 87% !important;
@@ -264,8 +264,8 @@ body {
     display: inline !important;
   }
   .browser__icon--search {
-    font-size: 27px !important;
-    padding-top: 17px !important;
+    font-size: 37px !important;
+    margin-top: 9px !important;
   }
   .browser__textfield {
     width: 82% !important;
