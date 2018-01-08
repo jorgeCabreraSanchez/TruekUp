@@ -1,5 +1,10 @@
 /*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
+<<<<<<< HEAD
+palabrasClave = [];
+id = null;
+=======
 subcategoriasImagen = [];
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
 $(document).ready(function () {
   home();
 });
@@ -7,7 +12,12 @@ $(document).ready(function () {
 
 // patata
 function home() {
+<<<<<<< HEAD
+  mostrarNavHome();
+=======
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
   mostrarBodyHome();
+  loginVerifyServer(null,null);
 
   $.ajax({
     url: 'php/categorias.php',
@@ -16,7 +26,9 @@ function home() {
     success: function (json) {
       first = true;
       contador = 1;
+      subcategoriasImagen = [];
       subcategorias = [];
+      //Recorro las categorias
       $.each(json, (id, value) => {
         //Cargo el carousel
         if (value.imagen != null) {
@@ -40,11 +52,22 @@ function home() {
         $('<li class="list-group-item dropdown__level1__item" id=' + id + '>' + value.categoria + '</li>').appendTo("#main-desplegable-categorias");
         subcategorias[id] = [];
         i = 1;
+        //Recorro las subCategorias
         $.each(value.subcategorias, (index, subcategoria) => {
+<<<<<<< HEAD
+          subcategorias[id] = value.subcategorias;
+          if (subcategoria.imagen != null && subcategoria.imagen.startsWith(estacion()) && i <= 3) {
+            subcategoriasImagen[subcategoria.id] = {
+              'nombre': subcategoria.nombre,
+              'imagen': subcategoria.imagen
+            };
+            i++;
+=======
           subcategorias[id] = value.subcategorias;                         
           if (subcategoria.imagen != null && subcategoria.imagen.indexOf(estacion()) != -1 && i <= 3 ) {
             subcategoriasImagen[subcategoria.id] = { 'nombre' : subcategoria.nombre, 'imagen' : subcategoria.imagen };
             i++;            
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
           }
         });
       });
@@ -65,6 +88,61 @@ function home() {
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
+<<<<<<< HEAD
+      $("#main-desplegable-productos").children().remove();
+      anterior = undefined;
+    } else {
+      if (event.which == 13) {
+        //Se muestran los productos relacionados con lo introducido
+      } else {
+        if (!$("#main-desplegable-productos").hasClass("mostrar")) {
+          $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
+          $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
+          $("#main-desplegable-productos").addClass("mostrar");
+        }
+        if (typeof anterior === 'undefined') {
+          $.ajax({
+            url: 'php/autocompletar.php',
+            data: {
+              key: $(this).val()
+            },
+            type: 'GET',
+            dataType: 'json',
+            success: function (json) {
+              $("#main-desplegable-productos").children().remove();
+              palabrasClave = [];
+              $.each(json, (id, value) => {
+                palabrasClave.push({
+                  "id": value.id,
+                  "palabra": value.palabra
+                });
+                añadirPalabraclave(value);
+              });
+            },
+            error: function (jqXHR, status, error) {
+              //No digo nada
+            }
+          });
+          //Acaba peticion Ajax       
+        } else {
+
+          $("#main-desplegable-productos").children().remove();
+          if (anterior.length < $(this).val().length && $(this).val().length > 2) {
+            lista = palabrasClaveAmpliado;
+          } else {
+            lista = palabrasClave;
+          }
+          palabrasClaveAmpliado = lista.filter(n => {
+            return ~n.palabra.toLowerCase().indexOf($(this).val().toLowerCase());
+          });
+          $.each(palabrasClaveAmpliado, (id, value) => {
+            añadirPalabraclave(value);
+          });
+        }
+        anterior = $(this).val();
+      }
+      //Acabe tecla normal
+=======
     } else {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
       $("#main-desplegable-productos").addClass("mostrar");
@@ -86,8 +164,11 @@ function home() {
           //No digo nada
         }
       });
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
     }
+    //Acaba no esta vacio
   });
+  //Acaba autocompletar
 
   //Mostrar la capa de categorias
   $("#main-browser,#browser-icon").on("click", function () {
@@ -134,8 +215,122 @@ function home() {
 
   $("#btn-registrarse").on("click",registrarse);
 
+<<<<<<< HEAD
+  $("#login").on("click", (event) => {
+    $("body").addClass("modal-open");
+    $("#navbar").addClass("navbar-modal-open");
+    ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+      '<div class="modal-dialog window-dialog" role="document">' +
+      '<div class="modal-content login" id="window-modal">' +
+      '<div class="modal-header login__header">' +
+      '<button type="button" class="boton-invisible login__header__cancel">' +
+      '<i class="fa fa-times" aria-hidden="true"></i>' +
+      '</button>' +
+      '<h3 class="modal-title login__header__title">Log in</h3>' +
+      '</div>' +
+      '<div class="modal-body login__body">' +
+      '<input type="email" id="login-email" class="login__body__input login__body__input--email" placeholder="correo@ejemplo.com">' +
+      '<input type="password" maxlength="20" id="login-password" class="login__body__input login__body__input--password" placeholder="Contraseña">' +
+      '<div class="login__body__remember"><input type="checkbox" id="remember" class="login__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
+      '<input type="button" id="login-entrar" class="login__body__entrar" value="Entrar">' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '<!-- Termina Div -->' +
+      '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
+
+    $("body").append(ventanaModal);
+
+    $("#login-entrar").on("click", login);
+
+    // $(document).on("click", loginout);
+
+    
+  });
+  $("#registrarse").on("click", (event) => {
+    $("body").addClass("modal-open");
+    $("#navbar").addClass("navbar-modal-open");
+    ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+      '<div class="modal-dialog window-dialog" role="document">' +
+      '<div class="modal-content login" id="window-modal">' +
+      '<div class="modal-header registrarse__header">' +
+      '<button type="button" class="boton-invisible login__header__cancel">' +
+      '<i class="fa fa-times" aria-hidden="true"></i>' +
+      '</button>' +
+      '<h3 class="modal-title registrarse__header__title">Registro de nuevo usuario</h3>' +
+      '</div>' +
+      '<div class="modal-body registrarse__body">' +
+      '<input type="text" id="registrarse-nombre" class="registrarse__body__input registrarse__body__input--nombre" placeholder="Nombre">' +
+      '<input type="text" id="registrarse-apellidos" class="registrarse__body__input registrarse__body__input--nombre" placeholder="Apellidos">' +
+      '<input type="email" id="registrarse-email" class="registrarse__body__input registrarse__body__input--email" placeholder="correo@ejemplo.com">' +
+      '<input type="email" id="registrarse-repiteemail" class="registrarse__body__input registrarse__body__input--email" placeholder="correo@ejemplo.com">' +
+      '<input type="password" maxlength="20" id="registrarse-password" class="registrarse__body__input registrarse__body__input--password" placeholder="Contraseña">' +
+      '<input type="password" maxlength="20" id="registrarse-repitepassword" class="registrarse__body__input registrarse__body__input--password" placeholder="Repite la Contraseña">' +
+
+      '<div class="registrarse__body__remember"><input type="checkbox" id="remember" class="registrarse__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
+      '<input type="button" id="registrarse-entrar" class="registrarse__body__entrar" value="Entrar">' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '<!-- Termina Div -->' +
+      '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
+
+    $("body").append(ventanaModal);
+
+    $("#login-entrar").on("click", login);
+
+    // $(document).on("click", loginout);
+
+    
+  });
+
+
+
+
+}
+//Acaba el HOME --> ready del home /////////////////
+//////////////////////////////////////
+/////////////////////////
+
+
+function mostrarNavHome() {
+  nav = '<div class="container nav-container">' +
+    '<img class="navbar-brand navbar-logo" src="images/logoPequeno.png">' +
+
+    '<!-- Boton Collapse -->' +
+
+    '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"' +
+    'aria-expanded="false" aria-label="Toggle navigation">' +
+    '<span class="navbar-toggler-icon"></span>' +
+    '</button>' +
+
+    ' <!-- Menu Principal -->   ' +
+    ' <div class="collapse navbar-collapse nav-main-collapse" id="navbarResponsive">' +
+    '<ul class="navbar-nav navbar-list ml-auto" id="navbar-list">' +
+    '<li class="navbar-list__item active navbar-list__item--highlighted">' +
+    '<button class="nav-link boton-invisible" id="home">Home</button>' +
+    '</li>' +
+    '<li class="navbar-list__item  navbar-list__item--highlighted">' +
+    '<button class="nav-link boton-invisible" id="login">Entrar</button>' +
+    '</li>' +
+    '<li class="navbar-list__item navbar-list__item--highlighted">' +
+    '<button class="boton-invisible nav-link" id="registrarse" href="">Registrarse</button>' +
+    '</li>' +
+    '</ul>' +
+    '</div>' +
+
+
+    '</div>';
+  $("#navbar").append(nav);
+};
+
+
+=======
 }
 
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
 function mostrarBodyHome() {
   $(".main-conteiner").html('<div class="row">' +
 
@@ -193,21 +388,16 @@ function mostrarBodyHome() {
     '<!-- <div class="row"> -->' +
 
     '<div id="contenedor-mid" class="container middle-conteiner">' +
-    '</div>');
-};
+    '<div class="row row-middle">' +
 
-function quitarMainBrowserMin() {
-  $("#navbar,#contenedor,#footer").removeClass("ocultar");
-  $("#main-browser-dropdown-conteiner").removeClass("main-browser-dropdown-conteiner-mini");
-  $("#main-browser-dropdown-conteiner").insertBefore($("#contenedor").children("div")[1]);
-  $("#main-browser-min").remove();
-  $("#main-drop").removeClass("mostrar");
-  $("#main-browser").val("");
-}
+<<<<<<< HEAD
+    '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>' +
 
+=======
 function mostrarMiddleContainer() {
   $(".middle-conteiner").html('<div class="row row-middle">' +
     '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>'+    
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
     ' <h4 class="card-title">' +
@@ -221,7 +411,7 @@ function mostrarMiddleContainer() {
     // '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>' +
     // '  </div>' +
     '</div>' +
-    ' </div>' +
+    '</div>' +
 
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
@@ -236,7 +426,7 @@ function mostrarMiddleContainer() {
     // '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>' +
     // '  </div>' +
     '</div>' +
-    ' </div>' +
+    '</div>' +
 
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
@@ -251,12 +441,30 @@ function mostrarMiddleContainer() {
     // '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>' +
     // '  </div>' +
     '</div>' +
-    ' </div>');
+    '</div>' +
 
+<<<<<<< HEAD
+    '</div>');
+};
+
+function quitarMainBrowserMin() {
+  $("#navbar,#contenedor,#footer").removeClass("ocultar");
+  $("#main-browser-dropdown-conteiner").removeClass("main-browser-dropdown-conteiner-mini");
+  $("#main-browser-dropdown-conteiner").insertBefore($("#contenedor").children("div")[1]);
+  $("#main-browser-min").remove();
+  $("#main-drop").removeClass("mostrar");
+  $("#main-browser").val("");
+}
+
+function mostrarMiddleContainer() {
+  contador = 1;
+  subcategoriasImagen.forEach(url => {
+=======
    //Guardamos el mes actual en una variable   
 
    contador = 1;
   subcategoriasImagen.forEach(url => {    
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
     nombreEntero = $("#img" + contador).attr("src") + url.imagen;
     $("#img" + contador).attr("src", nombreEntero);    
     $("#titulo" + contador).html(url.nombre);
@@ -276,6 +484,125 @@ function estacion(){
     estacion = "invierno";
   };
   return estacion;
+<<<<<<< HEAD
+};
+
+
+function login() {
+  if ($("#login-error").length) {
+    // Si existe       
+    $("#login-error").remove();
+    $(".login__body").css("grid-template-rows", "repeat(2, 1fr) 10% 1fr");
+    $(".login__body").css("grid-template-areas", "'email' 'password' 'rembember' 'entrar'");
+    $(".login__body__remember").css("margin-bottom", "13px");
+  }
+  if (loginVerify()) {     
+    console.log("Respuesta: " + loginVerifyServer($("#login-email").val(),SHA1($("#login-password").val())));
+    if(loginVerifyServer($("#login-email").val(),SHA1($("#login-password").val())) == "TRUE"){
+      console.log("Bien");
+      // quitarLogin();      
+    } else {      
+      console.log("mal");
+      loginBad();
+    }
+    //Acaba peticion AJAX
+  } else {
+    loginBad();
+  }
+}
+
+// function loginout() {
+//     console.log(this.target);
+//     console.log("Dentro");
+//     if ($(event.target).closest('#window-modal').length == 0) {
+//       console.log("Clicka fuera");        
+//       quitarLogin();        
+//     } else {
+//       console.log("Clicka dentro");
+//     }
+// }
+
+// function quitarLogin() {
+//   $("#miModal").remove();
+//   $("#modal-backdrop").remove();
+//   $("body").removeClass("modal-open");
+//   $("#navbar").removeClass("navbar-modal-open");
+//   // document.removeEventListener("click", event);
+// }
+
+function logueado(nombre, imagen) {
+  while ($("#navbar-list").children().length != 1) {
+    $("#navbar-list").children()[1].remove();
+  }
+
+  img = imagen.split(".")[0] + "-35x30." + imagen.split(".")[1];
+
+  $("<li class='navbar-list__item navbar-list__item--perfil navbar-list__item--highlighted' id='perfil'>" +
+    "<button class='nav-link nav-link--movement boton-invisible'>" +
+    "<span>" + nombre + "</span>" + "  <img class='navbar-list__item__imagen' src='images/usuarios/" + img + "'></img></button>" +
+    "</li>").appendTo($("#navbar-list"));
+}
+
+// pointer-events con el valor “none”
+
+function loginBad() {
+  $(".login__body").css("grid-template-rows", "repeat(2,1fr) repeat(2, 10%) 1fr");
+  $(".login__body").css("grid-template-areas", "'email' 'password' 'remember' 'error' 'entrar'");
+  $(".login__body__remember").css("margin-bottom", "20px");
+  $('<span class="login__body__error" id="login-error">Usuario o contraseña incorrectos</span>').insertBefore("#login-entrar");
+}
+
+function loginVerify() {
+  estado = true;
+  var email = $("#login-email").val();
+  if (email.length == 0 || email.indexOf("@") == -1 || $("#login-password").val().length == 0) {
+    estado = false;
+  }
+  return estado;
+}
+
+function añadirPalabraclave(value) {
+  $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + value.id + '">' + value.palabra + '</a></li>').appendTo("#main-desplegable-productos");
+}
+
+function loginVerifyServer(email,password){
+  if($("#remember").length && $("#remember").prop("checked")){
+    checked = "true";
+  } else {
+    checked = "false";
+  }
+  
+  devolver = "FALSE";
+  $.ajax({
+    url: 'php/login.php',
+    data: {
+      email: email,
+      password: password,
+      checked: checked
+    },
+    type: 'GET',
+    dataType: 'JSON',
+    success: function (json) {    
+      entra = true;   
+      console.log(json);           
+      if (json["igual"] == "TRUE") {            
+        devolver = "TRUE";                   
+        id = json["id"];
+        logueado(json["nombre"], json["imagen"]);   
+        console.log("Dentro de  la funcion: " + devolver)     ;
+      }                                   
+    },
+    error: function (jqXHR, status, error) {
+      console.log("Ocurrio un error al traer el usuario");
+    },    
+  });   
+  
+  console.log("Fuera de la funcion AJAX: " + devolver);
+  return devolver;   
+  
+}
+
+=======
 }
 
 function registrarse(){ 
@@ -283,3 +610,4 @@ function registrarse(){
     
     
 }
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6

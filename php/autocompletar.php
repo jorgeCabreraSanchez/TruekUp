@@ -4,7 +4,11 @@ if ($conn->error) {
     die('No se puede conectar a la BD' . $conn->connect_error);
 }
 
+<<<<<<< HEAD
+$sql="SELECT * FROM palabrasclave where palabra like '%" . $_GET["key"] ."%' ORDER BY length(palabra)";
+=======
 $sql="SELECT * FROM productos where palabrasClave like '%" + $_POST['key'] + "%' limit 6";
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
 
 $productos=[];
 
