@@ -1,6 +1,10 @@
 /*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
+<<<<<<< HEAD
 palabrasClave = [];
 id = null;
+=======
+subcategoriasImagen = [];
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
 $(document).ready(function () {
   home();
 });
@@ -8,7 +12,10 @@ $(document).ready(function () {
 
 // patata
 function home() {
+<<<<<<< HEAD
   mostrarNavHome();
+=======
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
   mostrarBodyHome();
   loginVerifyServer(null,null);
 
@@ -47,6 +54,7 @@ function home() {
         i = 1;
         //Recorro las subCategorias
         $.each(value.subcategorias, (index, subcategoria) => {
+<<<<<<< HEAD
           subcategorias[id] = value.subcategorias;
           if (subcategoria.imagen != null && subcategoria.imagen.startsWith(estacion()) && i <= 3) {
             subcategoriasImagen[subcategoria.id] = {
@@ -54,9 +62,14 @@ function home() {
               'imagen': subcategoria.imagen
             };
             i++;
+=======
+          subcategorias[id] = value.subcategorias;                         
+          if (subcategoria.imagen != null && subcategoria.imagen.indexOf(estacion()) != -1 && i <= 3 ) {
+            subcategoriasImagen[subcategoria.id] = { 'nombre' : subcategoria.nombre, 'imagen' : subcategoria.imagen };
+            i++;            
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
           }
         });
-
       });
 
       //Fin recorrer JSON
@@ -70,10 +83,12 @@ function home() {
   //Acaba petición AJAX
 
   //Si escribe se autocompleta
-  $("#main-browser").on("keyup", function (event) {
+  $("#main-browser").on("keyup", function () {
+    console.log($(this));
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
+<<<<<<< HEAD
       $("#main-desplegable-productos").children().remove();
       anterior = undefined;
     } else {
@@ -127,6 +142,29 @@ function home() {
         anterior = $(this).val();
       }
       //Acabe tecla normal
+=======
+    } else {
+      $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
+      $("#main-desplegable-productos").addClass("mostrar");
+      $.ajax({
+        url: 'php/autocompletar.php',
+        data: {
+          key: $(this).val()
+        },
+        type: 'POST',
+        dataType: 'json',
+        success: function (json) {
+          $.each(json, (idSubcategoria, value) => {
+            $.each(value, (id, value) => {
+              $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + id + '"><img class="dropdown__level2__icon" src="' + value.icono + '" alt="">' + value.nombre + '</a></li>').appendTo("#main-desplegable-subcategorias");
+            });
+          });
+        },
+        error: function (jqXHR, status, error) {
+          //No digo nada
+        }
+      });
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
     }
     //Acaba no esta vacio
   });
@@ -175,7 +213,9 @@ function home() {
     })
   });
 
+  $("#btn-registrarse").on("click",registrarse);
 
+<<<<<<< HEAD
   $("#login").on("click", (event) => {
     $("body").addClass("modal-open");
     $("#navbar").addClass("navbar-modal-open");
@@ -287,6 +327,10 @@ function mostrarNavHome() {
 };
 
 
+=======
+}
+
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
 function mostrarBodyHome() {
   $(".main-conteiner").html('<div class="row">' +
 
@@ -346,8 +390,14 @@ function mostrarBodyHome() {
     '<div id="contenedor-mid" class="container middle-conteiner">' +
     '<div class="row row-middle">' +
 
+<<<<<<< HEAD
     '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>' +
 
+=======
+function mostrarMiddleContainer() {
+  $(".middle-conteiner").html('<div class="row row-middle">' +
+    '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>'+    
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
     ' <h4 class="card-title">' +
@@ -393,6 +443,7 @@ function mostrarBodyHome() {
     '</div>' +
     '</div>' +
 
+<<<<<<< HEAD
     '</div>');
 };
 
@@ -408,14 +459,23 @@ function quitarMainBrowserMin() {
 function mostrarMiddleContainer() {
   contador = 1;
   subcategoriasImagen.forEach(url => {
+=======
+   //Guardamos el mes actual en una variable   
+
+   contador = 1;
+  subcategoriasImagen.forEach(url => {    
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
     nombreEntero = $("#img" + contador).attr("src") + url.imagen;
-    $("#img" + contador).attr("src", nombreEntero);
+    $("#img" + contador).attr("src", nombreEntero);    
     $("#titulo" + contador).html(url.nombre);
     contador++;
   });
+
 };
 
-function estacion() {
+
+
+function estacion(){
   var dt = new Date();
   var estacion;
   if (dt.getMonth() + 1 >= 5 && dt.getMonth() + 1 <= 9) {
@@ -424,6 +484,7 @@ function estacion() {
     estacion = "invierno";
   };
   return estacion;
+<<<<<<< HEAD
 };
 
 
@@ -541,3 +602,12 @@ function loginVerifyServer(email,password){
   
 }
 
+=======
+}
+
+function registrarse(){ 
+    
+    
+    
+}
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6

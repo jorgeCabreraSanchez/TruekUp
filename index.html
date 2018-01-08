@@ -10,8 +10,6 @@
 
   <title>TruekUp</title>
 
-
-
   <!-- Custom styles for this template -->
   <link href="css/shop-homepage.css" rel="stylesheet">
 
@@ -36,26 +34,179 @@
 
   <!-- Navigation -->
   <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
+<<<<<<< HEAD
     <!-- Aqui va las cosas dentro del nav    -->
+=======
+    <div class="container nav-container">
+      <img class="navbar-brand navbar-logo" src="images/logoPequeno.png">
+
+      <!-- Boton Collapse -->
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menu Principal -->     
+      <div class="collapse navbar-collapse nav-main-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active nav-item--highlighted">
+            <a class="nav-link nav-link--movement" href="#">Home</a>
+          </li>
+          <li class="nav-item  nav-item--highlighted">
+            <a class="nav-link" href="" data-toggle="modal" data-target="#form-login" data-whatever="@mdo">Entrar</a>
+          </li>
+          <li  class="nav-item nav-item--highlighted">
+            <a id="btn-registrarse" class="nav-link"  data-toggle="modal" data-target="#form-registro" data-whatever="@mdo">Registrarse</a>
+          </li>
+        </ul>
+      </div>
+
+
+    </div>
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
   </nav>
 
   <!-- Page Content -->
   <div id="contenedor" class="container main-conteiner">
-
-
+   
   </div>
   <!-- /.container -->
 
 
+<div class="modal fade" id="form-login" tabindex="-1" role="dialog" aria-labelledby="form-loginLabel" aria-hidden="true">
+  <div class="container">
+    <div class="row">
+      <h2>Fancy Login / Registration form</h2>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="container">
+  <div class="row">
+  <div class="col-md-4 col-md-offset-4">
+  <div class="form-body">
+      <ul class="nav nav-tabs final-login">
+          <li class="active"><a data-toggle="tab" href="#sectionA">Sign In</a></li>
+          <li><a data-toggle="tab" href="#sectionB">Join us!</a></li>
+      </ul>
+      <div class="tab-content">
+          <div id="sectionA" class="tab-pane fade in active">
+          <div class="innter-form">
+              <form class="sa-innate-form" method="post">
+              <label>Email Address</label>
+              <input type="text" name="username">
+              <label>Password</label>
+              <input type="password" name="password">
+              <button type="submit">Sign In</button>
+              <a href="">Forgot Password?</a>
+              </form>
+              </div>
+              <div class="social-login">
+              <p>- - - - - - - - - - - - - Sign In With - - - - - - - - - - - - - </p>
+          <ul>
+              <li><a href=""><i class="fa fa-facebook"></i> Facebook</a></li>
+              <li><a href=""><i class="fa fa-google-plus"></i> Google+</a></li>
+              <li><a href=""><i class="fa fa-twitter"></i> Twitter</a></li>
+              </ul>
+              </div>
+              <div class="clearfix"></div>
+          </div>
+          <div id="sectionB" class="tab-pane fade">
+        <div class="innter-form">
+              <form class="sa-innate-form" method="post">
+              <label>Name</label>
+              <input type="text" name="username">
+              <label>Email Address</label>
+              <input type="text" name="username">
+              <label>Password</label>
+              <input type="password" name="password">
+              <button type="submit">Join now</button>
+              <p>By clicking Join now, you agree to hifriends's User Agreement, Privacy Policy, and Cookie Policy.</p>
+              </form>
+              </div>
+              <div class="social-login">
+              <p>- - - - - - - - - - - - - Register With - - - - - - - - - - - - - </p>
+        <ul>
+              <li><a href=""><i class="fa fa-facebook"></i> Facebook</a></li>
+              <li><a href=""><i class="fa fa-google-plus"></i> Google+</a></li>
+              <li><a href=""><i class="fa fa-twitter"></i> Twitter</a></li>
+              </ul>
+              </div>
+          </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+  
+</div>
+
+<div class="modal fade" id="form-registro" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">X</span>
+                  <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Formulario de Registro</h4>
+          </div>
+  
+          <!-- Modal Body -->
+          <div class="modal-body">
+              <p class="statusMsg"></p>
+              <form role="form">
+                <div class="row">
+                  <div class="form-group col-md-6 ">
+                      <label for="inputName">Nombre</label>
+                      <input type="text" class="form-control" id="inputName" placeholder="Introduce tu nombre"/>
+                  </div>
+                  <div class="form-group col-md-6 ">
+                      <label for="inputApellido">Apellidos</label>
+                      <input type="text" class="form-control" id="inputApellido" placeholder="Introduce tus apellidos"/>
+                </div>
+              </div>
+                <div class="form-group">
+                  <label for="inputDireccion">Direccion</label>
+                  <input type="text" class="form-control" id="inputDireccion" placeholder="Introduce tu dirección"/>
+                </div>
+                <div class="form-group">
+                  <label for="inputSexo">Sexo</label>
+                  <p class="col-md-4">Hombre</p><input type="radio" class="form-control col-md-4" id="inputSexo" value="H"/>
+                  Mujer<input type="radio" class="form-control" id="inputSexo" value="M"/>
+              </div>
+                  <div class="form-group">
+                      <label for="inputEmail">Email</label>
+                      <input type="email" class="form-control" id="inputEmail" placeholder="Enter your email"/>
+                  </div>
+                  <div class="row">
+                  <div class="form-group">
+                    <label for="inputPassword">Contraseña</label>
+                    <input type="password" class="form-control" id="inputEmail" placeholder="Enter your email"/>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword">RepiteLaContraseña</label>
+                    <input type="password" class="form-control" id="inputEmail" placeholder="Enter your email"/>
+                </div>
+              </div>
+                  <div class="form-group">
+                      <label for="inputMessage">Message</label>
+                      <textarea class="form-control" id="inputMessage" placeholder="Enter your message"></textarea>
+                  </div>
+              </form>
+          </div>
 
 
-
+</div>
   <!-- Footer -->
   <footer id="footer" class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; TruekUp</p>
     </div>
     <!-- /.container -->
+<<<<<<< HEAD
   </footer> 
   <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -75,6 +226,9 @@
   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#miModal">
     Abrir modal
   </button>
+=======
+  </footer>
+>>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
 
 </body>
 </html>
