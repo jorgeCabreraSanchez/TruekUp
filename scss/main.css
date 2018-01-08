@@ -264,8 +264,8 @@ body {
     display: inline !important;
   }
   .browser__icon--search {
-    font-size: 37px !important;
-    margin-top: 9px !important;
+    font-size: 27px !important;
+    margin-top: 19px !important;
   }
   .browser__textfield {
     width: 82% !important;
@@ -516,7 +516,7 @@ body {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: repeat(2, 1fr) 10% 1fr;
-  grid-template-areas: "email" "password" "remember" "entrar";
+  grid-template-areas: "email"  "password"  "remember"  "entrar";
   padding-top: 30px;
 }
 
