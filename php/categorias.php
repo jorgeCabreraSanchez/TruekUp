@@ -8,16 +8,15 @@
 
     if ($stmt = $conn -> prepare($sql)) {
         $stmt -> execute();
-        $stmt -> bind_result($id, $nombre, $idCategoria);
+        $stmt -> bind_result($id, $nombre, $idCategoria,$imagen,$icono);
         while ($stmt->fetch()) {
-            $subcategorias[$idCategoria][$id] = array("id" => $id, "nombre" => $nombre);
+            $subcategorias[$idCategoria][$id] = array("id" => $id, "nombre" => $nombre,"imagen" => $imagen,"icono" => $icono);
         }
     }
     $stmt -> close();
+
     $sql = "SELECT * FROM categorias";
-    //añado linea
-    //dgsd
-    // prueba linea editada en mi rama
+    
     if ($stmt = $conn -> prepare($sql)) {
         $stmt -> execute();
         $stmt -> bind_result($id, $nombre, $imagen);
@@ -30,7 +29,8 @@
         }
     }
     $stmt -> close();
-
+    
+    header('Content-type: application/json; charset=utf-8');
     echo json_encode($categorias);
     
     $conn -> close();

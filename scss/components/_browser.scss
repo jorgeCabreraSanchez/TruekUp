@@ -32,16 +32,9 @@
     display: none;
 }
 
-.browser__icon--cancel {
-    font-size: 30px;
-}
-
 .browser__button--cancel {
-    background-color: transparent;
-    border: 0px;
-    outline: none !important;
-    vertical-align: center;
-    padding: 0px !important;
+    display:flex;
+    width: 37px;
 }
 
 .browser__button--search {
