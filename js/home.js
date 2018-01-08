@@ -1,10 +1,6 @@
 /*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
-<<<<<<< HEAD
 palabrasClave = [];
 id = null;
-=======
-subcategoriasImagen = [];
->>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
 $(document).ready(function () {
   home();
 });
@@ -12,12 +8,9 @@ $(document).ready(function () {
 
 // patata
 function home() {
-<<<<<<< HEAD
   mostrarNavHome();
-=======
->>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
   mostrarBodyHome();
-  loginVerifyServer(null,null);
+  loginVerifyServer(null, null);
 
   $.ajax({
     url: 'php/categorias.php',
@@ -54,7 +47,6 @@ function home() {
         i = 1;
         //Recorro las subCategorias
         $.each(value.subcategorias, (index, subcategoria) => {
-<<<<<<< HEAD
           subcategorias[id] = value.subcategorias;
           if (subcategoria.imagen != null && subcategoria.imagen.startsWith(estacion()) && i <= 3) {
             subcategoriasImagen[subcategoria.id] = {
@@ -62,12 +54,6 @@ function home() {
               'imagen': subcategoria.imagen
             };
             i++;
-=======
-          subcategorias[id] = value.subcategorias;                         
-          if (subcategoria.imagen != null && subcategoria.imagen.indexOf(estacion()) != -1 && i <= 3 ) {
-            subcategoriasImagen[subcategoria.id] = { 'nombre' : subcategoria.nombre, 'imagen' : subcategoria.imagen };
-            i++;            
->>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
           }
         });
       });
@@ -88,7 +74,6 @@ function home() {
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
-<<<<<<< HEAD
       $("#main-desplegable-productos").children().remove();
       anterior = undefined;
     } else {
@@ -142,29 +127,6 @@ function home() {
         anterior = $(this).val();
       }
       //Acabe tecla normal
-=======
-    } else {
-      $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
-      $("#main-desplegable-productos").addClass("mostrar");
-      $.ajax({
-        url: 'php/autocompletar.php',
-        data: {
-          key: $(this).val()
-        },
-        type: 'POST',
-        dataType: 'json',
-        success: function (json) {
-          $.each(json, (idSubcategoria, value) => {
-            $.each(value, (id, value) => {
-              $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + id + '"><img class="dropdown__level2__icon" src="' + value.icono + '" alt="">' + value.nombre + '</a></li>').appendTo("#main-desplegable-subcategorias");
-            });
-          });
-        },
-        error: function (jqXHR, status, error) {
-          //No digo nada
-        }
-      });
->>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
     }
     //Acaba no esta vacio
   });
@@ -213,9 +175,8 @@ function home() {
     })
   });
 
-  $("#btn-registrarse").on("click",registrarse);
+  $("#btn-registrarse").on("click", registrarse);
 
-<<<<<<< HEAD
   $("#login").on("click", (event) => {
     $("body").addClass("modal-open");
     $("#navbar").addClass("navbar-modal-open");
@@ -246,7 +207,7 @@ function home() {
 
     // $(document).on("click", loginout);
 
-    
+
   });
   $("#registrarse").on("click", (event) => {
     $("body").addClass("modal-open");
@@ -260,16 +221,20 @@ function home() {
       '</button>' +
       '<h3 class="modal-title registrarse__header__title">Registro de nuevo usuario</h3>' +
       '</div>' +
+      ' <form method="POST" action="php/registro.php">' +
       '<div class="modal-body registrarse__body">' +
-      '<input type="text" id="registrarse-nombre" class="registrarse__body__input registrarse__body__input--nombre" placeholder="Nombre">' +
-      '<input type="text" id="registrarse-apellidos" class="registrarse__body__input registrarse__body__input--nombre" placeholder="Apellidos">' +
-      '<input type="email" id="registrarse-email" class="registrarse__body__input registrarse__body__input--email" placeholder="correo@ejemplo.com">' +
+      '<input type="text" id="registrarse-nombre" name="nombre" class="registrarse__body__input registrarse__body__input--nombre" placeholder="Nombre">' +
+      '<input type="text" id="registrarse-apellidos" name="apellidos"class="registrarse__body__input registrarse__body__input--nombre" placeholder="Apellidos">' +
+      '<input type="email" id="registrarse-email" name="email"class="registrarse__body__input registrarse__body__input--email" placeholder="correo@ejemplo.com">' +
       '<input type="email" id="registrarse-repiteemail" class="registrarse__body__input registrarse__body__input--email" placeholder="correo@ejemplo.com">' +
-      '<input type="password" maxlength="20" id="registrarse-password" class="registrarse__body__input registrarse__body__input--password" placeholder="Contraseña">' +
+      '<input type="password" maxlength="20" id="registrarse-password" name="password" class="registrarse__body__input registrarse__body__input--password" placeholder="Contraseña">' +
       '<input type="password" maxlength="20" id="registrarse-repitepassword" class="registrarse__body__input registrarse__body__input--password" placeholder="Repite la Contraseña">' +
+      /*       '<div class="registrarse__body__remember"><input type="checkbox" id="remember" class="registrarse__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
+       */
+      '<input type="submit" id="registrarse-enviar" class="registrarse__body__entrar" value="Enviar">' +
+      '<input type="button" id="registrarse-reset" class="registrarse__body__entrar" value="Borrar">' +
 
-      '<div class="registrarse__body__remember"><input type="checkbox" id="remember" class="registrarse__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
-      '<input type="button" id="registrarse-entrar" class="registrarse__body__entrar" value="Entrar">' +
+      '</div>' +
       '</div>' +
       '</div>' +
       '</div>' +
@@ -283,7 +248,7 @@ function home() {
 
     // $(document).on("click", loginout);
 
-    
+
   });
 
 
@@ -327,10 +292,6 @@ function mostrarNavHome() {
 };
 
 
-=======
-}
-
->>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
 function mostrarBodyHome() {
   $(".main-conteiner").html('<div class="row">' +
 
@@ -390,14 +351,8 @@ function mostrarBodyHome() {
     '<div id="contenedor-mid" class="container middle-conteiner">' +
     '<div class="row row-middle">' +
 
-<<<<<<< HEAD
     '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>' +
 
-=======
-function mostrarMiddleContainer() {
-  $(".middle-conteiner").html('<div class="row row-middle">' +
-    '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>'+    
->>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
     ' <h4 class="card-title">' +
@@ -443,7 +398,6 @@ function mostrarMiddleContainer() {
     '</div>' +
     '</div>' +
 
-<<<<<<< HEAD
     '</div>');
 };
 
@@ -459,14 +413,8 @@ function quitarMainBrowserMin() {
 function mostrarMiddleContainer() {
   contador = 1;
   subcategoriasImagen.forEach(url => {
-=======
-   //Guardamos el mes actual en una variable   
-
-   contador = 1;
-  subcategoriasImagen.forEach(url => {    
->>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6
     nombreEntero = $("#img" + contador).attr("src") + url.imagen;
-    $("#img" + contador).attr("src", nombreEntero);    
+    $("#img" + contador).attr("src", nombreEntero);
     $("#titulo" + contador).html(url.nombre);
     contador++;
   });
@@ -475,7 +423,7 @@ function mostrarMiddleContainer() {
 
 
 
-function estacion(){
+function estacion() {
   var dt = new Date();
   var estacion;
   if (dt.getMonth() + 1 >= 5 && dt.getMonth() + 1 <= 9) {
@@ -484,7 +432,6 @@ function estacion(){
     estacion = "invierno";
   };
   return estacion;
-<<<<<<< HEAD
 };
 
 
@@ -496,12 +443,12 @@ function login() {
     $(".login__body").css("grid-template-areas", "'email' 'password' 'rembember' 'entrar'");
     $(".login__body__remember").css("margin-bottom", "13px");
   }
-  if (loginVerify()) {     
-    console.log("Respuesta: " + loginVerifyServer($("#login-email").val(),SHA1($("#login-password").val())));
-    if(loginVerifyServer($("#login-email").val(),SHA1($("#login-password").val())) == "TRUE"){
+  if (loginVerify()) {
+    console.log("Respuesta: " + loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())));
+    if (loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())) == "TRUE") {
       console.log("Bien");
       // quitarLogin();      
-    } else {      
+    } else {
       console.log("mal");
       loginBad();
     }
@@ -565,13 +512,13 @@ function añadirPalabraclave(value) {
   $('<li class="list-group-item dropdown__notlevel__item"><a class="dropdown__notlevel__link" href="" id="' + value.id + '">' + value.palabra + '</a></li>').appendTo("#main-desplegable-productos");
 }
 
-function loginVerifyServer(email,password){
-  if($("#remember").length && $("#remember").prop("checked")){
+function loginVerifyServer(email, password) {
+  if ($("#remember").length && $("#remember").prop("checked")) {
     checked = "true";
   } else {
     checked = "false";
   }
-  
+
   devolver = "FALSE";
   $.ajax({
     url: 'php/login.php',
@@ -582,32 +529,22 @@ function loginVerifyServer(email,password){
     },
     type: 'GET',
     dataType: 'JSON',
-    success: function (json) {    
-      entra = true;   
-      console.log(json);           
-      if (json["igual"] == "TRUE") {            
-        devolver = "TRUE";                   
+    success: function (json) {
+      entra = true;
+      console.log(json);
+      if (json["igual"] == "TRUE") {
+        devolver = "TRUE";
         id = json["id"];
-        logueado(json["nombre"], json["imagen"]);   
-        console.log("Dentro de  la funcion: " + devolver)     ;
-      }                                   
+        logueado(json["nombre"], json["imagen"]);
+        console.log("Dentro de  la funcion: " + devolver);
+      }
     },
     error: function (jqXHR, status, error) {
       console.log("Ocurrio un error al traer el usuario");
-    },    
-  });   
-  
+    },
+  });
+
   console.log("Fuera de la funcion AJAX: " + devolver);
-  return devolver;   
-  
-}
+  return devolver;
 
-=======
 }
-
-function registrarse(){ 
-    
-    
-    
-}
->>>>>>> 5e0bf0047292e4e5010362d0de18256dab3108d6

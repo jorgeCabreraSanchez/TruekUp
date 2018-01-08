@@ -1,3 +1,68 @@
+<!-- html -->
+
+
+<!-- js -->
+$("#registrarse").on("click", (event) => {
+    $("body").addClass("modal-open");
+    $("#navbar").addClass("navbar-modal-open");
+    ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+      '<div class="modal-dialog window-dialog" role="document">' +
+      '<div class="modal-content login" id="window-modal">' +
+      '<div class="modal-header registrarse__header">' +
+      '<button type="button" class="boton-invisible login__header__cancel">' +
+      '<i class="fa fa-times" aria-hidden="true"></i>' +
+      '</button>' +
+      '<h3 class="modal-title registrarse__header__title">Registro de nuevo usuario</h3>' +
+      '</div>' +
+      '<div class="modal-body registrarse__body">' +
+      '<input type="text" id="registrarse-nombre" class="registrarse__body__input registrarse__body__input--nombre" placeholder="Nombre">' +
+      '<input type="text" id="registrarse-apellidos" class="registrarse__body__input registrarse__body__input--nombre" placeholder="Apellidos">' +
+      '<input type="email" id="registrarse-email" class="registrarse__body__input registrarse__body__input--email" placeholder="correo@ejemplo.com">' +
+      '<input type="email" id="registrarse-repiteemail" class="registrarse__body__input registrarse__body__input--email" placeholder="correo@ejemplo.com">' +
+      '<input type="password" maxlength="20" id="registrarse-password" class="registrarse__body__input registrarse__body__input--password" placeholder="Contraseña">' +
+      '<input type="password" maxlength="20" id="registrarse-repitepassword" class="registrarse__body__input registrarse__body__input--password" placeholder="Repite la Contraseña">' +
+
+      '<div class="registrarse__body__remember"><input type="checkbox" id="remember" class="registrarse__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
+      '<input type="button" id="registrarse-entrar" class="registrarse__body__entrar" value="Entrar">' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '<!-- Termina Div -->' +
+      '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
+
+    $("body").append(ventanaModal);
+
+    $("#login-entrar").on("click", login);
+
+    // $(document).on("click", loginout);
+
+    
+  });
+<!-- scss _registro.scss -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="modal fade" id="form-login" tabindex="-1" role="dialog" aria-labelledby="form-loginLabel" aria-hidden="true">
     <div class="container">
       <div class="row">

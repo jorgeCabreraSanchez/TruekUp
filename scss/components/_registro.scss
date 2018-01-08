@@ -23,10 +23,9 @@
 .registrarse__body {
     color: #212121;
     display: grid;
-    grid-template-columns: 50%;//50% para el form
+    grid-template-columns: 50%; //50% para el form
     grid-template-rows: repeat(2, 1fr) 10% 1fr;
-    grid-template-areas: "nombre apellidos" "email repiteemail" "password repitepassword";
-    // "remember ." 
+    grid-template-areas: "nombre apellidos" "email repiteemail" "password repitepassword" "enviar reset"; // "remember ." 
     // "entrar .";
     padding-top: 30px;
 }
@@ -53,26 +52,40 @@
     box-shadow: 0 0 3px rgb(92, 166, 201);
 }
 
-#registrarse-nombre{
+#registrarse-nombre {
     grid-area: nombre;
 }
-#registrarse-nombre{
-    grid-area: apellido;
+
+#registrarse-apellidos {
+    grid-area: apellidos;
 }
-#registrarse-password{
+
+#registrarse-password {
     grid-area: password;
 }
-#registrarse-repitepassword{
+
+#registrarse-repitepassword {
     grid-area: repitepassword;
 }
-#registrarse-email{
+
+#registrarse-email {
     grid-area: email;
 }
-#registrarse-repiteemail{
+
+#registrarse-repiteemail {
     grid-area: repiteemail;
 }
+
+#registrarse-enviar {
+    grid-area: enviar;
+}
+
+#registrarse-reset{
+    grid-area: reset;
+}
+
+
 .registrarse__body__entrar {
-    grid-area: entrar;
     justify-self: center;
     padding: 5px 20px;
     font-size: 14px;
