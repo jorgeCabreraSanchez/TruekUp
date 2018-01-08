@@ -134,7 +134,7 @@ function home() {
           palabrasClaveAmpliado = lista.filter(n => {
             return ~n.palabra.toLowerCase().indexOf($(this).val().toLowerCase());
           });
-
+          
           if (palabrasClaveAmpliado.length == 0) {
             value = {
               id: 0,
