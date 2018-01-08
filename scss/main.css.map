@@ -12,6 +12,7 @@
         "components/_boton-invisible.scss",
         "components/_window-modal.scss",
         "components/_login.scss"
+        "components/_estrella-footer.scss"
     ],
     "names": [],
     "file": "main.css"

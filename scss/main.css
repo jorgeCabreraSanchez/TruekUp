@@ -647,4 +647,8 @@ body {
 .login__body__checkbox:focus {
   outline: none;
 }
+
+.estrella-footer {
+  color: #f8fc02d2;
+}
 /*# sourceMappingURL=main.css.map */
