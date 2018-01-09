@@ -514,20 +514,58 @@ function mostrarProductos() {
       $("#contenedor-mid-interior").html("");
 
       json.forEach(n => {
-        $("<div class='col-lg-4 col-md-6 mb-4'>" +
-          "<div class='card h-100'>" +
-          "<a href='#'><img class='card-img-top' src=" + n.imagen + " alt=''></a>" +
-          "<div class='card-body'>" +
-          "<h4 class='card-title producto-titulo-centrar'>" +
-          "<button class=' boton-invisible boton-invisible-producto'>" + n.nombre + "</button>" +
-          "</h4>" +
-          "<p class='card-text'>" + n.descripcion + "</p>" +
-          "</div>" +
-          "<div class='card-footer'>" +
-          "<big id =" + n.id + "><i class='fa fa-star' aria-hidden='true'></i></big>" +
-          "</div>" +
-          "</div>" +
-          "</div>").appendTo("#contenedor-mid-interior");
+        // $("<div class='col-lg-4 col-md-6 mb-4'>" +
+        //   "<div class='card h-100'>" +
+        //   "<a href='#'><img class='card-img-top' src=" + n.imagen + " alt=''></a>" +
+        //   "<div class='card-body'>" +
+        //   "<h4 class='card-title producto-titulo-centrar'>" +
+        //   "<button class=' boton-invisible boton-invisible-producto'>" + n.nombre + "</button>" +
+        //   "</h4>" +
+        //   "<p class='card-text'>" + n.descripcion + "</p>" +
+        //   "</div>" +
+        //   "<div class='card-footer'>" +
+        //   "<big id =" + n.id + "><i class='fa fa-star' aria-hidden='true'></i></big>" +
+        //   "</div>" +
+        //   "</div>" +
+        //   "</div>").appendTo("#contenedor-mid-interior");
+        $("<div class='col-md-4'>"+
+            "<div class='card card-cascade narrower'>"+
+                                "<div class='view overlay hm-white-slight'>"+
+                                    "<img src="+n.imagen+" class='img-fluid' alt=''>"+
+                                    "<a>"+
+                                        "<div class='mask'></div>"+
+                                    "</a>"+
+                                "</div>"+
+                              
+                                "<div class='card-body text-center no-padding'>"+
+                                    
+                                    "<a href='' class='text-muted'>"+
+                                        "<h5>Shoes</h5>"+
+                                    "</a>"+
+                                    "<h4 class='card-title'>"+
+                                        "<strong>"+
+                                            "<a href=''>"+n.nombre+"</a>"+
+                                        "</strong>"+
+                                    "</h4>"+
+                                    "<p class='card-text'>"+n.descripcion+"</p>"+
+        
+                                    
+                                    "<div class='card-footer'>"+
+                                        "<span class='left'>69$</span>"+
+                                        "<span class='right'>"+
+                                            "<a class='' data-toggle='tooltip' data-placement='top' title='Quick Look'>"+
+                                                "<i class='fa fa-eye'></i>"+
+                                            "</a>"+
+                                            "<a class='' data-toggle='tooltip' data-placement='top' title='Add to Wishlist'>"+
+                                                "<i class='fa fa-heart'></i>"+
+                                            "</a>"+
+                                        "</span>"+
+                                    "</div>"+
+        
+                                "</div>"+
+                            "</div>"+
+                        "</div>").appendTo("#contenedor-mid-interior");
+
 
       });
       $(".card").on("click", "div.card-footer", cambiarColor);
