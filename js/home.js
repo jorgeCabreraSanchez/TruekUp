@@ -236,6 +236,12 @@ function home() {
       $("body").append(ventanaModal);
 
       $("#login-entrar").on("click", login);
+      $("#login-password").on("keyup",event => {
+        if(event.which == 8){
+          login();
+        }
+      });
+      
     });
 
   });
