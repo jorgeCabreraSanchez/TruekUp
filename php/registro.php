@@ -1,57 +1,40 @@
 <?php
-$conn = new mysqli('localhost', 'root', 'root', 'bdtruekup');
-if ($conn->error) {
-    die('No se puede conectar a la BD' . $conn->connect_error);
-}
-$tbl_name='usuarios';
-$nombre = $_POST['nombre'];
-$apellido = $_POST['apellidos'];
-$email = $_POST['email'];
-// $nombre = $_POST['registrarse-repiteemail'];
-$password = $_POST['password'];
-// $nombre = $_POST['registrarse-repitepassword'];
 
-$buscarUsuario = "SELECT * FROM $tbl_name
-                  WHERE email = '$_POST[email]' ";
+	header('Content-type: application/json');
 
-$result = $conn->query($buscarUsuario);
+	require_once 'configBD.php';
+	
+	$response = array();
 
-$count = mysqli_num_rows($result);
-
-if ($count == 1) {
-echo "<br />". "El email ya ha sido registrado." . "<br />";
-$buscarUsuario = "SELECT * FROM $tbl_name
-                  WHERE email = '$_POST[username]' ";
-
-$result = $conn->query($buscarUsuario);
-
-$count = mysqli_num_rows($result);
-
-if ($count == 1) {
-    echo "<br />". "El email ya ha sido registrado.." . "<br />";
-}
-    echo "<a href='index.html'>Por favor escoga otro email</a>";
-}
-else{
-    $query = "INSERT INTO Usuarios (nombre, apellidos, email, contraseña)
-    VALUES ('$nombre','$apellido', '$email','$password')";
-
-if ($conn->query($query) === TRUE) {
-
-echo "<br />" . "<h2>" . "Usuario Creado Exitosamente!" . "</h2>";
-echo "<h4>" . "Bienvenido: " . $_POST['nombre'] . "</h4>" . "\n\n";
-echo "<h5>" . "Hacer Login: " . "<a href='../index.html'>Login</a>" . "</h5>"; 
-}
-
-else {
-echo "Error al crear el usuario." . $query . "<br>" . $conn->error; 
-}
-}
-mysqli_close($conn);
+	if ($_POST) {
+		
+		$nombre = trim($_POST['nombre'])." ".trim($_POST['apellido']);
+		$email = trim($_POST['email']);
+		$pass = trim($_POST['cpassword']);
 
 
-// $sql = "INSERT INTO usuarios ('id','nombre','apellidos','email',password')
-//         VALUES( ,'$nombre','$apellido','$email','$password'";
-// $stmt = $conn -> prepare($sql);
-// $stmt -> execute();
-?>
+		$nombre_entero = strip_tags($nombre);
+		$user_email = strip_tags($email);
+		$user_pass = strip_tags($pass);
+
+		// sha256 password hashing
+		$hashed_password = hash('sha256', $user_pass);
+		
+		$query = "INSERT INTO usuarios(nombre,email,contraseña) VALUES(:nombre, :email, :pass)";
+		
+		$stmt = $DBcon->prepare( $query );
+		$stmt->bindParam(':nombre', $nombre_entero);
+		$stmt->bindParam(':email', $user_email);
+		$stmt->bindParam(':pass', $hashed_password);
+
+		// check for successfull registration
+        if ( $stmt->execute() ) {
+			$response['status'] = 'success';
+			$response['message'] = '<span class="fa-check "></span> &nbsp; Usuario registrado, puedes loguearte';
+        } else {
+            $response['status'] = 'error'; // could not register
+			$response['message'] = '<span class="fa-exclamation "></span> &nbsp; No se a podido registrar el usuario, prueba de nuevo';
+        }	
+	}
+	
+	echo json_encode($response);

@@ -746,6 +746,10 @@ body {
   color: #a94442;
 }
 
+.btn-info-form {
+  margin-left: 6%;
+}
+
 .estrella-footer {
   color: #f8fc02d2;
 }

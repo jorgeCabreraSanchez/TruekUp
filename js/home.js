@@ -237,7 +237,7 @@ function home() {
   $("#registrarse").on("click", (event) => {
     $("body").addClass("modal-open");
     $("#navbar").addClass("navbar-modal-open");
-    ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+    ventanaModal = '<div class="modal fade window-modal modal-auto-clear" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
       '<div class="modal-dialog window-dialog" role="document">' +
       '<div class="modal-content" id="window-modal">' +
       '<div class="signup-form-container">' +
@@ -295,9 +295,13 @@ function home() {
       '<button type="submit" class="btn btn-info btn-info-form" id="btn-signup">' +
       '  <span class="fa fa-sign-in"></span> Registrarse' +
       '</button>' +
-      '<button type="reset" class="btn btn-info" id="btn-reset">' +
+      '<button type="reset" class="btn btn-info btn-info-form" id="btn-reset">' +
       '  <span class="fa fa-eraser"></span> Borrar Datos' +
       '</button>' +
+      '<button type="button" class="btn btn-info btn-info-form" data-dismiss="modal id="btn-cerrar">' +
+      '  <span class="fa fa-times""></span> Cerrar' +
+      '</button>' +
+      // $('#miModal').modal('hide');
       ' </div>' +
       ' </form>' +
       ' </div>' +
@@ -308,6 +312,9 @@ function home() {
       '<!-- Termina Div -->' +
       '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
 
+
+
+
     $("body").append(ventanaModal);
 
     // $("#registrarse-entrar").on("click", registrarse);
@@ -315,58 +322,56 @@ function home() {
 
     //caracteres validos para el nombre
     var nameregex = /^[a-zA-Z ]+$/;
-		 
-		 $.validator.addMethod("validname", function( value, element ) {
-		     return this.optional( element ) || nameregex.test( value );
-		 }); 
-		 
-		 // valid email pattern
-		 var eregex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-		 
-		 $.validator.addMethod("validemail", function( value, element ) {
-		     return this.optional( element ) || eregex.test( value );
-		 });
-		 
-		 $("#register-form").validate({
-					
-		  rules:
-		  {
-				name: {
-					required: true,
-					validname: true,
-					minlength: 4
-				},
-				apellido: {
-					required: true,
-					validname: true,
-					minlength: 4
-				  },
-				email : {
-				required : true,
-				validemail: true,
-				remote: {
-					url: "php/check-email.php",
-					type: "post",
-					data: {
-						email: function() {
-							return $( "#email" ).val();
-						}
-					}
-				}
-				},
-				password: {
-					required: true,
-					minlength: 6,
-					maxlength: 15
-				},
-				cpassword: {
-					required: true,
-					equalTo: '#password'
-				},
-		   },
-		   messages:
-		   {
-				name: {
+
+    $.validator.addMethod("validname", function (value, element) {
+      return this.optional(element) || nameregex.test(value);
+    });
+
+    // valid email pattern
+    var eregex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+    $.validator.addMethod("validemail", function (value, element) {
+      return this.optional(element) || eregex.test(value);
+    });
+
+    $("#register-form").validate({
+
+      rules: {
+        name: {
+          required: true,
+          validname: true,
+          minlength: 4
+        },
+        apellido: {
+          required: true,
+          validname: true,
+          minlength: 4
+        },
+        email: {
+          required: true,
+          validemail: true,
+          remote: {
+            url: "php/comprobar-email.php",
+            type: "post",
+            data: {
+              email: function () {
+                return $("#email").val();
+              }
+            }
+          }
+        },
+        password: {
+          required: true,
+          minlength: 6,
+          maxlength: 15
+        },
+        cpassword: {
+          required: true,
+          equalTo: '#password'
+        },
+      },
+      messages: {
+        name: {
           required: "Por favor introduce el nombre",
           validname: "El nombre solo puede tener letras y espacios",
           minlength: "Tu nombre es muy corto"
@@ -377,8 +382,9 @@ function home() {
           minlength: "Tu apellido es muy corto"
         },
         email: {
-          required: "Por favor introduce un Email" ,
-          validemail: "Introduce una dirección de Email valida"
+          required: "Por favor introduce un Email",
+          validemail: "Introduce una dirección de Email valida",
+          remote: "El Email ya se encuentra registrado" // añadir una opcion para recuperar la contraseña
         },
         password: {
           required: "Por favor introduce la contraseña",
@@ -388,64 +394,87 @@ function home() {
           required: "Por favor repite la contraseña",
           equalTo: "No coinciden las contraseñas"
         }
-		   },
-		   errorPlacement : function(error, element) {
-			  $(element).closest('.form-group').find('.help-block').html(error.html());
-		   },
-		   highlight : function(element) {
-			  $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-		   },
-		   unhighlight: function(element, errorClass, validClass) {
-			  $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-			  $(element).closest('.form-group').find('.help-block').html('');
-		   },
-				submitHandler: submitForm
-		   }); 
-		   
-		   
-		   function submitForm(){
-			   $.ajax({
-			   		url: 'php/ajax-signup.php',
-			   		type: 'POST',
-			   		data: $('#register-form').serialize(),
-			   		dataType: 'json'
-			   })
-			   .done(function(data){
-			   		
-			   		$('#btn-signup').html('<img src="images/ajax-loader.gif" /> &nbsp; registrando...').prop('disabled', true);
-			   		$('input[type=text],input[type=email],input[type=password]').prop('disabled', true);
-			   		
-			   		setTimeout(function(){
-								   
-						if ( data.status==='success' ) {
-							
-							$('#errorDiv').slideDown('fast', function(){
-								$('#errorDiv').html('<div class="alert alert-info">'+data.message+'</div>');
-								$("#register-form").trigger('reset');
-								$('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
-								$('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
-							}).delay(3000).slideUp('fast');
-							
-									   
-					    } else {
-									   
-						    $('#errorDiv').slideDown('fast', function(){
-						      	$('#errorDiv').html('<div class="alert alert-danger">'+data.message+'</div>');
-							  	$("#register-form").trigger('reset');
-							  	$('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
-							  	$('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
-							}).delay(3000).slideUp('fast');
-						}
-								  
-					},3000);
-			   		
-			   })
-			   .fail(function(){
-			   		$("#register-form").trigger('reset');
-			   		alert('Ocurrio un error, prueba de nuevo mas tarde...');
-			   });
-		   }
-});
+      },
+      errorPlacement: function (error, element) {
+        $(element).closest('.form-group').find('.help-block').html(error.html());
+      },
+      highlight: function (element) {
+        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        $(element).closest('.form-group').find('.help-block').html('');
+      },
+      submitHandler: submitForm
+    });
+
+
+    function submitForm() {
+      $.ajax({
+          url: 'php/registro.php',
+          type: 'POST',
+          data: $('#register-form').serialize(),
+          dataType: 'json'
+        })
+        .done(function (data) {
+
+          $('#btn-signup').html('<img src="images/ajax-loader.gif" /> &nbsp; registrando...').prop('disabled', true);
+          $('input[type=text],input[type=email],input[type=password]').prop('disabled', true);
+
+          setTimeout(function () {
+
+            if (data.status === 'success') {
+
+              $('#errorDiv').slideDown('fast', function () {
+                $('#errorDiv').html('<div class="alert alert-info">' + data.message + '</div>');
+                $("#register-form").trigger('reset');
+                $('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
+                $('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
+
+                //PRUEBAS CIERRE AUTOMATICO
+
+                //  modal-backdrop
+                //   miModal         
+                // $('#miModal').modal('hide');
+                // $('body').removeClass('modal-open');
+                // $('.modal-backdrop').remove();
+
+              //   var myModal = $('#miModal').on('shown', function () {
+              //     clearTimeout(myModal.data('hideInteval'))
+              //     var id = setTimeout(function(){
+              //         myModal.modal('hide');
+              //     });
+              //     myModal.data('hideInteval', id);
+              // })
+
+
+              // $('.modal-auto-clear').remove;
+              // $('.modal-backdrop').remove;
+
+              }).delay(3000).slideUp('fast');
+
+
+            } else {
+
+              $('#errorDiv').slideDown('fast', function () {
+                $('#errorDiv').html('<div class="alert alert-danger">' + data.message + '</div>');
+                $("#register-form").trigger('reset');
+                $('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
+                $('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
+              }).delay(3000).slideUp('fast');
+            }
+
+          }, 3000);
+
+        })
+        .fail(function () {
+          $("#register-form").trigger('reset');
+          alert('Ocurrio un error, prueba de nuevo mas tarde...');
+        });
+    }
+  });
+
+
 
 };
 
