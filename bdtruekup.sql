@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versión del servidor:         10.2.8-MariaDB - mariadb.org binary distribution
+-- Versión del servidor:         10.2.11-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win64
--- HeidiSQL Versión:             9.4.0.5125
+-- HeidiSQL Versión:             9.5.0.5196
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,15 +27,18 @@ CREATE TABLE IF NOT EXISTS `busquedaproductos` (
   CONSTRAINT `FK_producto` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.busquedaproductos: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.busquedaproductos: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `busquedaproductos` DISABLE KEYS */;
 INSERT INTO `busquedaproductos` (`idProducto`, `idPalabraClave`) VALUES
-	(15, 7),
-	(15, 15),
-	(16, 7),
-	(16, 15),
-	(17, 7),
-	(17, 15);
+	(7, 1),
+	(7, 2),
+	(7, 3),
+	(10, 8),
+	(10, 9),
+	(10, 12),
+	(11, 4),
+	(11, 10),
+	(11, 12);
 /*!40000 ALTER TABLE `busquedaproductos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtruekup.categorias
@@ -64,9 +67,9 @@ CREATE TABLE IF NOT EXISTS `palabrasclave` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `palabra` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.palabrasclave: ~15 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.palabrasclave: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `palabrasclave` DISABLE KEYS */;
 INSERT INTO `palabrasclave` (`id`, `palabra`) VALUES
 	(1, 'Balones'),
@@ -82,8 +85,7 @@ INSERT INTO `palabrasclave` (`id`, `palabra`) VALUES
 	(11, 'Pantalones'),
 	(12, 'Motorista'),
 	(13, 'Botas'),
-	(14, 'Gafas'),
-	(15, 'Motos de agua');
+	(14, 'Gafas');
 /*!40000 ALTER TABLE `palabrasclave` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtruekup.productos
@@ -186,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.usuarios: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.usuarios: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `email`, `contraseña`, `imagen`) VALUES
 	(1, 'jorge', 'cabrera sánchez', 'jorge@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0.jpg');
