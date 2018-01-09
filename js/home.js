@@ -47,11 +47,10 @@ function home() {
           subcategorias[id] = value.subcategorias;
           if (subcategoria.imagen != null && subcategoria.imagen.startsWith(estacion()) && i <= 3) {
             subcategoriasImagen[subcategoria.id] = {
-              'id':subcategoria.id,
+              'id': subcategoria.id,
               'nombre': subcategoria.nombre,
               'imagen': subcategoria.imagen
             };
-            console.log(subcategoriasImagen[subcategoria.id]);
             i++;
           }
         });
@@ -69,7 +68,6 @@ function home() {
 
   //Si escribe se autocompleta
   $("#main-browser").on("keyup", function () {
-    console.log($(this));
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
@@ -109,7 +107,6 @@ function home() {
                 });
                 añadirPalabraclave(value);
               });
-              console.log(palabrasClave);
               if (palabrasClave.length == 0) {
                 value = {
                   id: 0,
@@ -135,7 +132,7 @@ function home() {
           palabrasClaveAmpliado = lista.filter(n => {
             return ~n.palabra.toLowerCase().indexOf($(this).val().toLowerCase());
           });
-          
+
           if (palabrasClaveAmpliado.length == 0) {
             value = {
               id: 0,
@@ -147,7 +144,7 @@ function home() {
               añadirPalabraclave(value);
             });
           }
-          
+
 
         }
         anterior = $(this).val();
@@ -235,54 +232,225 @@ function home() {
 
 
   });
+
+
   $("#registrarse").on("click", (event) => {
     $("body").addClass("modal-open");
     $("#navbar").addClass("navbar-modal-open");
     ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
       '<div class="modal-dialog window-dialog" role="document">' +
-      '<div class="modal-content login" id="window-modal">' +
-      '<div class="modal-header registrarse__header">' +
-      '<button type="button" class="boton-invisible login__header__cancel">' +
-      '<i class="fa fa-times" aria-hidden="true"></i>' +
+      '<div class="modal-content" id="window-modal">' +
+      '<div class="signup-form-container">' +
+      ' <!-- form start -->' +
+      '<form method="post" role="form" id="register-form" autocomplete="off">' +
+      ' <div class="form-header">' +
+      '<h2 class="form-title"><i class="fa fa-user"></i><span class="glyphicon glyphicon-user"></span> Registro de nuevo usu@rio</h2>' +
+      ' <div class="pull-right">' +
+      '<h3 class="form-title"><span class="glyphicon glyphicon-pencil"></span></h3>' +
+      ' </div>' +
+      ' </div>' +
+      '<div class="form-body">' +
+      ' <!-- json response will be here -->' +
+      '   <div id="errorDiv"></div>' +
+      '<!-- json response will be here -->' +
+      '<div class="form-group">' +
+      ' <div class="input-group">' +
+      ' <div class="input-group-addon"><span class="fa fa-user"></span></div>' +
+      '  <input name="nombre" type="text" id="name" class="form-control" placeholder="Nombre" maxlength="40" autofocus="true">' +
+      '</div>' +
+      '   <span class="help-block" id="error"></span>' +
+      '  </div>' +
+      ' <div class="form-group">' +
+      ' <div class="input-group">' +
+      '<div class="input-group-addon"><span class="fa fa-user"></span></div>' +
+      ' <input name="apellido" type="text" class="form-control" placeholder="Apellido">' +
+      ' </div>' +
+      '<span class="help-block" id="error"></span>' +
+      '</div> ' +
+      ' <div class="form-group">' +
+      ' <div class="input-group">' +
+      '<div class="input-group-addon"><span class="fa fa-envelope"></span></div>' +
+      '<input name="email" id="email" type="text" class="form-control" placeholder="Email" maxlength="50">' +
+      ' </div> ' +
+      '  <span class="help-block" id="error"></span> ' +
+      '</div>' +
+      ' <div class="row">' +
+      '<div class="form-group col-lg-6">' +
+      ' <div class="input-group">' +
+      ' <div class="input-group-addon"><span class="fa fa-lock"></span></div>' +
+      ' <input name="password" id="password" type="password" class="form-control" placeholder="Contraseña">' +
+      '</div>  ' +
+      ' <span class="help-block" id="error"></span> ' +
+      ' </div>' +
+      ' <div class="form-group col-lg-6">' +
+      ' <div class="input-group">' +
+      ' <div class="input-group-addon"><span class="fa fa-lock"></span></div>' +
+      '<input name="cpassword" type="password" class="form-control" placeholder="Repite la contraseña">' +
+      ' </div>  ' +
+      '<span class="help-block" id="error"></span> ' +
+      '</div>' +
+      ' </div>' +
+      ' </div>' +
+      ' <div class="form-footer">' +
+      '<button type="submit" class="btn btn-info btn-info-form" id="btn-signup">' +
+      '  <span class="fa fa-sign-in"></span> Registrarse' +
       '</button>' +
-      '<h3 class="modal-title registrarse__header__title">Registro de nuevo usuario</h3>' +
-      '</div>' +
-      ' <form method="POST" action="php/registro.php">' +
-      '<div class="modal-body registrarse__body">' +
-      '<input type="text" id="registrarse-nombre" name="nombre" class="registrarse__body__input registrarse__body__input--nombre" placeholder="Nombre">' +
-      '<input type="text" id="registrarse-apellidos" name="apellidos"class="registrarse__body__input registrarse__body__input--nombre" placeholder="Apellidos">' +
-      '<input type="email" id="registrarse-email" name="email"class="registrarse__body__input registrarse__body__input--email" placeholder="correo@ejemplo.com">' +
-      '<input type="email" id="registrarse-repiteemail" class="registrarse__body__input registrarse__body__input--email" placeholder="correo@ejemplo.com">' +
-      '<input type="password" maxlength="20" id="registrarse-password" name="password" class="registrarse__body__input registrarse__body__input--password" placeholder="Contraseña">' +
-      '<input type="password" maxlength="20" id="registrarse-repitepassword" class="registrarse__body__input registrarse__body__input--password" placeholder="Repite la Contraseña">' +
-      /*       '<div class="registrarse__body__remember"><input type="checkbox" id="remember" class="registrarse__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
-       */
-      '<input type="submit" id="registrarse-enviar" class="registrarse__body__entrar" value="Enviar">' +
-      '<input type="button" id="registrarse-reset" class="registrarse__body__entrar" value="Borrar">' +
-
-      '</div>' +
-      '</div>' +
-      '</div>' +
-      '</div>' +
-      '</div>' +
+      '<button type="reset" class="btn btn-info" id="btn-reset">' +
+      '  <span class="fa fa-eraser"></span> Borrar Datos' +
+      '</button>' +
+      ' </div>' +
+      ' </form>' +
+      ' </div>' +
+      ' </div>' +
+      ' </div>' +
+      ' </div>' +
+      ' </div>' +
       '<!-- Termina Div -->' +
       '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
 
     $("body").append(ventanaModal);
 
-    $("#login-entrar").on("click", login);
-
+    // $("#registrarse-entrar").on("click", registrarse);
     // $(document).on("click", loginout);
 
+    //caracteres validos para el nombre
+    var nameregex = /^[a-zA-Z ]+$/;
+		 
+		 $.validator.addMethod("validname", function( value, element ) {
+		     return this.optional( element ) || nameregex.test( value );
+		 }); 
+		 
+		 // valid email pattern
+		 var eregex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		 
+		 $.validator.addMethod("validemail", function( value, element ) {
+		     return this.optional( element ) || eregex.test( value );
+		 });
+		 
+		 $("#register-form").validate({
+					
+		  rules:
+		  {
+				name: {
+					required: true,
+					validname: true,
+					minlength: 4
+				},
+				apellido: {
+					required: true,
+					validname: true,
+					minlength: 4
+				  },
+				email : {
+				required : true,
+				validemail: true,
+				remote: {
+					url: "php/check-email.php",
+					type: "post",
+					data: {
+						email: function() {
+							return $( "#email" ).val();
+						}
+					}
+				}
+				},
+				password: {
+					required: true,
+					minlength: 6,
+					maxlength: 15
+				},
+				cpassword: {
+					required: true,
+					equalTo: '#password'
+				},
+		   },
+		   messages:
+		   {
+				name: {
+          required: "Por favor introduce el nombre",
+          validname: "El nombre solo puede tener letras y espacios",
+          minlength: "Tu nombre es muy corto"
+        },
+        apellido: {
+          required: "Por favor introduce el apellido",
+          validname: "El apellido solo puede tener letras y espacios",
+          minlength: "Tu apellido es muy corto"
+        },
+        email: {
+          required: "Por favor introduce un Email" ,
+          validemail: "Introduce una dirección de Email valida"
+        },
+        password: {
+          required: "Por favor introduce la contraseña",
+          minlength: "Minimo 8 caracteres"
+        },
+        cpassword: {
+          required: "Por favor repite la contraseña",
+          equalTo: "No coinciden las contraseñas"
+        }
+		   },
+		   errorPlacement : function(error, element) {
+			  $(element).closest('.form-group').find('.help-block').html(error.html());
+		   },
+		   highlight : function(element) {
+			  $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+		   },
+		   unhighlight: function(element, errorClass, validClass) {
+			  $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+			  $(element).closest('.form-group').find('.help-block').html('');
+		   },
+				submitHandler: submitForm
+		   }); 
+		   
+		   
+		   function submitForm(){
+			   $.ajax({
+			   		url: 'php/ajax-signup.php',
+			   		type: 'POST',
+			   		data: $('#register-form').serialize(),
+			   		dataType: 'json'
+			   })
+			   .done(function(data){
+			   		
+			   		$('#btn-signup').html('<img src="images/ajax-loader.gif" /> &nbsp; registrando...').prop('disabled', true);
+			   		$('input[type=text],input[type=email],input[type=password]').prop('disabled', true);
+			   		
+			   		setTimeout(function(){
+								   
+						if ( data.status==='success' ) {
+							
+							$('#errorDiv').slideDown('fast', function(){
+								$('#errorDiv').html('<div class="alert alert-info">'+data.message+'</div>');
+								$("#register-form").trigger('reset');
+								$('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
+								$('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
+							}).delay(3000).slideUp('fast');
+							
+									   
+					    } else {
+									   
+						    $('#errorDiv').slideDown('fast', function(){
+						      	$('#errorDiv').html('<div class="alert alert-danger">'+data.message+'</div>');
+							  	$("#register-form").trigger('reset');
+							  	$('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
+							  	$('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
+							}).delay(3000).slideUp('fast');
+						}
+								  
+					},3000);
+			   		
+			   })
+			   .fail(function(){
+			   		$("#register-form").trigger('reset');
+			   		alert('Ocurrio un error, prueba de nuevo mas tarde...');
+			   });
+		   }
+});
 
-  });
-    
-  $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", mostrarProductos);
+};
 
+$("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", mostrarProductos);
 
-
-
-}
 //Acaba el HOME --> ready del home /////////////////
 //////////////////////////////////////
 /////////////////////////
@@ -421,7 +589,7 @@ function mostrarBodyHome() {
     '</div>');
 
 
-    
+
 };
 
 function quitarMainBrowserMin() {
@@ -442,21 +610,21 @@ function mostrarMiddleContainer() {
   //   $("#titulo" + contador).html(url.nombre);
   //   contador++;
   // });
-  subcategoriasImagen.forEach(url=>{
+  subcategoriasImagen.forEach(url => {
     $("<div class='col-lg-4 col-md-6 mb-4'>" +
-    "<div class='card-body'>" +
-    " <h4 class='card-title'>" +
-    " <a id="+url.id+" href='#'>"+url.nombre+"</a>" +
-    "</div>" +
-    "<div class='card h-80'>" +
-    "<a href='#'>" +
-    "<img id="+url.id+" class='card-img-top' src="+'images/middle/'+url.imagen+" alt=''>" +
-    "</a>" +
-    "</div>" +
-    "</div>").appendTo("#contenedor-mid-interior");
+      "<div class='card-body'>" +
+      " <h4 class='card-title'>" +
+      " <a id=" + url.id + " href='#'>" + url.nombre + "</a>" +
+      "</div>" +
+      "<div class='card h-80'>" +
+      "<a href='#'>" +
+      "<img id=" + url.id + " class='card-img-top' src=" + 'images/middle/' + url.imagen + " alt=''>" +
+      "</a>" +
+      "</div>" +
+      "</div>").appendTo("#contenedor-mid-interior");
   });
   $(".card-title").on("click", mostrarProductos);
-  $(".card-img-top").on("click",mostrarProductos);
+  $(".card-img-top").on("click", mostrarProductos);
 
 };
 
@@ -483,12 +651,9 @@ function login() {
     $(".login__body__remember").css("margin-bottom", "13px");
   }
   if (loginVerify()) {
-    console.log("Respuesta: " + loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())));
     if (loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())) == "TRUE") {
-      console.log("Bien");
       // quitarLogin();      
     } else {
-      console.log("mal");
       loginBad();
     }
     //Acaba peticion AJAX
@@ -570,20 +735,15 @@ function loginVerifyServer(email, password) {
     dataType: 'JSON',
     success: function (json) {
       entra = true;
-      console.log(json);
       if (json["igual"] == "TRUE") {
         devolver = "TRUE";
         id = json["id"];
         logueado(json["nombre"], json["imagen"]);
-        console.log("Dentro de  la funcion: " + devolver);
       }
     },
-    error: function (jqXHR, status, error) {
-      console.log("Ocurrio un error al traer el usuario");
-    },
+    error: function (jqXHR, status, error) {},
   });
 
-  console.log("Fuera de la funcion AJAX: " + devolver);
   return devolver;
 }
 

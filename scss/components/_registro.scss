@@ -1,175 +1,100 @@
-.registrarse {}
+@charset "utf-8";
+/* CSS Document */
 
-.registrarse__header {
-    display: grid;
-    grid-template-columns: 5% 95%;
-    grid-template-rows: 5% 95%;
-    grid-template-areas: "cancel ." ". title";
+
+.signup-form-container {
+	border-radius:3px;
+	background:#ffffff;
+	border-top:3px solid #d2d6de;
+	margin:4% auto;
+	max-width:500px;
+	border-top-color:#00c0ef;
+	box-shadow:0 1px 5px rgba(0, 0, 0, 0.1)
 }
 
-.registrarse__header__cancel {
-    color: #515253;
-    grid-area: cancel;
-    justify-self: start;
+.form-header{
+	
+	color:#444;
+	display:block;
+	padding:20px;
+	position:relative;
+	border-bottom:1px solid #f4f4f4;
 }
 
-.registrarse__header__title {
-    color: #17a2b8;
-    grid-area: title;
-    justify-self: center;
-    margin-right: 5%;
+.form-header .form-title {
+	display:inline-block;
+	font-size:18px;
+	margin:0;
+	line-height:1
 }
 
-.registrarse__body {
-    color: #212121;
-    display: grid;
-    grid-template-columns: 50%; //50% para el form
-    grid-template-rows: repeat(2, 1fr) 10% 1fr;
-    grid-template-areas: "nombre apellidos" "email repiteemail" "password repitepassword" "enviar reset"; // "remember ." 
-    // "entrar .";
-    padding-top: 30px;
+.form-body {
+	border-top-left-radius:0;
+	border-top-right-radius:0;
+	border-bottom-right-radius:3px;
+	border-bottom-left-radius:3px;
+	padding:20px;
 }
 
-.registrarse__body__input {
-    margin-bottom: 15px;
-    height: 35px;
-    justify-self: center;
-    padding: 5px;
-    @include border-radius(5px);
-    outline: none !important;
-    border: 1px solid #b9b9b9;
-    font-size: 14px;
-    line-height: 1.42857143;
+.form-footer {
+	border-top-left-radius:0;
+	border-top-right-radius:0;
+	border-bottom-right-radius:3px;
+	border-bottom-left-radius:3px;
+	border-top:1px solid #f4f4f4;
+	padding:20px;
+	background-color:#fff
+}
+
+.form-control{
+	
+	font-size: 16px;
+    height: auto;
+    padding: 7px 9px;
+}
+.form-title{
+	font-size: 30px !important;
+}
+
+.has-success .form-control {
+    border-color: #3c763d;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
 }
 
-.registrarse__body__input:focus {
-    border-color: rgb(92, 166, 201);
-    box-shadow: 0 0 3px rgb(92, 166, 201);
+.has-success .form-control:focus {
+    border-color: #2b542c;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #67b168;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #67b168
 }
 
-#registrarse-nombre {
-    grid-area: nombre;
+.has-success .input-group-addon {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #3c763d
 }
 
-#registrarse-apellidos {
-    grid-area: apellidos;
+.has-success .form-control-feedback {
+    color: #3c763d
+}
+.has-error .form-control {
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
 }
 
-#registrarse-password {
-    grid-area: password;
+.has-error .form-control:focus {
+    border-color: #843534;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483
 }
 
-#registrarse-repitepassword {
-    grid-area: repitepassword;
+.has-error .input-group-addon {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #a94442
 }
 
-#registrarse-email {
-    grid-area: email;
-}
-
-#registrarse-repiteemail {
-    grid-area: repiteemail;
-}
-
-#registrarse-enviar {
-    grid-area: enviar;
-}
-
-#registrarse-reset{
-    grid-area: reset;
-}
-
-
-.registrarse__body__entrar {
-    justify-self: center;
-    padding: 5px 20px;
-    font-size: 14px;
-    margin-bottom: 20px;
-    outline: none !important; // pointer-events: none !important;
-    background-color: hsl(188, 68%, 53%);
-    @include border-radius(20px);
-    border: 1px solid rgb(56, 205, 228);
-    cursor: pointer;
-}
-
-.registrarse__body__entrar:hover {
-    background-color: rgb(29, 218, 247);
-    border: 1px solid rgb(56, 206, 230);
-}
-
-.registrarse__body__error {
-    grid-area: error;
-    justify-self: center;
-    color: red;
-    margin-bottom: 15px;
-    font-size: 14px;
-    margin-top: -7px;
-}
-
-.registrarse__body__remember {
-    grid-area: remember;
-    justify-self: center;
-    margin-bottom: 15px;
-    color: #838383;
-    font-size: 14px;
-    cursor: default;
-    height: 21px;
-    justify-content: center;
-    display: flex;
-    position: relative;
-}
-
-.registrarse__body__checkbox__text {
-    margin-left: 5px;
-    overflow: hidden;
-    margin-bottom: 0px;
-}
-
-.registrarse__body__checkbox {
-    @include appearance(none);
-    width: 18px;
-    background-color: #eee;
-    height: 16px;
-    border-radius: 2px;
-    align-self: center;
-    position: absolute;
-    left: -20px;
-}
-
-.registrarse__body__checkbox:hover {
-    background-color: #ccc;
-}
-
-.registrarse__body__checkbox:checked {
-    background-color: #17a2b8;
-}
-
-.registrarse__body__checkbox:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.registrarse__body__checkbox:checked::after {
-    display: block !important;
-}
-
-.registrarse__body__checkbox:after {
-    left: 6px;
-    width: 7px;
-    height: 14px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.registrarse__body__checkbox:focus {
-    outline: none;
+.has-error .form-control-feedback {
+    color: #a94442
 }
