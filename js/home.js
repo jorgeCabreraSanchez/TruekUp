@@ -82,8 +82,7 @@ function home() {
     } else {
       if (event.which == 13) {
         //Se muestran los productos relacionados con lo introducido
-        mostrarProductos(this);
-
+        prepararMostrarProductos();
       } else {
         if (!$("#main-desplegable-productos").hasClass("mostrar")) {
           $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
@@ -210,40 +209,40 @@ function home() {
 
   $("#login").on("click", () => {
 
-    $(document).on("click", event => {
-      loginout(event);
+    asignarEventoClickarFuera().then(() => {
+      $("body").addClass("modal-open");
+      $("#navbar").addClass("navbar-modal-open");
+      ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+        '<div class="modal-dialog window-dialog" role="document">' +
+        '<div class="modal-content login" id="window-modal">' +
+        '<div class="modal-header login__header">' +
+        '<button type="button" class="boton-invisible login__header__cancel">' +
+        '<i class="fa fa-times" aria-hidden="true"></i>' +
+        '</button>' +
+        '<h3 class="modal-title login__header__title">Log in</h3>' +
+        '</div>' +
+        '<div class="modal-body login__body">' +
+        '<input type="email" id="login-email" class="login__body__input login__body__input--email" placeholder="correo@ejemplo.com">' +
+        '<input type="password" maxlength="20" id="login-password" class="login__body__input login__body__input--password" placeholder="Contraseña">' +
+        '<div class="login__body__remember"><input type="checkbox" id="remember" class="login__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
+        '<input type="button" id="login-entrar" class="login__body__entrar" value="Entrar">' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<!-- Termina Div -->' +
+        '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
+
+      $("body").append(ventanaModal);
+
+      $("#login-entrar").on("click", login);
     });
 
-    $("body").addClass("modal-open");
-    $("#navbar").addClass("navbar-modal-open");
-    ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
-      '<div class="modal-dialog window-dialog" role="document">' +
-      '<div class="modal-content login" id="window-modal">' +
-      '<div class="modal-header login__header">' +
-      '<button type="button" class="boton-invisible login__header__cancel">' +
-      '<i class="fa fa-times" aria-hidden="true"></i>' +
-      '</button>' +
-      '<h3 class="modal-title login__header__title">Log in</h3>' +
-      '</div>' +
-      '<div class="modal-body login__body">' +
-      '<input type="email" id="login-email" class="login__body__input login__body__input--email" placeholder="correo@ejemplo.com">' +
-      '<input type="password" maxlength="20" id="login-password" class="login__body__input login__body__input--password" placeholder="Contraseña">' +
-      '<div class="login__body__remember"><input type="checkbox" id="remember" class="login__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
-      '<input type="button" id="login-entrar" class="login__body__entrar" value="Entrar">' +
-      '</div>' +
-      '</div>' +
-      '</div>' +
-      '</div>' +
-      '<!-- Termina Div -->' +
-      '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
-
-    $("body").append(ventanaModal);
-
-    $("#login-entrar").on("click", login);    
   });
+  //Termina clickar login
 
-  $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", mostrarProductos);
-  $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", mostrarProductos);
+  $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", prepararMostrarProductos);
+  $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", prepararMostrarProductos);
 }
 //Acaba el HOME --> ready del home /////////////////
 //////////////////////////////////////
@@ -374,8 +373,8 @@ function mostrarMiddleContainer() {
       "</div>" +
       "</div>").appendTo("#contenedor-mid-interior");
   });
-  $(".card-title").on("click", mostrarProductos);
-  $(".card-img-top").on("click", mostrarProductos);
+  $(".card-title").on("click", prepararMostrarProductos);
+  $(".card-img-top").on("click", prepararMostrarProductos);
 
 };
 
@@ -400,9 +399,9 @@ function login() {
     $(".login__body__remember").css("margin-bottom", "13px");
   }
   if (loginVerify()) {
-    loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())).then(response => {      
+    loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())).then(response => {
       if (response == "TRUE") {
-        quitarLoginRegister();      
+        quitarLoginRegister();
       } else {
         loginBad();
       }
@@ -415,17 +414,16 @@ function login() {
 }
 
 function loginout(event) {
-  console.log($("#modal-backdrop").length);  
-  if($("#modal-backdrop").length == 1){  
-    console.log(event);
-    console.log("Dentro");
+  if ($("#modal-backdrop").length == 1) {
     if ($(event.target).closest('#window-modal').length == 0) {
-      console.log("Clicka fuera");        
-      quitarLoginRegister();  
-      document.removeEventListener("click", event);      
+      quitarLoginRegister();
+      document.removeEventListener("click", event);
+      console.log("Clicka fuera");
     } else {
-      console.log("Clicka dentro");
+      //Clicka dentro
     }
+  } else {
+    console.log("No se ha quitado el elemento");
   }
 }
 
@@ -433,7 +431,7 @@ function quitarLoginRegister() {
   $("#miModal").remove();
   $("#modal-backdrop").remove();
   $("body").removeClass("modal-open");
-  $("#navbar").removeClass("navbar-modal-open");  
+  $("#navbar").removeClass("navbar-modal-open");
 }
 
 function logueado(nombre, imagen) {
@@ -477,88 +475,105 @@ async function loginVerifyServer(email, password) {
   } else {
     checked = "false";
   }
-  
-  return new Promise(function (resolve, reject) { //RESOLVER LA PROMISE o RECHAZAR
-      $.ajax({
-        url: 'php/login.php',
-        data: {
-          email: email,
-          password: password,
-          checked: checked
-        },
-        type: 'GET',
-        dataType: 'JSON',
-        success: function (json) {
-          if (json["igual"] == "TRUE") {
-            id = json["id"];
-            logueado(json["nombre"], json["imagen"]);
-            resolve("TRUE");
-          } else {
-            resolve("FALSE");
-          }
-        },
-        error: function (jqXHR, status, error) {
-          reject(Error("FALSE"));
-        },
-      });
-    });    
-    //Termina return
-  }
 
-  //Cargar productos de las subcategorias
-  function mostrarProductos() {
-    contador = 0;
-    console.log(that.value);
-    if ($(this).hasClass("dropdown__level2__link")) {
-      php = 'php/productos.php';
-    } else {
-      php = 'php/productosPalabraClave.php';
-    }
+  return new Promise(function (resolve, reject) { //RESOLVER LA PROMISE o RECHAZAR
     $.ajax({
-      url: php,
+      url: 'php/login.php',
       data: {
-        key: $(this)[0].id
+        email: email,
+        password: password,
+        checked: checked
       },
       type: 'GET',
-      dataType: 'json',
+      dataType: 'JSON',
       success: function (json) {
-        $("#contenedor-mid-interior").html("");
-
-        json.forEach(n => {
-          $("<div class='col-lg-4 col-md-6 mb-4'>" +
-            "<div class='card h-100'>" +
-            "<a href='#'><img class='card-img-top' src=" + n.imagen + " alt=''></a>" +
-            "<div class='card-body'>" +
-            "<h4 class='card-title'>" +
-            "<a href='#'>" + n.nombre + "</a>" +
-            "</h4>" +
-            "<h5>$24.99</h5>" +
-            "<p class='card-text'>" + n.descripcion + "</p>" +
-            "</div>" +
-            "<div class='card-footer'>" +
-            "<big id =" + n.id + "><i class='fa fa-star' aria-hidden='true'></i></big>" +
-            "</div>" +
-            "</div>" +
-            "</div>").appendTo("#contenedor-mid-interior");
-
-        });
-        $(".card").on("click", "div.card-footer", cambiarColor);
-
+        if (json["igual"] == "TRUE") {
+          id = json["id"];
+          logueado(json["nombre"], json["imagen"]);
+          resolve("TRUE");
+        } else {
+          resolve("FALSE");
+        }
       },
       error: function (jqXHR, status, error) {
-
-      }
-
+        reject(Error("FALSE"));
+      },
     });
+  });
+  //Termina return
+}
 
+function prepararMostrarProductos() {
+  if ($(this).hasClass("dropdown__level2__link")) {
+    php = 'php/productos.php';
+    var key = $(this)[0].id;
+  } else if ($(this).hasClass("dropdown__notlevel__link")) {
+    php = 'php/productosPalabraClave.php';
+    var key = $(this)[0].id;
+  } else {
+    php = 'php/productosPalabraClave.php';    
+    var key = $("#main-desplegable-productos").children()[0].children[0].id;
   }
+  mostrarProductos(key, php);
+}
 
+//Cargar productos de las subcategorias
+function mostrarProductos(key, php) {
+  $.ajax({
+    url: php,
+    data: {
+      key: key
+    },
+    type: 'GET',
+    dataType: 'json',
+    success: function (json) {
+      $("#contenedor-mid-interior").html("");
 
-  function cambiarColor() {
-    var id = this.children[0].id;
-    if ($("#" + id).hasClass("estrella-footer")) {
-      $("#" + id).removeClass("estrella-footer");
-    } else {
-      $("#" + id).addClass("estrella-footer");
+      json.forEach(n => {
+        $("<div class='col-lg-4 col-md-6 mb-4'>" +
+          "<div class='card h-100'>" +
+          "<a href='#'><img class='card-img-top' src=" + n.imagen + " alt=''></a>" +
+          "<div class='card-body'>" +
+          "<h4 class='card-title'>" +
+          "<a href='#'>" + n.nombre + "</a>" +
+          "</h4>" +
+          "<h5>$24.99</h5>" +
+          "<p class='card-text'>" + n.descripcion + "</p>" +
+          "</div>" +
+          "<div class='card-footer'>" +
+          "<big id =" + n.id + "><i class='fa fa-star' aria-hidden='true'></i></big>" +
+          "</div>" +
+          "</div>" +
+          "</div>").appendTo("#contenedor-mid-interior");
+
+      });
+      $(".card").on("click", "div.card-footer", cambiarColor);
+
+    },
+    error: function (jqXHR, status, error) {
+      console.log("Fallo en la peticion ajax para los productos");
     }
+
+  });
+
+}
+
+
+function cambiarColor() {
+  var id = this.children[0].id;
+  if ($("#" + id).hasClass("estrella-footer")) {
+    $("#" + id).removeClass("estrella-footer");
+  } else {
+    $("#" + id).addClass("estrella-footer");
   }
+}
+
+async function asignarEventoClickarFuera() {
+  return new Promise(function (resolve, reject) {
+    $(document).on("click", event => {
+      loginout(event);
+    })
+    resolve("Resuelto");
+  });
+
+}
