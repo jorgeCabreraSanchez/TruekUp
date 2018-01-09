@@ -51,7 +51,7 @@ function home() {
           subcategorias[id] = value.subcategorias;
           if (subcategoria.imagen != null && subcategoria.imagen.startsWith(estacion()) && i <= 3) {
             subcategoriasImagen[subcategoria.id] = {
-              'id':subcategoria.id,
+              'id': subcategoria.id,
               'nombre': subcategoria.nombre,
               'imagen': subcategoria.imagen
             };
@@ -83,7 +83,7 @@ function home() {
       if (event.which == 13) {
         //Se muestran los productos relacionados con lo introducido
         mostrarProductos(this);
-        
+
       } else {
         if (!$("#main-desplegable-productos").hasClass("mostrar")) {
           $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
@@ -141,7 +141,7 @@ function home() {
           palabrasClaveAmpliado = lista.filter(n => {
             return ~n.palabra.toLowerCase().indexOf($(this).val().toLowerCase());
           });
-          
+
           if (palabrasClaveAmpliado.length == 0) {
             value = {
               id: 0,
@@ -153,7 +153,7 @@ function home() {
               añadirPalabraclave(value);
             });
           }
-          
+
 
         }
         anterior = $(this).val();
@@ -208,7 +208,12 @@ function home() {
   });
 
 
-  $("#login").on("click", (event) => {
+  $("#login").on("click", () => {
+
+    $(document).on("click", event => {
+      loginout(event);
+    });
+
     $("body").addClass("modal-open");
     $("#navbar").addClass("navbar-modal-open");
     ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
@@ -234,13 +239,9 @@ function home() {
 
     $("body").append(ventanaModal);
 
-    $("#login-entrar").on("click", login);
-
-    // $(document).on("click", loginout);
-
-
+    $("#login-entrar").on("click", login);    
   });
-    
+
   $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", mostrarProductos);
   $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", mostrarProductos);
 }
@@ -347,7 +348,7 @@ function mostrarBodyHome() {
     '</div>');
 
 
-    
+
 };
 
 function quitarMainBrowserMin() {
@@ -360,21 +361,21 @@ function quitarMainBrowserMin() {
 }
 
 function mostrarMiddleContainer() {
-  subcategoriasImagen.forEach(url=>{
+  subcategoriasImagen.forEach(url => {
     $("<div class='col-lg-4 col-md-6 mb-4'>" +
-    "<div class='card-body'>" +
-    " <h4 class='card-title'>" +
-    " <a id="+url.id+" href='#'>"+url.nombre+"</a>" +
-    "</div>" +
-    "<div class='card h-80'>" +
-    "<a href='#'>" +
-    "<img id="+url.id+" class='card-img-top' src="+'images/middle/'+url.imagen+" alt=''>" +
-    "</a>" +
-    "</div>" +
-    "</div>").appendTo("#contenedor-mid-interior");
+      "<div class='card-body'>" +
+      " <h4 class='card-title'>" +
+      " <a id=" + url.id + " href='#'>" + url.nombre + "</a>" +
+      "</div>" +
+      "<div class='card h-80'>" +
+      "<a href='#'>" +
+      "<img id=" + url.id + " class='card-img-top' src=" + 'images/middle/' + url.imagen + " alt=''>" +
+      "</a>" +
+      "</div>" +
+      "</div>").appendTo("#contenedor-mid-interior");
   });
   $(".card-title").on("click", mostrarProductos);
-  $(".card-img-top").on("click",mostrarProductos);
+  $(".card-img-top").on("click", mostrarProductos);
 
 };
 
@@ -398,37 +399,42 @@ function login() {
     $(".login__body").css("grid-template-areas", "'email' 'password' 'rembember' 'entrar'");
     $(".login__body__remember").css("margin-bottom", "13px");
   }
-  if (loginVerify()) {  
-    console.log(loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())).then(v => {return v}));
-    if (loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())) == "TRUE") {    
-      // quitarLogin();      
-    } else {      
-      loginBad();
-    }
-    //Acaba peticion AJAX
+  if (loginVerify()) {
+    loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())).then(response => {      
+      if (response == "TRUE") {
+        quitarLoginRegister();      
+      } else {
+        loginBad();
+      }
+    });
+
+
   } else {
     loginBad();
   }
 }
 
-// function loginout() {
-//     console.log(this.target);
-//     console.log("Dentro");
-//     if ($(event.target).closest('#window-modal').length == 0) {
-//       console.log("Clicka fuera");        
-//       quitarLogin();        
-//     } else {
-//       console.log("Clicka dentro");
-//     }
-// }
+function loginout(event) {
+  console.log($("#modal-backdrop").length);  
+  if($("#modal-backdrop").length == 1){  
+    console.log(event);
+    console.log("Dentro");
+    if ($(event.target).closest('#window-modal').length == 0) {
+      console.log("Clicka fuera");        
+      quitarLoginRegister();  
+      document.removeEventListener("click", event);      
+    } else {
+      console.log("Clicka dentro");
+    }
+  }
+}
 
-// function quitarLogin() {
-//   $("#miModal").remove();
-//   $("#modal-backdrop").remove();
-//   $("body").removeClass("modal-open");
-//   $("#navbar").removeClass("navbar-modal-open");
-//   // document.removeEventListener("click", event);
-// }
+function quitarLoginRegister() {
+  $("#miModal").remove();
+  $("#modal-backdrop").remove();
+  $("body").removeClass("modal-open");
+  $("#navbar").removeClass("navbar-modal-open");  
+}
 
 function logueado(nombre, imagen) {
   while ($("#navbar-list").children().length != 1) {
@@ -471,87 +477,88 @@ async function loginVerifyServer(email, password) {
   } else {
     checked = "false";
   }
-
-  devolver = "FALSE";
-  await $.ajax({
-    url: 'php/login.php',
-    data: {
-      email: email,
-      password: password,
-      checked: checked
-    },
-    type: 'GET',
-    dataType: 'JSON',
-    success: function (json) {            
-      if (json["igual"] == "TRUE") {
-        devolver = "TRUE";
-        id = json["id"];
-        logueado(json["nombre"], json["imagen"]);
-        
-      }
-    },
-    error: function (jqXHR, status, error) {
-      console.log("Ocurrio un error al traer el usuario");
-    },
-  });
   
-  return devolver;
-}
-
-//Cargar productos de las subcategorias
-function mostrarProductos() {
-  contador = 0;   
-  console.log(that.value);
-  if($(this).hasClass("dropdown__level2__link")){
-    php = 'php/productos.php';
-  } else {
-    php = 'php/productosPalabraClave.php';
-  }
-  $.ajax({    
-    url: php,
-    data: {
-      key: $(this)[0].id
-    },
-    type: 'GET',
-    dataType: 'json',
-    success: function (json) {
-      $("#contenedor-mid-interior").html("");
-
-      json.forEach(n => {
-        $("<div class='col-lg-4 col-md-6 mb-4'>" +
-          "<div class='card h-100'>" +
-          "<a href='#'><img class='card-img-top' src=" + n.imagen + " alt=''></a>" +
-          "<div class='card-body'>" +
-          "<h4 class='card-title'>" +
-          "<a href='#'>" + n.nombre + "</a>" +
-          "</h4>" +
-          "<h5>$24.99</h5>" +
-          "<p class='card-text'>" + n.descripcion + "</p>" +
-          "</div>" +
-          "<div class='card-footer'>" +
-          "<big id =" + n.id + "><i class='fa fa-star' aria-hidden='true'></i></big>" +
-          "</div>" +
-          "</div>" +
-          "</div>").appendTo("#contenedor-mid-interior");
-
+  return new Promise(function (resolve, reject) { //RESOLVER LA PROMISE o RECHAZAR
+      $.ajax({
+        url: 'php/login.php',
+        data: {
+          email: email,
+          password: password,
+          checked: checked
+        },
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (json) {
+          if (json["igual"] == "TRUE") {
+            id = json["id"];
+            logueado(json["nombre"], json["imagen"]);
+            resolve("TRUE");
+          } else {
+            resolve("FALSE");
+          }
+        },
+        error: function (jqXHR, status, error) {
+          reject(Error("FALSE"));
+        },
       });
-      $(".card").on("click", "div.card-footer", cambiarColor);
-
-    },
-    error: function (jqXHR, status, error) {
-
-    }
-
-  });
-
-}
-
-
-function cambiarColor() {
-  var id = this.children[0].id;
-  if ($("#" + id).hasClass("estrella-footer")) {
-    $("#" + id).removeClass("estrella-footer");
-  } else {
-    $("#" + id).addClass("estrella-footer");
+    });    
+    //Termina return
   }
-}
+
+  //Cargar productos de las subcategorias
+  function mostrarProductos() {
+    contador = 0;
+    console.log(that.value);
+    if ($(this).hasClass("dropdown__level2__link")) {
+      php = 'php/productos.php';
+    } else {
+      php = 'php/productosPalabraClave.php';
+    }
+    $.ajax({
+      url: php,
+      data: {
+        key: $(this)[0].id
+      },
+      type: 'GET',
+      dataType: 'json',
+      success: function (json) {
+        $("#contenedor-mid-interior").html("");
+
+        json.forEach(n => {
+          $("<div class='col-lg-4 col-md-6 mb-4'>" +
+            "<div class='card h-100'>" +
+            "<a href='#'><img class='card-img-top' src=" + n.imagen + " alt=''></a>" +
+            "<div class='card-body'>" +
+            "<h4 class='card-title'>" +
+            "<a href='#'>" + n.nombre + "</a>" +
+            "</h4>" +
+            "<h5>$24.99</h5>" +
+            "<p class='card-text'>" + n.descripcion + "</p>" +
+            "</div>" +
+            "<div class='card-footer'>" +
+            "<big id =" + n.id + "><i class='fa fa-star' aria-hidden='true'></i></big>" +
+            "</div>" +
+            "</div>" +
+            "</div>").appendTo("#contenedor-mid-interior");
+
+        });
+        $(".card").on("click", "div.card-footer", cambiarColor);
+
+      },
+      error: function (jqXHR, status, error) {
+
+      }
+
+    });
+
+  }
+
+
+  function cambiarColor() {
+    var id = this.children[0].id;
+    if ($("#" + id).hasClass("estrella-footer")) {
+      $("#" + id).removeClass("estrella-footer");
+    } else {
+      $("#" + id).addClass("estrella-footer");
+    }
+  }
