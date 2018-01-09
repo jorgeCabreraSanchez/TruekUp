@@ -448,8 +448,8 @@ function home() {
               // })
 
 
-              // $('.modal-auto-clear').remove;
-              // $('.modal-backdrop').remove;
+              $('.modal-auto-clear').remove();
+              $('.modal-backdrop').remove();
 
               }).delay(3000).slideUp('fast');
 
