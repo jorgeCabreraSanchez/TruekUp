@@ -337,7 +337,7 @@ function home() {
     $("#register-form").validate({
 
       rules: {
-        name: {
+        nombre: {
           required: true,
           validname: true,
           minlength: 4
