@@ -339,41 +339,6 @@ function mostrarBodyHome() {
 
     '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>' +
 
-    // '<div class="col-lg-4 col-md-6 mb-4">' +
-    // '<div class="card-body">' +
-    // ' <h4 class="card-title">' +
-    // ' <a id="titulo1" class="titulo-categoria"href="#"></a>' +
-    // '</div>' +
-    // ' <div class="card h-80">' +
-    // '<a id="imagen-cat href="#">' +
-    // '<img id="img1" class="card-img-top" src="./images/middle/" alt="">' +
-    // '</a>' +
-    // '</div>' +
-    // '</div>' +
-
-    // '<div class="col-lg-4 col-md-6 mb-4">' +
-    // '<div class="card-body">' +
-    // ' <h4 class="card-title">' +
-    // ' <a id="titulo2" href="#"></a>' +
-    // '</div>' +
-    // ' <div class="card h-80">' +
-    // '<a href="#">' +
-    // '<img id="img2" class="card-img-top" src="./images/middle/" alt="">' +
-    // '</a>' +
-    // '</div>' +
-    // '</div>' +
-
-    // '<div class="col-lg-4 col-md-6 mb-4">' +
-    // '<div class="card-body">' +
-    // ' <h4 class="card-title">' +
-    // ' <a id="titulo3" href="#"></a>' +
-    // '</div>' +
-    // ' <div class="card h-80">' +
-    // '<a href="#">' +
-    // '<img id="img3" class="card-img-top" src="./images/middle/" alt="">' +
-    // '</a>' +
-    // '</div>' +
-    // '</div>' +
     '</div>' +
     '</div>' +
     '</div>');
@@ -392,19 +357,11 @@ function quitarMainBrowserMin() {
 }
 
 function mostrarMiddleContainer() {
-  // contador = 1;
-  // subcategoriasImagen.forEach(url => {
-
-  //   nombreEntero = $("#img" + contador).attr("src") + url.imagen;
-  //   $("#img" + contador).attr("src", nombreEntero);
-  //   $("#titulo" + contador).html(url.nombre);
-  //   contador++;
-  // });
   subcategoriasImagen.forEach(url=>{
     $("<div class='col-lg-4 col-md-6 mb-4'>" +
     "<div class='card-body'>" +
     " <h4 class='card-title'>" +
-    " <a id="+url.id+" href='#'>"+url.nombre+"</a>" +
+    " <a  class='tituloDeporte' id="+url.id+" href='#'>"+url.nombre+"</a>" +
     "</div>" +
     "<div class='card h-80'>" +
     "<a href='#'>" +
@@ -413,7 +370,7 @@ function mostrarMiddleContainer() {
     "</div>" +
     "</div>").appendTo("#contenedor-mid-interior");
   });
-  $(".card-title").on("click", mostrarProductos);
+  $(".tituloDeporte").on("click", mostrarProductos);
   $(".card-img-top").on("click",mostrarProductos);
 
 };
@@ -564,7 +521,6 @@ function mostrarProductos() {
           "<h4 class='card-title'>" +
           "<a href='#'>" + n.nombre + "</a>" +
           "</h4>" +
-          "<h5>$24.99</h5>" +
           "<p class='card-text'>" + n.descripcion + "</p>" +
           "</div>" +
           "<div class='card-footer'>" +
