@@ -153,6 +153,11 @@ body {
   text-align: center;
 }
 
+.producto-titulo-centrar {
+  display: flex;
+  justify-content: center;
+}
+
 .navbar-list__item {
   display: flex;
   padding-bottom: 10px !important;
@@ -426,6 +431,10 @@ body {
   color: #636363 !important;
 }
 
+.boton-invisible-producto {
+  color: blue;
+}
+
 .window-modal {
   opacity: 1 !important;
   display: block;
@@ -646,10 +655,6 @@ body {
 
 .login__body__checkbox:focus {
   outline: none;
-}
-
-.estrella-footer {
-  color: #f8fc02d2;
 }
 
 .estrella-footer {

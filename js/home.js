@@ -518,8 +518,8 @@ function mostrarProductos() {
           "<div class='card h-100'>" +
           "<a href='#'><img class='card-img-top' src=" + n.imagen + " alt=''></a>" +
           "<div class='card-body'>" +
-          "<h4 class='card-title'>" +
-          "<a href='#'>" + n.nombre + "</a>" +
+          "<h4 class='card-title producto-titulo-centrar'>" +
+          "<button class=' boton-invisible boton-invisible-producto'>" + n.nombre + "</button>" +
           "</h4>" +
           "<p class='card-text'>" + n.descripcion + "</p>" +
           "</div>" +
