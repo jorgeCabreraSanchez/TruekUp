@@ -23,18 +23,25 @@ function home() {
       subcategoriasImagen = [];
       subcategorias = [];
       //Recorro las categorias
+      var frasesCarruselTemporal = frasesCarrusel.slice();
+      // var contador = 0;
       $.each(json, (id, value) => {
         //Cargo el carousel
+
         if (value.imagen != null) {
           if (first) {
             first = false;
+            aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
+            seleccion = frasesCarruselTemporal[aleatorio];
             $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
-              '<h1>Amplia tus horizontes</h1>' +
+              '<h1>'+seleccion+'</h1>' +
               '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>').appendTo('#indicators');
           } else {
+            aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
+            seleccion = frasesCarruselTemporal[aleatorio];
             $('<div class="carousel-item"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
-              '<h1>Amplia tus horizontes</h1>' +
+            '<h1>'+seleccion+'</h1>' +
               '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="' + contador + '"></li>').appendTo('#indicators');
             contador++;
@@ -234,12 +241,12 @@ function home() {
       $("body").append(ventanaModal);
 
       $("#login-entrar").on("click", login);
-      $("#login-password").on("keyup",event => {
-        if(event.which == 8){
+      $("#login-password").on("keyup", event => {
+        if (event.which == 8) {
           login();
         }
       });
-      
+
     });
 
   });
@@ -309,7 +316,7 @@ function home() {
       '<button type="reset" class="btn btn-info btn-info-form" id="btn-reset">' +
       '  <span class="fa fa-eraser"></span> Borrar Datos' +
       '</button>' +
-      '<button type="button" class="btn btn-info btn-info-form" data-dismiss="modal id="btn-cerrar">' +
+      '<button type="button" class="btn btn-info btn-info-form" id="btn-cerrar">' +
       '  <span class="fa fa-times""></span> Cerrar' +
       '</button>' +
       // $('#miModal').modal('hide');
@@ -323,13 +330,13 @@ function home() {
       '<!-- Termina Div -->' +
       '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
 
-
-
-
     $("body").append(ventanaModal);
 
-    // $("#registrarse-entrar").on("click", registrarse);
-    // $(document).on("click", loginout);
+    $("#btn-cerrar").on("click", function () {
+      $('.modal-auto-clear').remove();
+      $('.modal-backdrop').remove();
+    });
+
 
     //caracteres validos para el nombre
     var nameregex = /^[a-zA-Z ]+$/;
@@ -382,7 +389,7 @@ function home() {
         },
       },
       messages: {
-        name: {
+        nombre: {
           required: "Por favor introduce el nombre",
           validname: "El nombre solo puede tener letras y espacios",
           minlength: "Tu nombre es muy corto"
@@ -442,25 +449,12 @@ function home() {
                 $('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
                 $('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
 
-                //PRUEBAS CIERRE AUTOMATICO
-
-                //  modal-backdrop
-                //   miModal         
-                // $('#miModal').modal('hide');
-                // $('body').removeClass('modal-open');
-                // $('.modal-backdrop').remove();
-
-              //   var myModal = $('#miModal').on('shown', function () {
-              //     clearTimeout(myModal.data('hideInteval'))
-              //     var id = setTimeout(function(){
-              //         myModal.modal('hide');
-              //     });
-              //     myModal.data('hideInteval', id);
-              // })
-
-
-              $('.modal-auto-clear').remove();
-              $('.modal-backdrop').remove();
+                setTimeout(function () {
+                  $('.modal-auto-clear').remove();
+                }, 3000);
+                setTimeout(function () {
+                  $('.modal-backdrop').remove();
+                }, 3000);
 
               }).delay(3000).slideUp('fast');
 
@@ -490,7 +484,7 @@ function home() {
   $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", prepararMostrarProductos);
 };
 
-  //Termina clickar login
+//Termina clickar login
 
 //Acaba el HOME --> ready del home /////////////////
 //////////////////////////////////////
@@ -761,7 +755,7 @@ function prepararMostrarProductos() {
     php = 'php/productosPalabraClave.php';
     var key = $(this)[0].id;
   } else {
-    php = 'php/productosPalabraClave.php';    
+    php = 'php/productosPalabraClave.php';
     var key = $("#main-desplegable-productos").children()[0].children[0].id;
   }
   mostrarProductos(key, php);
@@ -807,7 +801,14 @@ function mostrarProductos(key, php) {
   });
 
 }
-
+var frasesCarrusel = ["Amplia tus horizontes",
+  "Los grandes logros requieren tiempo y paciencia",
+  "Todo lo que sea capaz de creer, eres capaz de conseguir",
+  "El 90% del éxito se basa en el esfuerzo",
+  "No te ahogarás por caerte en el mar, sino por no salir de él",
+  "Tu nivel de esfuerzo determinará tu éxito",
+  "Olvídate del reloj y sigue su paso, adelante"
+];
 
 function cambiarColor() {
   var id = this.children[0].id;
