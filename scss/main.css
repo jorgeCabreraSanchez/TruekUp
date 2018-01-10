@@ -155,8 +155,9 @@ body {
 
 .navbar-list__item {
   display: flex;
-  padding-bottom: 10px !important;
-  padding-top: 10px !important;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  height: 40px;
 }
 
 @media (min-width: 992px) {
@@ -171,10 +172,15 @@ body {
 .navbar-list__item--perfil {
   border-left: 1px solid rgba(255, 255, 255, 0.5);
   padding-left: 10px !important;
+  font-weight: 900;
 }
 
 .navbar-list__item__imagen {
   margin-left: 10px;
+  border-radius: 15px !important;
+  -webkit-border-radius: 15px !important;
+  -moz-border-radius: 15px !important;
+  -o-border-radius: 15px !important;
 }
 
 .browser {
@@ -502,6 +508,7 @@ body {
   color: #515253;
   grid-area: cancel;
   justify-self: start;
+  cursor: pointer;
 }
 
 .login__header__title {
