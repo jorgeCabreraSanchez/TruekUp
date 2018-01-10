@@ -8,6 +8,7 @@ function home() {
   mostrarNavHome();
   mostrarBodyHome();
   loginVerifyServer(null, null);
+  
 
   $('.carousel').carousel({
     interval: 4000
