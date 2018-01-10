@@ -29,6 +29,16 @@ CREATE TABLE IF NOT EXISTS `busquedaproductos` (
 
 -- Volcando datos para la tabla bdtruekup.busquedaproductos: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `busquedaproductos` DISABLE KEYS */;
+INSERT INTO `busquedaproductos` (`idProducto`, `idPalabraClave`) VALUES
+	(7, 1),
+	(7, 2),
+	(7, 3),
+	(10, 8),
+	(10, 9),
+	(10, 12),
+	(11, 4),
+	(11, 10),
+	(11, 12);
 /*!40000 ALTER TABLE `busquedaproductos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtruekup.categorias
