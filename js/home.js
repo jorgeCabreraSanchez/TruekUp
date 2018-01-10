@@ -680,7 +680,7 @@ function mostrarProductos(key, php) {
         $("<div class='col-lg-4 col-md-6 mb-4'>" +
           "<div class='card card-cascade narrower'>" +
           "<div class='view overlay hm-white-slight hm-zoom'>" +
-          "<img class='img-fluid' src=" + n.imagen + " alt=''>" +
+          "<img class='img-fluid-producto' src=" + n.imagen + " alt=''>" +
           "<a>" +
           "<div class='mask waves-effect waves-light'></div>" +
           "</a>" +
