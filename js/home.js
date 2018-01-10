@@ -35,14 +35,14 @@ function home() {
             aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
             seleccion = frasesCarruselTemporal[aleatorio];
             $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
-              '<h1>'+seleccion+'</h1>' +
+              '<h1>' + seleccion + '</h1>' +
               '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>').appendTo('#indicators');
           } else {
             aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
             seleccion = frasesCarruselTemporal[aleatorio];
             $('<div class="carousel-item"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
-            '<h1>'+seleccion+'</h1>' +
+              '<h1>' + seleccion + '</h1>' +
               '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="' + contador + '"></li>').appendTo('#indicators');
             contador++;
@@ -336,6 +336,8 @@ function home() {
     $("#btn-cerrar").on("click", function () {
       $('.modal-auto-clear').remove();
       $('.modal-backdrop').remove();
+      $('body').removeClass('modal-open');
+
     });
 
 
@@ -407,7 +409,7 @@ function home() {
         },
         password: {
           required: "Por favor introduce la contraseña",
-          minlength: "Minimo 8 caracteres"
+          minlength: "Minimo 6 caracteres"
         },
         cpassword: {
           required: "Por favor repite la contraseña",
@@ -452,9 +454,8 @@ function home() {
 
                 setTimeout(function () {
                   $('.modal-auto-clear').remove();
-                }, 3000);
-                setTimeout(function () {
                   $('.modal-backdrop').remove();
+                  $('body').removeClass('modal-open');
                 }, 3000);
 
               }).delay(3000).slideUp('fast');
@@ -675,12 +676,12 @@ function mostrarProductos(key, php) {
       json.forEach(n => {
         $("<div class='col-lg-4 col-md-6 mb-4'>" +
           "<div class='card card-cascade narrower'>" +
-          "<div class='view overlay hm-white-slight hm-zoom'>"+
+          "<div class='view overlay hm-white-slight hm-zoom'>" +
           "<img class='img-fluid' src=" + n.imagen + " alt=''>" +
-          "<a>"+
-          "<div class='mask waves-effect waves-light'></div>"+
-          "</a>"+
-          "</div>"+
+          "<a>" +
+          "<div class='mask waves-effect waves-light'></div>" +
+          "</a>" +
+          "</div>" +
           "<div class='card-body'>" +
           "<h4 class='card-title producto-titulo-centrar'>" +
           "<button class=' boton-invisible boton-invisible-producto'>" + n.nombre + "</button>" +
@@ -692,7 +693,7 @@ function mostrarProductos(key, php) {
           "</div>" +
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
-        
+
 
 
       });
