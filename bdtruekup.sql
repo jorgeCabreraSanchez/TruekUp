@@ -27,8 +27,18 @@ CREATE TABLE IF NOT EXISTS `busquedaproductos` (
   CONSTRAINT `FK_producto` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.busquedaproductos: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.busquedaproductos: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `busquedaproductos` DISABLE KEYS */;
+INSERT INTO `busquedaproductos` (`idProducto`, `idPalabraClave`) VALUES
+	(7, 1),
+	(7, 2),
+	(7, 3),
+	(10, 8),
+	(10, 9),
+	(10, 12),
+	(11, 4),
+	(11, 10),
+	(11, 12);
 /*!40000 ALTER TABLE `busquedaproductos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtruekup.categorias
@@ -36,20 +46,35 @@ CREATE TABLE IF NOT EXISTS `categorias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) NOT NULL,
   `imagen` varchar(100) DEFAULT NULL,
+  `icono` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla bdtruekup.categorias: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` (`id`, `nombre`, `imagen`) VALUES
-	(1, 'Acuaticos', 'images/carousel/surf-1150x350.png'),
-	(2, 'Extremos', 'images/carousel/bici-1150x350.png'),
-	(3, 'Invierno', 'images/carousel/esqui-1150x350.png'),
-	(4, 'Montaña', 'images/carousel/senderista.png'),
-	(5, 'Motor', 'images/carousel/motor.png'),
-	(6, 'Pelota', 'images/carousel/entrenamiento_baloncesto.png');
+INSERT INTO `categorias` (`id`, `nombre`, `imagen`, `icono`) VALUES
+	(1, 'Acuaticos', 'images/carousel/surf-1150x350.png', 'images/iconos/sea.png'),
+	(2, 'Extremos', 'images/carousel/bici-1150x350.png', 'images/iconos/bungee-jumping.png'),
+	(3, 'Invierno', 'images/carousel/esqui-1150x350.png', 'images/iconos/snowflake.png'),
+	(4, 'Montaña', 'images/carousel/senderista.png', 'images/iconos/goal.png'),
+	(5, 'Motor', 'images/carousel/motor.png', 'images/iconos/engine.png'),
+	(6, 'Pelota', 'images/carousel/entrenamiento_baloncesto.png', 'images/iconos/yoga-ball.png');
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
+
+-- Volcando estructura para tabla bdtruekup.deseados
+CREATE TABLE IF NOT EXISTS `deseados` (
+  `idUsuario` int(11) NOT NULL,
+  `idProducto` int(11) NOT NULL,
+  PRIMARY KEY (`idUsuario`,`idProducto`),
+  KEY `FK_Productos` (`idProducto`),
+  CONSTRAINT `FK_Productos` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_Usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Volcando datos para la tabla bdtruekup.deseados: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `deseados` DISABLE KEYS */;
+/*!40000 ALTER TABLE `deseados` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtruekup.palabrasclave
 CREATE TABLE IF NOT EXISTS `palabrasclave` (
@@ -89,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   CONSTRAINT `FK_categorias` FOREIGN KEY (`idSubcategoria`) REFERENCES `subcategorias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.productos: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.productos: ~22 rows (aproximadamente)
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
 INSERT INTO `productos` (`id`, `idSubcategoria`, `nombre`, `descripcion`, `imagen`) VALUES
 	(7, 1, 'Balón de baloncesto tarmak 300 azul kipsta', 'Balón ideal para jugar en el exterior. Su revestimiento de caucho le proporciona una excelente resistencia y su diseño específico ofrece un agarre perfecto.', 'images/productos/pelota/baloncesto/balon.png'),
@@ -128,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `subcategorias` (
   CONSTRAINT `FKCategoria` FOREIGN KEY (`idCategoria`) REFERENCES `categorias` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.subcategorias: ~18 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.subcategorias: ~32 rows (aproximadamente)
 /*!40000 ALTER TABLE `subcategorias` DISABLE KEYS */;
 INSERT INTO `subcategorias` (`id`, `nombre`, `idCategoria`, `imagen`, `icono`) VALUES
 	(1, 'Baloncesto', 6, NULL, 'images/iconos/012-basketball.png'),
@@ -173,14 +198,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` varchar(50) NOT NULL,
   `contraseña` varchar(1000) NOT NULL,
   `imagen` varchar(50) NOT NULL DEFAULT '0.jpg',
+  `fechaAlta` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla bdtruekup.usuarios: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `email`, `contraseña`, `imagen`) VALUES
-	(1, 'jorge', 'cabrera sánchez', 'jorge@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0.jpg');
+INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `email`, `contraseña`, `imagen`, `fechaAlta`) VALUES
+	(3, 'jorge', 'cabrera sánchez', 'jorge@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0.jpg', '2018-01-10 20:29:25');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
