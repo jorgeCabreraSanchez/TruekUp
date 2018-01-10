@@ -29,16 +29,6 @@ CREATE TABLE IF NOT EXISTS `busquedaproductos` (
 
 -- Volcando datos para la tabla bdtruekup.busquedaproductos: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `busquedaproductos` DISABLE KEYS */;
-INSERT INTO `busquedaproductos` (`idProducto`, `idPalabraClave`) VALUES
-	(7, 1),
-	(7, 2),
-	(7, 3),
-	(10, 8),
-	(10, 9),
-	(10, 12),
-	(11, 4),
-	(11, 10),
-	(11, 12);
 /*!40000 ALTER TABLE `busquedaproductos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtruekup.categorias
@@ -114,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   CONSTRAINT `FK_categorias` FOREIGN KEY (`idSubcategoria`) REFERENCES `subcategorias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.productos: ~22 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.productos: ~31 rows (aproximadamente)
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
 INSERT INTO `productos` (`id`, `idSubcategoria`, `nombre`, `descripcion`, `imagen`) VALUES
 	(7, 1, 'Balón de baloncesto tarmak 300 azul kipsta', 'Balón ideal para jugar en el exterior. Su revestimiento de caucho le proporciona una excelente resistencia y su diseño específico ofrece un agarre perfecto.', 'images/productos/pelota/baloncesto/balon.png'),
@@ -138,7 +128,16 @@ INSERT INTO `productos` (`id`, `idSubcategoria`, `nombre`, `descripcion`, `image
 	(26, 24, 'Botas Radar Prime', 'Las Prime son unas botas de ski acuático básicas pero que ofrecen un increible rendimiento.', 'images/productos/acuaticos/skiacuatico/botas.png'),
 	(27, 25, 'Tabla Goya Bolt ', 'Tiene praticamente las prestaciones de una tabla de slalom en velocidad y aceleración.Menos técnica, mas fácil de llevar, y mas manejable.', 'images/productos/acuaticos/windsurf/tabla.png'),
 	(28, 25, 'Vela Prolimit Powerkid', 'Mástil de dos piezas de fibra.Botavara de diametro fino, muy ligera y diseñada para los mas pequeños.', 'images/productos/acuaticos/windsurf/vela.png'),
-	(29, 25, 'Arnes Dakine T7', 'Arnés de windsurf Dakine T7, para windsurfistas que quieran las máximas prestaciones en uno de los mejores arneses para para windsurf.  Con pre curva deformada, interior en espuma inteligente, con doble cinturón una de las mejores compras.', 'images/productos/acuaticos/windsurf/arnes.png');
+	(29, 25, 'Arnes Dakine T7', 'Arnés de windsurf Dakine T7, para windsurfistas que quieran las máximas prestaciones en uno de los mejores arneses para para windsurf.  Con pre curva deformada, interior en espuma inteligente, con doble cinturón una de las mejores compras.', 'images/productos/acuaticos/windsurf/arnes.png'),
+	(30, 15, 'Fischer Ranger 90 TI', 'Un rendimiento fiable en todos los terrenos: en polvo, pistas y terrenos difíciles - el Ranger 90 Ti le da estabilidad en todas las situaciones. Gracias al carbono y la pared lateral.', 'images/productos/invierno/sky/skiInvierno.png'),
+	(31, 15, 'Blizzard Brahma', 'Potente Rendimiento Todo Terreno En Todo Tipo De Condiciones De Nieve. Nuestra Más Reciente Construcción Powerdrive Free Desprende Una Potencia Suave Y Dinámica, Una Energía Juguetona, Y Un Agarre Revolucionario.', 'images/productos/invierno/sky/skyInvierno1.png'),
+	(32, 15, 'Atomic Hawx Prime 110', 'El botín de talla media más vendido del mundo.El aislamiento Thinsulate TM 3M ™ mantiene tus pies tan cálidos y cómodos como podrías desear. ', 'images/productos/invierno/sky/botasSky.png'),
+	(33, 17, 'K2 Raygun Snowboard', 'La construcción ICG Glass ™ infunde carbono en este núcleo de madera ya de amapola para una sensación aún más activa y poder direccional.', 'images/productos/invierno/snow/snow.png'),
+	(34, 17, 'Dc shoes Mora Boax', ' Botas de snowboard con sistema de cierre BOA para Mujer.Sistema de cierre Dual Boa con carrete H3 Coiler,suela de goma Contact Unilite.', 'images/productos/invierno/snow/botasSnow.png'),
+	(35, 17, 'Nitro Zero', 'El marco base Stealth Open AIR proporciona una flexión media e incorpora nuestro MINI DISC 2 × 4, para proporcionar la mejor sensación de tabla real y flexibilidad debajo del pie.', 'images/productos/invierno/snow/fijacion.png'),
+	(36, 18, 'Vasak Flexlock', 'El Vasak Flexlock es un crampón clásico de para uso general en montañismo. Diseñado como crampón de marcha y ascensiones clásicas sobre nieve y hielo alpino. ', 'images/productos/invierno/alpinismo/pielet.png'),
+	(37, 18, 'Viper Adze Black diamond', 'El Black Diamond Viper es un novedoso piolet con cabeza modular que permite sustituir la hoja, la pala o la maza. ', 'images/productos/invierno/alpinismo/piolet.png'),
+	(38, 18, 'SITTA', 'El Sitta es el nuevo arnés de Petzl, diseñado para expertos y profesionales de cualquier actividad en el mundo vertical como, escalada deportiva, clásica, en hielo o alpinismo ya sea técnico o clásico.', 'images/productos/invierno/alpinismo/arnes.png');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtruekup.subcategorias

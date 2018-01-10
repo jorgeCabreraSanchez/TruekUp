@@ -156,6 +156,7 @@ body {
 .producto-titulo-centrar {
   display: flex;
   justify-content: center;
+  color: blue;
 }
 
 .navbar-list__item {

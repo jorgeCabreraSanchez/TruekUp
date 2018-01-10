@@ -1,20 +1,18 @@
-.boton-invisible{
-    display:flex;    
+.boton-invisible {
+    display: flex;
     background-color: transparent;
     border: 0px;
     outline: none !important;
     vertical-align: center;
-    padding: 0px !important;        
+    padding: 0px !important;
 }
 
-.boton-invisible__icon{
+.boton-invisible__icon {
     width: 100% !important;
     font-size: 30px;
     color: hsl(0, 0%, 39%) !important;
 }
-.boton-invisible-producto{
-    color:blue;
-    
-    
-}
 
+.boton-invisible-producto {
+    color: blue;   
+}

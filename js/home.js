@@ -77,15 +77,15 @@ function home() {
     }
   });
   //Acaba petición AJAX
-
+    
   //Si escribe se autocompleta
-  $("#main-browser").on("keyup", function () {
+  $("#main-browser").on("keyup", function(event){
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
       $("#main-desplegable-productos").children().remove();
       anterior = undefined;
-    } else {
+    } else {      
       if (event.which == 13) {
         //Se muestran los productos relacionados con lo introducido
         prepararMostrarProductos();
@@ -102,7 +102,7 @@ function home() {
         }
 
 
-        if ($(this).val().length == 1 && typeof anterior === 'undefined') {
+        if ($(this).val().length == 1 && typeof anterior === 'undefined') {          
           $.ajax({
             url: 'php/autocompletar.php',
             data: {
@@ -129,7 +129,7 @@ function home() {
               }
             },
             error: function (jqXHR, status, error) {
-              //No digo nada
+              console.log("Error al traer las palabras clave");
             }
           });
           //Acaba peticion Ajax       
@@ -607,18 +607,18 @@ function mostrarMiddleContainer() {
   subcategoriasImagen.forEach(url => {
     $("<div class='col-lg-4 col-md-6 mb-4'>" +
       "<div class='card-body'>" +
-      " <h4 class='card-title'>" +
-      " <a id=" + url.id + " href='#'>" + url.nombre + "</a>" +
+      " <h4 class='card-title producto-titulo-centrar' id=" + url.id + ">" +
+      " <button class='boton-invisible boton-invisible-producto'>" + url.nombre + "</button>" +
       "</div>" +
-      "<div class='card h-80'>" +
-      "<a href='#'>" +
-      "<img id=" + url.id + " class='card-img-top' src=" + 'images/middle/' + url.imagen + " alt=''>" +
-      "</a>" +
+      "<div id='conteiner-imagen-deporte-temporada' class='card h-80'>" +
+      "<button id=" + url.id + " class='boton-invisible'>" +
+      "<img  class='card-img-top' src=" + 'images/middle/' + url.imagen + " alt=''>" +
+      "</button>" +
       "</div>" +
       "</div>").appendTo("#contenedor-mid-interior");
   });
   $(".card-title").on("click", prepararMostrarProductos);
-  $(".card-img-top").on("click", prepararMostrarProductos);
+  $("#conteiner-imagen-deporte-temporada").on("click","button", prepararMostrarProductos);
 
 };
 
@@ -647,16 +647,19 @@ function añadirPalabraclave(value) {
 
 
 
-function prepararMostrarProductos() {
+function prepararMostrarProductos() {  
   if ($(this).hasClass("dropdown__level2__link")) {
     php = 'php/productos.php';
     var key = $(this)[0].id;
   } else if ($(this).hasClass("dropdown__notlevel__link")) {
     php = 'php/productosPalabraClave.php';
     var key = $(this)[0].id;
+  } else if($(this).hasClass("card-title") || $(this).parent().is("#conteiner-imagen-deporte-temporada")){
+    php = 'php/productos.php';
+    var key = $(this)[0].id;
   } else {
     php = 'php/productosPalabraClave.php';
-    var key = $("#main-desplegable-productos").children()[0].children[0].id;
+    var key = $("#main-desplegable-productos").children()[0].children[0].id;    
   }
   mostrarProductos(key, php);
 }

@@ -6,15 +6,15 @@ if ($conn->error) {
 
 $sql="SELECT * FROM palabrasclave where palabra like '%" . $_GET["key"] ."%' ORDER BY length(palabra)";
 
-$productos=[];
+$palabras=[];
 
 if ($stmt = $conn -> prepare($sql)) {
     $stmt -> execute();
-    $stmt -> bind_result($id, $idSubcategoria, $nombre, $descripcion, $imagen, $palabrasClave);
+    $stmt -> bind_result($id, $palabra);
     while ($stmt->fetch()) {
-        $productos[$idSubcategoria][$id] = array("nombre"=> $nombre ,"descripcion"=>$descripcion, "imagen"=>$imagen, "palabrasClave"=>$palabrasClave);
+        $palabras[] = array("id" =>  $id, "palabra" => $palabra);
     }
 }
 // header('Content-type: application/json; charset=utf-8');
-echo json_encode($productos);
+echo json_encode($palabras);
 ?>
