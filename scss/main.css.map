@@ -11,9 +11,10 @@
         "components/_dropdown.scss",
         "components/_boton-invisible.scss",
         "components/_window-modal.scss",
-        "components/_login.scss",
-        "components/_estrella-footer.scss"        
+        "components/_login.scss",               
         "components/_card.scss"
+        "components/_registro.scss",
+        "components/_estrella-footer.scss"
     ],
     "names": [],
     "file": "main.css"

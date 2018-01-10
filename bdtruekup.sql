@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `palabrasclave` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.palabrasclave: ~13 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.palabrasclave: ~14 rows (aproximadamente)
 /*!40000 ALTER TABLE `palabrasclave` DISABLE KEYS */;
 INSERT INTO `palabrasclave` (`id`, `palabra`) VALUES
 	(1, 'Balones'),

@@ -24,18 +24,25 @@ function home() {
       subcategoriasImagen = [];
       subcategorias = [];
       //Recorro las categorias
+      var frasesCarruselTemporal = frasesCarrusel.slice();
+      // var contador = 0;
       $.each(json, (id, value) => {
         //Cargo el carousel
+
         if (value.imagen != null) {
           if (first) {
             first = false;
+            aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
+            seleccion = frasesCarruselTemporal[aleatorio];
             $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
-              '<h1>Amplia tus horizontes</h1>' +
+              '<h1>'+seleccion+'</h1>' +
               '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>').appendTo('#indicators');
           } else {
+            aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
+            seleccion = frasesCarruselTemporal[aleatorio];
             $('<div class="carousel-item"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
-              '<h1>Amplia tus horizontes</h1>' +
+            '<h1>'+seleccion+'</h1>' +
               '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="' + contador + '"></li>').appendTo('#indicators');
             contador++;
@@ -59,7 +66,6 @@ function home() {
             i++;
           }
         });
-
       });
 
       //Fin recorrer JSON
@@ -73,7 +79,7 @@ function home() {
   //Acaba petición AJAX
 
   //Si escribe se autocompleta
-  $("#main-browser").on("keyup", function (event) {
+  $("#main-browser").on("keyup", function () {
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
@@ -114,7 +120,6 @@ function home() {
                 });
                 añadirPalabraclave(value);
               });
-              console.log(palabrasClave);
               if (palabrasClave.length == 0) {
                 value = {
                   id: 0,
@@ -206,6 +211,7 @@ function home() {
     })
   });
 
+  $("#btn-registrarse").on("click", registrarse);
 
   $("#login").on("click", () => {
 
@@ -245,11 +251,242 @@ function home() {
     });
 
   });
-  //Termina clickar login
+
+
+  $("#registrarse").on("click", (event) => {
+    $("body").addClass("modal-open");
+    $("#navbar").addClass("navbar-modal-open");
+    ventanaModal = '<div class="modal fade window-modal modal-auto-clear" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+      '<div class="modal-dialog window-dialog" role="document">' +
+      '<div class="modal-content" id="window-modal">' +
+      '<div class="signup-form-container">' +
+      ' <!-- form start -->' +
+      '<form method="post" role="form" id="register-form" autocomplete="off">' +
+      ' <div class="form-header">' +
+      '<h2 class="form-title"><i class="fa fa-user"></i><span class="glyphicon glyphicon-user"></span> Registro de nuevo usu@rio</h2>' +
+      ' <div class="pull-right">' +
+      '<h3 class="form-title"><span class="glyphicon glyphicon-pencil"></span></h3>' +
+      ' </div>' +
+      ' </div>' +
+      '<div class="form-body">' +
+      ' <!-- json response will be here -->' +
+      '   <div id="errorDiv"></div>' +
+      '<!-- json response will be here -->' +
+      '<div class="form-group">' +
+      ' <div class="input-group">' +
+      ' <div class="input-group-addon"><span class="fa fa-user"></span></div>' +
+      '  <input name="nombre" type="text" id="name" class="form-control" placeholder="Nombre" maxlength="40" autofocus="true">' +
+      '</div>' +
+      '   <span class="help-block" id="error"></span>' +
+      '  </div>' +
+      ' <div class="form-group">' +
+      ' <div class="input-group">' +
+      '<div class="input-group-addon"><span class="fa fa-user"></span></div>' +
+      ' <input name="apellido" type="text" class="form-control" placeholder="Apellido">' +
+      ' </div>' +
+      '<span class="help-block" id="error"></span>' +
+      '</div> ' +
+      ' <div class="form-group">' +
+      ' <div class="input-group">' +
+      '<div class="input-group-addon"><span class="fa fa-envelope"></span></div>' +
+      '<input name="email" id="email" type="text" class="form-control" placeholder="Email" maxlength="50">' +
+      ' </div> ' +
+      '  <span class="help-block" id="error"></span> ' +
+      '</div>' +
+      ' <div class="row">' +
+      '<div class="form-group col-lg-6">' +
+      ' <div class="input-group">' +
+      ' <div class="input-group-addon"><span class="fa fa-lock"></span></div>' +
+      ' <input name="password" id="password" type="password" class="form-control" placeholder="Contraseña">' +
+      '</div>  ' +
+      ' <span class="help-block" id="error"></span> ' +
+      ' </div>' +
+      ' <div class="form-group col-lg-6">' +
+      ' <div class="input-group">' +
+      ' <div class="input-group-addon"><span class="fa fa-lock"></span></div>' +
+      '<input name="cpassword" type="password" class="form-control" placeholder="Repite la contraseña">' +
+      ' </div>  ' +
+      '<span class="help-block" id="error"></span> ' +
+      '</div>' +
+      ' </div>' +
+      ' </div>' +
+      ' <div class="form-footer">' +
+      '<button type="submit" class="btn btn-info btn-info-form" id="btn-signup">' +
+      '  <span class="fa fa-sign-in"></span> Registrarse' +
+      '</button>' +
+      '<button type="reset" class="btn btn-info btn-info-form" id="btn-reset">' +
+      '  <span class="fa fa-eraser"></span> Borrar Datos' +
+      '</button>' +
+      '<button type="button" class="btn btn-info btn-info-form" id="btn-cerrar">' +
+      '  <span class="fa fa-times""></span> Cerrar' +
+      '</button>' +
+      // $('#miModal').modal('hide');
+      ' </div>' +
+      ' </form>' +
+      ' </div>' +
+      ' </div>' +
+      ' </div>' +
+      ' </div>' +
+      ' </div>' +
+      '<!-- Termina Div -->' +
+      '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
+
+    $("body").append(ventanaModal);
+
+    $("#btn-cerrar").on("click", function () {
+      $('.modal-auto-clear').remove();
+      $('.modal-backdrop').remove();
+    });
+
+
+    //caracteres validos para el nombre
+    var nameregex = /^[a-zA-Z ]+$/;
+
+    $.validator.addMethod("validname", function (value, element) {
+      return this.optional(element) || nameregex.test(value);
+    });
+
+    // valid email pattern
+    var eregex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+    $.validator.addMethod("validemail", function (value, element) {
+      return this.optional(element) || eregex.test(value);
+    });
+
+    $("#register-form").validate({
+
+      rules: {
+        nombre: {
+          required: true,
+          validname: true,
+          minlength: 4
+        },
+        apellido: {
+          required: true,
+          validname: true,
+          minlength: 4
+        },
+        email: {
+          required: true,
+          validemail: true,
+          remote: {
+            url: "php/comprobar-email.php",
+            type: "post",
+            data: {
+              email: function () {
+                return $("#email").val();
+              }
+            }
+          }
+        },
+        password: {
+          required: true,
+          minlength: 6,
+          maxlength: 15
+        },
+        cpassword: {
+          required: true,
+          equalTo: '#password'
+        },
+      },
+      messages: {
+        nombre: {
+          required: "Por favor introduce el nombre",
+          validname: "El nombre solo puede tener letras y espacios",
+          minlength: "Tu nombre es muy corto"
+        },
+        apellido: {
+          required: "Por favor introduce el apellido",
+          validname: "El apellido solo puede tener letras y espacios",
+          minlength: "Tu apellido es muy corto"
+        },
+        email: {
+          required: "Por favor introduce un Email",
+          validemail: "Introduce una dirección de Email valida",
+          remote: "El Email ya se encuentra registrado" // añadir una opcion para recuperar la contraseña
+        },
+        password: {
+          required: "Por favor introduce la contraseña",
+          minlength: "Minimo 8 caracteres"
+        },
+        cpassword: {
+          required: "Por favor repite la contraseña",
+          equalTo: "No coinciden las contraseñas"
+        }
+      },
+      errorPlacement: function (error, element) {
+        $(element).closest('.form-group').find('.help-block').html(error.html());
+      },
+      highlight: function (element) {
+        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        $(element).closest('.form-group').find('.help-block').html('');
+      },
+      submitHandler: submitForm
+    });
+
+
+    function submitForm() {
+      $.ajax({
+          url: 'php/registro.php',
+          type: 'POST',
+          data: $('#register-form').serialize(),
+          dataType: 'json'
+        })
+        .done(function (data) {
+
+          $('#btn-signup').html('<img src="images/ajax-loader.gif" /> &nbsp; registrando...').prop('disabled', true);
+          $('input[type=text],input[type=email],input[type=password]').prop('disabled', true);
+
+          setTimeout(function () {
+
+            if (data.status === 'success') {
+
+              $('#errorDiv').slideDown('fast', function () {
+                $('#errorDiv').html('<div class="alert alert-info">' + data.message + '</div>');
+                $("#register-form").trigger('reset');
+                $('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
+                $('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
+
+                setTimeout(function () {
+                  $('.modal-auto-clear').remove();
+                }, 3000);
+                setTimeout(function () {
+                  $('.modal-backdrop').remove();
+                }, 3000);
+
+              }).delay(3000).slideUp('fast');
+
+
+            } else {
+
+              $('#errorDiv').slideDown('fast', function () {
+                $('#errorDiv').html('<div class="alert alert-danger">' + data.message + '</div>');
+                $("#register-form").trigger('reset');
+                $('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
+                $('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
+              }).delay(3000).slideUp('fast');
+            }
+
+          }, 3000);
+
+        })
+        .fail(function () {
+          $("#register-form").trigger('reset');
+          alert('Ocurrio un error, prueba de nuevo mas tarde...');
+        });
+    }
+  });
+
 
   $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", prepararMostrarProductos);
   $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", prepararMostrarProductos);
-}
+};
+
+//Termina clickar login
+
 //Acaba el HOME --> ready del home /////////////////
 //////////////////////////////////////
 /////////////////////////
@@ -276,7 +513,7 @@ function mostrarNavHome() {
     '<button class="nav-link boton-invisible">Entrar</button>' +
     '</li>' +
     '<li class="navbar-list__item navbar-list__item--highlighted">' +
-    '<button class="boton-invisible nav-link">Registrarse</button>' +
+    '<button class="boton-invisible nav-link" id="registrarse">Registrarse</button>' +
     '</li>' +
     '</ul>' +
     '</div>' +
@@ -384,6 +621,8 @@ function mostrarMiddleContainer() {
 
 };
 
+
+
 function estacion() {
   var dt = new Date();
   var estacion;
@@ -467,7 +706,14 @@ function mostrarProductos(key, php) {
   });
 
 }
-
+var frasesCarrusel = ["Amplia tus horizontes",
+  "Los grandes logros requieren tiempo y paciencia",
+  "Todo lo que sea capaz de creer, eres capaz de conseguir",
+  "El 90% del éxito se basa en el esfuerzo",
+  "No te ahogarás por caerte en el mar, sino por no salir de él",
+  "Tu nivel de esfuerzo determinará tu éxito",
+  "Olvídate del reloj y sigue su paso, adelante"
+];
 
 function cambiarColor() {
   id = this.children[0].id;
