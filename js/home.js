@@ -13,6 +13,7 @@ function home() {
     interval: 4000
   })
 
+
   $.ajax({
     url: 'php/categorias.php',
     type: 'GET',
@@ -434,20 +435,26 @@ function mostrarProductos(key, php) {
 
       json.forEach(n => {
         $("<div class='col-lg-4 col-md-6 mb-4'>" +
-          "<div class='card h-100'>" +
-          "<a href='#'><img class='card-img-top' src=" + n.imagen + " alt=''></a>" +
+          "<div class='card card-cascade narrower'>" +
+          "<div class='view overlay hm-white-slight hm-zoom'>"+
+          "<img class='img-fluid' src=" + n.imagen + " alt=''>" +
+          "<a>"+
+          "<div class='mask waves-effect waves-light'></div>"+
+          "</a>"+
+          "</div>"+
           "<div class='card-body'>" +
-          "<h4 class='card-title'>" +
-          "<a href='#'>" + n.nombre + "</a>" +
+          "<h4 class='card-title producto-titulo-centrar'>" +
+          "<button class=' boton-invisible boton-invisible-producto'>" + n.nombre + "</button>" +
           "</h4>" +
-          "<h5>$24.99</h5>" +
-          "<p class='card-text'>" + n.descripcion + "</p>" +
+          "<p class='card-text card-text-centrado'>" + n.descripcion + "</p>" +
           "</div>" +
-          "<div class='card-footer'>" +
-          "<big id =" + n.id + "><i class='fa fa-star' aria-hidden='true'></i></big>" +
+          "<div class='card-footer card-footer-modificado'>" +
+          "<big id =" + n.id + "><i class='fa fa-heart' aria-hidden='true'></i></big>" +
           "</div>" +
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
+        
+
 
       });
       $(".card").on("click", "div.card-footer", cambiarColor);
@@ -463,6 +470,7 @@ function mostrarProductos(key, php) {
 
 
 function cambiarColor() {
+  id = this.children[0].id;
   var id = this.children[0].id;
   if ($("#" + id).hasClass("estrella-footer")) {
     $("#" + id).removeClass("estrella-footer");
