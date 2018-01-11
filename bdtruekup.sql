@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versión del servidor:         10.2.8-MariaDB - mariadb.org binary distribution
+-- Versión del servidor:         10.2.11-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win64
--- HeidiSQL Versión:             9.4.0.5125
+-- HeidiSQL Versión:             9.5.0.5196
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `palabrasclave` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.palabrasclave: ~14 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.palabrasclave: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `palabrasclave` DISABLE KEYS */;
 INSERT INTO `palabrasclave` (`id`, `palabra`) VALUES
 	(1, 'Balones'),
@@ -195,19 +195,19 @@ INSERT INTO `subcategorias` (`id`, `nombre`, `idCategoria`, `imagen`, `icono`) V
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
-  `apellidos` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `contraseña` varchar(1000) NOT NULL,
   `imagen` varchar(50) NOT NULL DEFAULT '0.jpg',
   `fechaAlta` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtruekup.usuarios: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruekup.usuarios: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `email`, `contraseña`, `imagen`, `fechaAlta`) VALUES
-	(3, 'Jorge', 'Cabrera Sánchez', 'jorge@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0.jpg', '2018-01-10 20:29:25');
+INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contraseña`, `imagen`, `fechaAlta`) VALUES
+	(3, 'Jorge Cabrera Sánchez', 'jorge@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0.jpg', '2018-01-10 20:29:25'),
+	(5, 'borja orts', 'borja@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '0.jpg', '2018-01-11 17:14:05');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
