@@ -922,27 +922,32 @@ slight .mask {
   font-size: 1rem;
 }
 
+.menu-lateral__body__lista__item__button {
+  color: white;
+  background-color: transparent;
+  border: 0px;
+  outline: none !important;
+  vertical-align: center;
+  padding: 0px !important;
+}
+
 .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir {
-  -webkit-transition: width 1s ease-in;
-  -moz-transition: width 1s ease-in;
-  -o-transition: width 1s ease-in;
-  transition: width 1s ease-in;
-}
-
-.menu-lateral__body__lista__item--normal:before, .menu-lateral__body__lista__item--salir:before {
-  background-color: #17a2b8;
-}
-
-.menu-lateral__body__lista__item--normal:hover:before, .menu-lateral__body__lista__item--salir:hover:before {
   cursor: pointer;
-  width: 100%;
+  -webkit-transition: background-color 1s ease-in;
+  -moz-transition: background-color 1s ease-in;
+  -o-transition: background-color 1s ease-in;
+  transition: background-color 1s ease-in;
+}
+
+.menu-lateral__body__lista__item--normal:hover, .menu-lateral__body__lista__item--salir:hover {
+  background-color: #17a2b8;
 }
 
 @media (min-width: 418px) {
   .menu-lateral__body__lista__item--title {
     font-size: 1.2rem;
   }
-  .menu-lateral__body__lista__item--normal .menu-lateral__body__lista__item--salir {
+  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir {
     font-size: 1rem;
   }
 }
@@ -952,7 +957,7 @@ slight .mask {
     font-size: 1.6rem;
     padding-bottom: 15px;
   }
-  .menu-lateral__body__lista__item--normal .menu-lateral__body__lista__item--salir {
+  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir {
     font-size: 1rem;
   }
 }
@@ -963,7 +968,7 @@ slight .mask {
     padding-top: 17px;
     padding-bottom: 18px;
   }
-  .menu-lateral__body__lista__item--normal .menu-lateral__body__lista__item--salir {
+  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir {
     font-size: 1.1rem;
   }
 }

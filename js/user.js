@@ -131,7 +131,7 @@ function mostrarPerfil() {
               '<i class="fa fa-heart-o" aria-hidden="true"></i> Productos deseados'+
               '</li>'+
               '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--salir">'+
-              '<button class="menu-lateral__body__lista__item__button"><i class="fa fa-sign-out" aria-hidden="true"></i> Login out</button>'+
+              '<i class="fa fa-sign-out" aria-hidden="true"></i> Login out'+
               '</li>'+
             '</ul>'+
           '</div>' +

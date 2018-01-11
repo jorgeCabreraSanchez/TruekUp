@@ -11,13 +11,14 @@
   // }
   .menu-lateral__body {}
 
-  .menu-lateral__body__lista {}
+  .menu-lateral__body__lista {    
+  }
 
   .menu-lateral__body__lista__item {
     color: white;
     padding-top: 10px;
     padding-bottom: 10px;
-    text-align: center;
+    text-align: center;        
   }
 
   .menu-lateral__body__lista__item--title {
@@ -34,36 +35,19 @@
     padding: 0px !important;
   }
 
-  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir{
-     @include transition(width,1s,ease-in);
+  .menu-lateral__body__lista__item--normal{  
+      
   }
 
-  // .menu-lateral__body__lista__item--normal:before, .menu-lateral__body__lista__item--salir:before{
-  //   background-color: #17a2b8;
-  //   content: 'a';
-  //   height: 100%;
-  //   @include transition(width,1s,ease-in);
-  //   width: 3px;
-  //   top: 0;
-  //   left: 0;
-  //   position: absolute;
-  // }
+  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir{     
+     cursor: pointer;
+     @include transition(background-color,1s,ease-in);
+  }
 
-  // .menu-lateral__body__lista__item--normal before, .menu-lateral__body__lista__item--salir before{
-  //   background-color: #17a2b8;
-  //   content: 'a';
-  //   height: 100%;
-  //   @include transition(width,1s,ease-in);
-  //   width: 3px;
-  //   top: 0;
-  //   left: 0;
-  //   position: absolute;
-  // }
   
-  // .menu-lateral__body__lista__item--normal:hover:before, .menu-lateral__body__lista__item--salir:hover:before{    
-  //   cursor: pointer;    
-  //   width: 100%;
-  // }
+  .menu-lateral__body__lista__item--normal:hover, .menu-lateral__body__lista__item--salir:hover{               
+    background-color: #17a2b8;
+  }
 
   .menu-lateral__body__lista__item--salir{
 
