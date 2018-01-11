@@ -796,12 +796,12 @@ function crearCarrito() {
 
 }
 
-function mostrarCarrito(mierda) {
+function mostrarCarrito(numero) {
 
   $.ajax({
-    url: "php/productos.php",
+    url: "php/productosCarrito.php",
     data: {
-      key: mierda
+      key: numero
     },
     type: 'GET',
     dataType: 'json',
@@ -810,25 +810,42 @@ function mostrarCarrito(mierda) {
       json.forEach(n => {
         console.log(n.nombre);
 
-        $("<div class='col-lg-4 col-md-6 mb-4'>" +
-          "<div class='card card-cascade narrower'>" +
-          "<div class='view overlay hm-white-slight hm-zoom'>" +
-          "<img class='img-fluid-producto' src=" + n.imagen + " alt=''>" +
-          "<a>" +
-          "<div class='mask waves-effect waves-light'></div>" +
-          "</a>" +
-          "</div>" +
-          "<div class='card-body'>" +
-          "<h4 class='card-title producto-titulo-centrar'>" +
-          "<button class=' boton-invisible boton-invisible-producto'>" + n.nombre + "</button>" +
-          "</h4>" +
-          "<p class='card-text card-text-centrado'>" + n.descripcion + "</p>" +
-          "</div>" +
-          "<div class='card-footer card-footer-modificado'>" +
-          "<big id =" + n.id + "><i class='fa fa-heart' aria-hidden='true'></i></big>" +
-          "</div>" +
-          "</div>" +
-          "</div>").appendTo("body");
+        $("<div class=contenedorCarrito>"+
+        ('<div class="container">'+
+        '  <table id="cart" class="table table-hover table-condensed">'+
+                    '<thead>'+
+                  '  <tr>'+
+                     ' <th style="width:50%">Producto</th>'+
+                     ' <th style="width:10%">Deseado</th>'+
+                      '<th style="width:8%">Contactar</th>'+
+                  '  </tr>'+
+                 ' </thead>'+
+                 ' <tbody>'+
+                  '  <tr>'+
+                      '<td data-th="Product">'+
+                        '<div class="row">'+
+                        '  <div class="col-sm-2 hidden-xs"><img src="'+n.imagen+'" alt="..." class="img-responsive img-carrito"/></div>'+
+                         ' <div class="col-sm-8 td-texto--central">'+
+                          '  <h4 class="nomargin">'+n.nombre+'</h4>'+
+                            '<p>'+n.descripcion+'</p>'+
+                        '  </div>'+
+                       ' </div>'+
+                     ' </td>'+
+                     '  <td data-th="Quantity">'+
+                     '<button class="btn btn-info btn-sm">Eliminar<i class="fa fa-refresh">Chat</i></button>'+
+                     ' </td>'+
+                      '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación<i class="fa fa-angle-right"></i></a></td>'+
+                   ' </tr>'+
+                 ' </tbody>'+
+                 ' <tfoot>'+
+                  '  <tr class="visible-xs">'+
+                   ' </tr>'+
+                  '  <tr>'+
+                     ' <td colspan="2" class="hidden-xs"></td>'+
+                   ' </tr>'+
+                 ' </tfoot>'+
+               ' </table>'+
+        '</div>')).appendTo("body");
       });
     },
     error: function (jqXHR, status, error) {
