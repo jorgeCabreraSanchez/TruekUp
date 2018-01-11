@@ -409,7 +409,7 @@ function home() {
         },
         password: {
           required: "Por favor introduce la contraseña",
-          minlength: "Minimo 6 caracteres"
+          minlength: "Escribe minimo 6 caracteres"
         },
         cpassword: {
           required: "Por favor repite la contraseña",
@@ -481,9 +481,10 @@ function home() {
     }
   });
 
-
   $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", prepararMostrarProductos);
   $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", prepararMostrarProductos);
+  $('#btn-home1').on('click',crearCarrito);
+
 };
 
 //Termina clickar login
@@ -507,8 +508,8 @@ function mostrarNavHome() {
     ' <!-- Menu Principal -->   ' +
     ' <div class="collapse navbar-collapse nav-main-collapse" id="navbarResponsive">' +
     '<ul class="navbar-nav navbar-list ml-auto" id="navbar-list">' +
-    '<li class="navbar-list__item active navbar-list__item--highlighted">' +
-    '<button class="nav-link boton-invisible" id="home">Home</button>' +
+    '<li id="btn-home1" class="navbar-list__item active navbar-list__item--highlighted">' +
+    '<button class="nav-link boton-invisible" id="btn-home">Home</button>' +
     '</li>' +
     '<li class="navbar-list__item navbar-list__item--highlighted" id="login">' +
     '<button class="nav-link boton-invisible">Entrar</button>' +
@@ -520,8 +521,10 @@ function mostrarNavHome() {
     '</div>' +
 
 
+
     '</div>';
   $("#navbar").append(nav);
+  
 };
 
 
@@ -663,7 +666,7 @@ function prepararMostrarProductos() {
   }
   mostrarProductos(key, php);
 }
-
+  
 //Cargar productos de las subcategorias
 function mostrarProductos(key, php) {
   $.ajax({
@@ -696,18 +699,18 @@ function mostrarProductos(key, php) {
           "</div>" +
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
-
-
-
       });
+      productosDeseados();
       $(".card").on("click", "div.card-footer", cambiarColor);
-
+      $(".card").on("click", "div.card-footer", guardarProductoDeseado);
     },
     error: function (jqXHR, status, error) {
       console.log("Fallo en la peticion ajax para los productos");
     }
 
   });
+  
+
 
 }
 var frasesCarrusel = ["Amplia tus horizontes",
@@ -735,6 +738,139 @@ async function asignarEventoClickarFuera() {
       loginout(event);
     })
     resolve("Resuelto");
+  });
+
+}
+function guardarProductoDeseado(){
+  idProducto = this.children[0].id;
+  if ($("#" + idProducto).hasClass("estrella-footer")) {
+  $.ajax({
+    url:"php/guardarProductoDeseado.php",
+    data:{
+      key: idProducto,
+      key1:id
+    },
+    type: 'POST'
+  });
+  }else{
+    $.ajax({
+      url:"php/borrarProductoDeseado.php",
+      data:{
+        key: idProducto,
+        key1:id
+      },
+      type: 'POST'
+    });
+  }
+}
+
+function productosDeseados(){
+  console.log("hola");
+   
+  $.ajax({
+    url:"php/productosDeseados.php",
+    data:{
+      key:id
+    },
+    type: 'POST',
+    dataType: 'json',
+    success: function (json){
+      
+      json.forEach(n => {
+        console.log(n.idProducto);
+        $("#"+ n.idProducto).addClass("estrella-footer");
+      });
+    }
+
+  });
+}
+
+function crearCarrito() {
+  $.ajax({
+    url: "php/carrito.php",
+    data: {
+      key: id
+    },
+    type: 'POST',
+    dataType: 'json',
+    success: function (json) {
+      json.forEach(n => {
+        mostrarCarrito(n.idProducto);
+      });
+    },
+    error: function (jqXHR, status, error) {
+      console.log("Fallo en la peticion de deseados");
+    }
+  });
+
+}
+
+function mostrarCarrito(numero) {
+  contador=0;
+  palabra="Producto";
+  palabra1="Contacto";
+  palabra2="Eliminar";
+  $.ajax({
+    url: "php/productosCarrito.php",
+    data: {
+      key: numero
+    },
+    type: 'GET',
+    dataType: 'json',
+    success: function (json) {
+
+      json.forEach(n => {
+        console.log(palabra);
+        
+        if(contador==1){
+          palabra="";
+          palabra1="";
+          palabra2=""; 
+        }
+        console.log(palabra);
+        $("<div class=contenedorCarrito>"+
+        ('<div class="container">'+
+        '  <table id="cart" class="table table-hover table-condensed">'+
+                    '<thead>'+
+                  '  <tr>'+
+                     ' <th style="width:50%">'+palabra+'</th>'+
+                     ' <th style="width:10%">'+palabra2+'</th>'+
+                      '<th style="width:8%">'+palabra1+'</th>'+
+                  '  </tr>'+
+                 ' </thead>'+
+                 ' <tbody>'+
+                  '  <tr>'+
+                      '<td data-th="Product">'+
+                        '<div class="row">'+
+                        '  <div class="col-sm-2 hidden-xs"><img src="'+n.imagen+'" alt="..." class="img-responsive img-carro"/></div>'+
+                         ' <div class="col-sm-8 td-texto--central">'+
+                          '  <h4 class="nomargin">'+n.nombre+'</h4>'+
+                            '<p>'+n.descripcion+'</p>'+
+                        '  </div>'+
+                       ' </div>'+
+                     ' </td>'+
+                     '  <td data-th="Quantity">'+
+                     '<button class="btn btn-info btn-sm boton-eliminar">Eliminar</button>'+
+                     ' </td>'+
+                      '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación  <i class="fa fa-commenting" aria-hidden="true"></i></a></td>'+
+                   ' </tr>'+
+                 ' </tbody>'+
+                 ' <tfoot>'+
+                  '  <tr class="visible-xs">'+
+                   ' </tr>'+
+                  '  <tr>'+
+                     ' <td colspan="2" class="hidden-xs"></td>'+
+                   ' </tr>'+
+                 ' </tfoot>'+
+               ' </table>'+
+        '</div>')).appendTo("body");
+        contador++;
+      });
+    },
+    error: function (jqXHR, status, error) {
+      console.log("Fallo en la peticion ajax para los productos");
+    }
+
   });
 
 }
