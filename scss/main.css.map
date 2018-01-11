@@ -14,8 +14,7 @@
         "components/_login.scss",
         "components/_registro.scss",
         "components/_estrella-footer.scss",
-        "components/_card.scss",
-        "components/_desplegable-lateral.scss"
+        "components/_card.scss",        
     ],
     "names": [],
     "file": "main.css"
