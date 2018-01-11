@@ -8,6 +8,6 @@ while($row=mysqli_fetch_array($resultado)){
     array_push($datos,array("idProducto"=>$row['idProducto']));
 }
 header('Content-type: application/json; charset=utf-8');
-print_r($datos);
+
 echo json_encode($datos);
 ?>

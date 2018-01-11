@@ -524,6 +524,7 @@ function mostrarNavHome() {
 
     '</div>';
   $("#navbar").append(nav);
+  
 };
 
 
@@ -699,6 +700,7 @@ function mostrarProductos(key, php) {
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
       });
+      productosDeseados();
       $(".card").on("click", "div.card-footer", cambiarColor);
       $(".card").on("click", "div.card-footer", guardarProductoDeseado);
     },
@@ -707,6 +709,8 @@ function mostrarProductos(key, php) {
     }
 
   });
+  
+
 
 }
 var frasesCarrusel = ["Amplia tus horizontes",
@@ -759,7 +763,10 @@ function guardarProductoDeseado(){
     });
   }
 }
+
 function productosDeseados(){
+  console.log("hola");
+   
   $.ajax({
     url:"php/productosDeseados.php",
     data:{
@@ -768,8 +775,10 @@ function productosDeseados(){
     type: 'POST',
     dataType: 'json',
     success: function (json){
-      json.forEach(n=>{
-        $("#" + n.id).addClass("estrella-footer");
+      
+      json.forEach(n => {
+        console.log(n.idProducto);
+        $("#"+ n.idProducto).addClass("estrella-footer");
       });
     }
 
@@ -797,7 +806,10 @@ function crearCarrito() {
 }
 
 function mostrarCarrito(numero) {
-
+  contador=0;
+  palabra="Producto";
+  palabra1="Contacto";
+  palabra2="Eliminar";
   $.ajax({
     url: "php/productosCarrito.php",
     data: {
@@ -808,23 +820,29 @@ function mostrarCarrito(numero) {
     success: function (json) {
 
       json.forEach(n => {
-        console.log(n.nombre);
-
+        console.log(palabra);
+        
+        if(contador==1){
+          palabra="";
+          palabra1="";
+          palabra2=""; 
+        }
+        console.log(palabra);
         $("<div class=contenedorCarrito>"+
         ('<div class="container">'+
         '  <table id="cart" class="table table-hover table-condensed">'+
                     '<thead>'+
                   '  <tr>'+
-                     ' <th style="width:50%">Producto</th>'+
-                     ' <th style="width:10%">Deseado</th>'+
-                      '<th style="width:8%">Contactar</th>'+
+                     ' <th style="width:50%">'+palabra+'</th>'+
+                     ' <th style="width:10%">'+palabra2+'</th>'+
+                      '<th style="width:8%">'+palabra1+'</th>'+
                   '  </tr>'+
                  ' </thead>'+
                  ' <tbody>'+
                   '  <tr>'+
                       '<td data-th="Product">'+
                         '<div class="row">'+
-                        '  <div class="col-sm-2 hidden-xs"><img src="'+n.imagen+'" alt="..." class="img-responsive img-carrito"/></div>'+
+                        '  <div class="col-sm-2 hidden-xs"><img src="'+n.imagen+'" alt="..." class="img-responsive img-carro"/></div>'+
                          ' <div class="col-sm-8 td-texto--central">'+
                           '  <h4 class="nomargin">'+n.nombre+'</h4>'+
                             '<p>'+n.descripcion+'</p>'+
@@ -832,9 +850,9 @@ function mostrarCarrito(numero) {
                        ' </div>'+
                      ' </td>'+
                      '  <td data-th="Quantity">'+
-                     '<button class="btn btn-info btn-sm">Eliminar<i class="fa fa-refresh">Chat</i></button>'+
+                     '<button class="btn btn-info btn-sm boton-eliminar">Eliminar</button>'+
                      ' </td>'+
-                      '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación<i class="fa fa-angle-right"></i></a></td>'+
+                      '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación  <i class="fa fa-commenting" aria-hidden="true"></i></a></td>'+
                    ' </tr>'+
                  ' </tbody>'+
                  ' <tfoot>'+
@@ -846,6 +864,7 @@ function mostrarCarrito(numero) {
                  ' </tfoot>'+
                ' </table>'+
         '</div>')).appendTo("body");
+        contador++;
       });
     },
     error: function (jqXHR, status, error) {

@@ -442,6 +442,10 @@ body {
   color: blue;
 }
 
+.boton-eliminar {
+  padding: 7px !important;
+}
+
 .window-modal {
   opacity: 1 !important;
   display: block;
@@ -952,7 +956,7 @@ slight .mask {
   }
 }
 
-.img-carrito {
+.img-carro {
   width: 210% !important;
   height: 85% !important;
 }
