@@ -9,8 +9,11 @@ $password = $_GET['password'];
 $checked = $_GET['checked'];
 
 if($email == null && $password == null){
-    $cookie = $_COOKIE["logueado"];
-    
+    if(isset($_COOKIE["logueado"])){
+        $cookie = explode("|",$_COOKIE["logueado"]);   
+        $email = $cookie[0];
+        $password = $cookie[1];
+    }
 }
 
 $sql = "SELECT contraseña from usuarios where email = '$email'";
@@ -32,6 +35,12 @@ if ($stmt = $conn -> prepare($sql)) {
                 $devolver = array("igual" => "TRUE", "id" => $id, "nombre" => $nombre, "imagen" => $imagen);                
                 $stmt -> close();                                    
         }
+
+        session_start();
+        $_SESSION['id'] = $id;
+        $_SESSION['nombre'] = $nombre;
+        $_SESSION['imagen'] = $imagen;
+
     }
 }
 

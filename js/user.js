@@ -113,108 +113,34 @@ async function loginVerifyServer(email, password) {
 }
 
 function mostrarPerfil() {
-  var texto = '<div id="wrapper" class="toggled">' +
-    ' <div class="overlay"></div>' +
-
-    '<!-- Sidebar -->' +
-    '<nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">' +
-    '<ul class="nav sidebar-nav">' +
-    ' <li class="sidebar-brand">' +
-    '<a href="#"> Bootstrap 3 </a>' +
-    '</li>' +
-    '<li>' +
-    '<a href="#">' +
-    '<i class="fa fa-fw fa-home"></i> Home</a>' +
-    '</li>' +
-    '<li>' +
-    ' <a href="#">' +
-    '<i class="fa fa-fw fa-folder"></i> Page one</a>' +
-    '</li>' +
-    ' <li>' +
-    '<a href="#">' +
-    '<i class="fa fa-fw fa-file-o"></i> Second page</a>' +
-    '</li>' +
-    '<li>' +
-    '<a href="#">' +
-    '<i class="fa fa-fw fa-cog"></i> Third page</a>' +
-    '</li>' +
-    '<li class="dropdown">' +
-    '<a href="#" class="dropdown-toggle" data-toggle="dropdown">' +
-    '<i class="fa fa-fw fa-plus"></i> Dropdown' +
-    '<span class="caret"></span>' +
-    '</a>' +
-    '<ul class="dropdown-menu" role="menu">' +
-    '<li class="dropdown-header">Dropdown heading</li>' +
-    '<li>' +
-    '<a href="#">Action</a>' +
-    ' </li>' +
-    '<li>' +
-    '<a href="#">Another action</a>' +
-    '</li>' +
-    '<li>' +
-    '<a href="#">Something else here</a>' +
-    '</li>' +
-    '<li>' +
-    '<a href="#">Separated link</a>' +
-    '</li>' +
-    '<li>' +
-    '<a href="#">One more separated link</a>' +
-    '</li>' +
-    '</ul>' +
-    '</li>' +
-    ' <li>' +
-    ' <a href="#">' +
-    '<i class="fa fa-fw fa-bank"></i> Page four</a>' +
-    '</li>' +
-    '<li>' +
-    '<a href="#">' +
-    '<i class="fa fa-fw fa-dropbox"></i> Page 5</a>' +
-    '</li>' +
-    '<li>' +
-    '<a href="#">' +
-    '<i class="fa fa-fw fa-twitter"></i> Last page</a>' +
-    '</li>' +
-    '</ul>' +
-    '</nav>' +
-    '<!-- /#sidebar-wrapper -->' +
-
-    '<!-- Page Content -->' +
-    ' <div id="page-content-wrapper">' +
-    '<button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">' +
-    '<span class="hamb-top"></span>' +
-    '<span class="hamb-middle"></span>' +
-    ' <span class="hamb-bottom"></span>' +
-    '</button>' +
+ 
+     
+    var texto = '<div class="modal-propio modal-propio__capa-trasera">' +
     '</div>' +
-    '</div>' +
-    '<!-- /#page-content-wrapper -->' +
+    '<div class="modal-propio modal-propio__conteiner">' +
+      '<div class="modal-propio__lateral modal-propio__lateral--izquierdo">' +
 
+        '<div class="menu-lateral">' +          
+          '<div class="menu-lateral__body">' +
+            '<ul id="menu-lateral-perfil" class="menu-lateral__body__lista">'+
+              '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--title">Mi cuenta</li>'+
+              '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">'+
+              '<i class="fa fa-address-card-o" aria-hidden="true"></i> Datos personales'+              
+              '</li>'+
+              '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">'+
+              '<i class="fa fa-heart-o" aria-hidden="true"></i> Productos deseados'+
+              '</li>'+
+              '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--salir">'+
+              '<button class="menu-lateral__body__lista__item__button"><i class="fa fa-sign-out" aria-hidden="true"></i> Login out</button>'+
+              '</li>'+
+            '</ul>'+
+          '</div>' +
+        '</div>' +
+
+      '</div>' +
+      '<div class="modal-propio__lateral modal-propio__lateral--derecho">' +
+      '</div>' +
     '</div>';
 
   $("body").append(texto);
-
-  var trigger = $('.hamburger'),
-    overlay = $('.overlay'),
-    isClosed = false;
-
-  //   $('[data-toggle="offcanvas"]').click(function () {
-  //   $('#wrapper').toggleClass('toggled');
-  // });
-  
-  hamburger_cross();
 };
-
-function hamburger_cross() {
-
-  if (isClosed == true) {
-    overlay.hide();
-    trigger.removeClass('is-open');
-    trigger.addClass('is-closed');
-    isClosed = false;
-  } else {
-    overlay.show();
-    trigger.removeClass('is-closed');
-    trigger.addClass('is-open');
-    isClosed = true;
-  }
-}
