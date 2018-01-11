@@ -406,7 +406,7 @@ function home() {
         },
         password: {
           required: "Por favor introduce la contraseña",
-          minlength: "Minimo 8 caracteres"
+          minlength: "Minimo 6 caracteres"
         },
         cpassword: {
           required: "Por favor repite la contraseña",

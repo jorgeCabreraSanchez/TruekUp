@@ -20,7 +20,7 @@ USE `bdtruekup`;
 CREATE TABLE IF NOT EXISTS `busquedaproductos` (
   `idProducto` int(11) NOT NULL,
   `idPalabraClave` int(11) NOT NULL,
-  PRIMARY KEY (`idProducto`,`idPalabraClave`),
+  PRIMARY KEY (`idProducto`,`idPalabraAClave`),
   KEY `FK_palabraClave` (`idPalabraClave`),
   KEY `FK_producto` (`idProducto`),
   CONSTRAINT `FK_palabraClave` FOREIGN KEY (`idPalabraClave`) REFERENCES `palabrasclave` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
