@@ -520,6 +520,7 @@ function mostrarNavHome() {
     '</div>' +
 
 
+
     '</div>';
   $("#navbar").append(nav);
 };
@@ -701,6 +702,9 @@ function mostrarProductos(key, php) {
 
       });
       $(".card").on("click", "div.card-footer", cambiarColor);
+      $(".card").on("click", "div.card-footer", guardarProductoDeseado);
+      
+
 
     },
     error: function (jqXHR, status, error) {
@@ -737,4 +741,26 @@ async function asignarEventoClickarFuera() {
     resolve("Resuelto");
   });
 
+}
+function guardarProductoDeseado(){
+  idProducto = this.children[0].id;
+  if ($("#" + idProducto).hasClass("estrella-footer")) {
+  $.ajax({
+    url:"php/guardarProductoDeseado.php",
+    data:{
+      key: idProducto,
+      key1:id
+    },
+    type: 'POST'
+  });
+  }else{
+    $.ajax({
+      url:"php/borrarProductoDeseado.php",
+      data:{
+        key: idProducto,
+        key1:id
+      },
+      type: 'POST'
+    });
+  }
 }
