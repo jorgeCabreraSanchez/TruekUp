@@ -18,7 +18,7 @@
 		$user_pass = strip_tags($pass);
 
 		// sha256 password hashing
-		$hashed_password = hash('sha256', $user_pass);
+		$hashed_password = hash('sha1', $user_pass);
 		
 		$query = "INSERT INTO usuarios(nombre,email,contraseña) VALUES(:nombre, :email, :pass)";
 		

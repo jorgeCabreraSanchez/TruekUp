@@ -764,3 +764,19 @@ function guardarProductoDeseado(){
     });
   }
 }
+function productosDeseados(){
+  $.ajax({
+    url:"php/productosDeseados.php",
+    data:{
+      key:id
+    },
+    type: 'POST',
+    dataType: 'json',
+    success: function (json){
+      json.forEach(n=>{
+        $("#" + n.id).addClass("estrella-footer");
+      });
+    }
+
+  });
+}

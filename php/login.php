@@ -23,13 +23,13 @@ if ($stmt = $conn -> prepare($sql)) {
     $stmt -> close();    
         if($contraseña == $password && $password != null){            
 
-            $sql = "SELECT id, nombre, apellidos, imagen FROM usuarios WHERE email = '$email'";
+            $sql = "SELECT id, nombre, imagen FROM usuarios WHERE email = '$email'";
             
             if($stmt = $conn -> prepare($sql)){
                 $stmt -> execute();
-                $stmt -> bind_result($id,$nombre,$apellidos,$imagen);
+                $stmt -> bind_result($id,$nombre,$imagen);
                 $stmt->fetch();                  
-                $devolver = array("igual" => "TRUE", "id" => $id, "nombre" => $nombre . " " . $apellidos, "imagen" => $imagen);                
+                $devolver = array("igual" => "TRUE", "id" => $id, "nombre" => $nombre, "imagen" => $imagen);                
                 $stmt -> close();                                    
         }
     }
