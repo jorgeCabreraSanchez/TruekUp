@@ -484,6 +484,7 @@ function home() {
 
   $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", prepararMostrarProductos);
   $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", prepararMostrarProductos);
+ 
 };
 
 //Termina clickar login
@@ -523,6 +524,7 @@ function mostrarNavHome() {
 
     '</div>';
   $("#navbar").append(nav);
+  
 };
 
 
@@ -701,9 +703,11 @@ function mostrarProductos(key, php) {
 
 
       });
+      productosDeseados();
       $(".card").on("click", "div.card-footer", cambiarColor);
       $(".card").on("click", "div.card-footer", guardarProductoDeseado);
       
+         
 
 
     },
@@ -712,6 +716,8 @@ function mostrarProductos(key, php) {
     }
 
   });
+  
+
 
 }
 var frasesCarrusel = ["Amplia tus horizontes",
@@ -764,7 +770,10 @@ function guardarProductoDeseado(){
     });
   }
 }
+
 function productosDeseados(){
+  console.log("hola");
+   
   $.ajax({
     url:"php/productosDeseados.php",
     data:{
@@ -773,10 +782,13 @@ function productosDeseados(){
     type: 'POST',
     dataType: 'json',
     success: function (json){
-      json.forEach(n=>{
-        $("#" + n.id).addClass("estrella-footer");
+      
+      json.forEach(n => {
+        console.log(n.idProducto);
+        $("#"+ n.idProducto).addClass("estrella-footer");
       });
     }
 
   });
+
 }
