@@ -2,8 +2,9 @@
 
 .navbar-list__item {
     display: flex;
-    padding-bottom: 10px !important;
-    padding-top: 10px !important;
+    padding-bottom: 10px ;    
+    padding-top: 10px ; 
+    height: 40px;
 }
 
 @media (min-width:992px) {
@@ -17,11 +18,13 @@
 
 .navbar-list__item--perfil{
     border-left: 1px solid rgba(255, 255, 255, .5);
-    padding-left: 10px !important;
+    padding-left: 10px !important;    
+    font-weight: 900;
 }
 
 .navbar-list__item__imagen{
     margin-left: 10px;
+    @include border-radius(15px);
 }
 
 // .navbar-list__link--movement {

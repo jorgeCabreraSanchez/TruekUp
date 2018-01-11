@@ -13,6 +13,7 @@ function home() {
     interval: 4000
   })
 
+
   $.ajax({
     url: 'php/categorias.php',
     type: 'GET',
@@ -34,14 +35,14 @@ function home() {
             aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
             seleccion = frasesCarruselTemporal[aleatorio];
             $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
-              '<h1>'+seleccion+'</h1>' +
+              '<h1>' + seleccion + '</h1>' +
               '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>').appendTo('#indicators');
           } else {
             aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
             seleccion = frasesCarruselTemporal[aleatorio];
             $('<div class="carousel-item"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
-            '<h1>'+seleccion+'</h1>' +
+              '<h1>' + seleccion + '</h1>' +
               '</div></div>').appendTo('#carousel');
             $('<li data-target="#carouselExampleIndicators" data-slide-to="' + contador + '"></li>').appendTo('#indicators');
             contador++;
@@ -76,15 +77,15 @@ function home() {
     }
   });
   //Acaba petición AJAX
-
+    
   //Si escribe se autocompleta
-  $("#main-browser").on("keyup", function () {
+  $("#main-browser").on("keyup", function(event){
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
       $("#main-desplegable-productos").children().remove();
       anterior = undefined;
-    } else {
+    } else {      
       if (event.which == 13) {
         //Se muestran los productos relacionados con lo introducido
         prepararMostrarProductos();
@@ -101,7 +102,7 @@ function home() {
         }
 
 
-        if ($(this).val().length == 1 && typeof anterior === 'undefined') {
+        if ($(this).val().length == 1 && typeof anterior === 'undefined') {          
           $.ajax({
             url: 'php/autocompletar.php',
             data: {
@@ -128,7 +129,7 @@ function home() {
               }
             },
             error: function (jqXHR, status, error) {
-              //No digo nada
+              console.log("Error al traer las palabras clave");
             }
           });
           //Acaba peticion Ajax       
@@ -221,7 +222,7 @@ function home() {
         '<div class="modal-dialog window-dialog" role="document">' +
         '<div class="modal-content login" id="window-modal">' +
         '<div class="modal-header login__header">' +
-        '<button type="button" class="boton-invisible login__header__cancel">' +
+        '<button type="button" id="login-cancel" class="boton-invisible login__header__cancel">' +
         '<i class="fa fa-times" aria-hidden="true"></i>' +
         '</button>' +
         '<h3 class="modal-title login__header__title">Log in</h3>' +
@@ -242,7 +243,7 @@ function home() {
 
       $("#login-entrar").on("click", login);
       $("#login-password").on("keyup", event => {
-        if (event.which == 8) {
+        if (event.which == 13) {
           login();
         }
       });
@@ -335,6 +336,8 @@ function home() {
     $("#btn-cerrar").on("click", function () {
       $('.modal-auto-clear').remove();
       $('.modal-backdrop').remove();
+      $('body').removeClass('modal-open');
+
     });
 
 
@@ -451,9 +454,8 @@ function home() {
 
                 setTimeout(function () {
                   $('.modal-auto-clear').remove();
-                }, 3000);
-                setTimeout(function () {
                   $('.modal-backdrop').remove();
+                  $('body').removeClass('modal-open');
                 }, 3000);
 
               }).delay(3000).slideUp('fast');
@@ -479,9 +481,10 @@ function home() {
     }
   });
 
-
   $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", prepararMostrarProductos);
   $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", prepararMostrarProductos);
+  $('#btn-home1').on('click',crearCarrito);
+
 };
 
 //Termina clickar login
@@ -505,17 +508,18 @@ function mostrarNavHome() {
     ' <!-- Menu Principal -->   ' +
     ' <div class="collapse navbar-collapse nav-main-collapse" id="navbarResponsive">' +
     '<ul class="navbar-nav navbar-list ml-auto" id="navbar-list">' +
-    '<li class="navbar-list__item active navbar-list__item--highlighted">' +
-    '<button class="nav-link boton-invisible" id="home">Home</button>' +
+    '<li id="btn-home1" class="navbar-list__item active navbar-list__item--highlighted">' +
+    '<button class="nav-link boton-invisible" id="btn-home">Home</button>' +
     '</li>' +
-    '<li class="navbar-list__item  navbar-list__item--highlighted">' +
-    '<button class="nav-link boton-invisible" id="login">Entrar</button>' +
+    '<li class="navbar-list__item navbar-list__item--highlighted" id="login">' +
+    '<button class="nav-link boton-invisible">Entrar</button>' +
     '</li>' +
     '<li class="navbar-list__item navbar-list__item--highlighted">' +
-    '<button class="boton-invisible nav-link" id="registrarse" href="">Registrarse</button>' +
+    '<button class="boton-invisible nav-link" id="registrarse">Registrarse</button>' +
     '</li>' +
     '</ul>' +
     '</div>' +
+
 
 
     '</div>';
@@ -605,18 +609,18 @@ function mostrarMiddleContainer() {
   subcategoriasImagen.forEach(url => {
     $("<div class='col-lg-4 col-md-6 mb-4'>" +
       "<div class='card-body'>" +
-      " <h4 class='card-title'>" +
-      " <a id=" + url.id + " href='#'>" + url.nombre + "</a>" +
+      " <h4 class='card-title producto-titulo-centrar' id=" + url.id + ">" +
+      " <button class='boton-invisible boton-invisible-producto'>" + url.nombre + "</button>" +
       "</div>" +
-      "<div class='card h-80'>" +
-      "<a href='#'>" +
-      "<img id=" + url.id + " class='card-img-top' src=" + 'images/middle/' + url.imagen + " alt=''>" +
-      "</a>" +
+      "<div id='conteiner-imagen-deporte-temporada' class='card h-80'>" +
+      "<button id=" + url.id + " class='boton-invisible'>" +
+      "<img  class='card-img-top' src=" + 'images/middle/' + url.imagen + " alt=''>" +
+      "</button>" +
       "</div>" +
       "</div>").appendTo("#contenedor-mid-interior");
   });
   $(".card-title").on("click", prepararMostrarProductos);
-  $(".card-img-top").on("click", prepararMostrarProductos);
+  $("#conteiner-imagen-deporte-temporada").on("click","button", prepararMostrarProductos);
 
 };
 
@@ -633,134 +637,35 @@ function estacion() {
   return estacion;
 };
 
-
-function login() {
-  if ($("#login-error").length) {
-    // Si existe       
-    $("#login-error").remove();
-    $(".login__body").css("grid-template-rows", "repeat(2, 1fr) 10% 1fr");
-    $(".login__body").css("grid-template-areas", "'email' 'password' 'rembember' 'entrar'");
-    $(".login__body__remember").css("margin-bottom", "13px");
-  }
-  if (loginVerify()) {
-    loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())).then(response => {
-      if (response == "TRUE") {
-        quitarLoginRegister();
-      } else {
-        loginBad();
-      }
-    });
-
-
-  } else {
-    loginBad();
-  }
-}
-
-function loginout(event) {
-  if ($("#modal-backdrop").length == 1) {
-    if ($(event.target).closest('#window-modal').length == 0) {
-      quitarLoginRegister();
-      document.removeEventListener("click", event);
-      console.log("Clicka fuera");
-    } else {
-      //Clicka dentro
-    }
-  } else {
-    console.log("No se ha quitado el elemento");
-  }
-}
-
-function quitarLoginRegister() {
-  $("#miModal").remove();
-  $("#modal-backdrop").remove();
-  $("body").removeClass("modal-open");
-  $("#navbar").removeClass("navbar-modal-open");
-}
-
-function logueado(nombre, imagen) {
-  while ($("#navbar-list").children().length != 1) {
-    $("#navbar-list").children()[1].remove();
-  }
-
-  img = imagen.split(".")[0] + "-35x30." + imagen.split(".")[1];
-
-  $("<li class='navbar-list__item navbar-list__item--perfil navbar-list__item--highlighted' id='perfil'>" +
-    "<button class='nav-link nav-link--movement boton-invisible'>" +
-    "<span>" + nombre + "</span>" + "  <img class='navbar-list__item__imagen' src='images/usuarios/" + img + "'></img></button>" +
-    "</li>").appendTo($("#navbar-list"));
-}
-
 // pointer-events con el valor “none”
 
-function loginBad() {
-  $(".login__body").css("grid-template-rows", "repeat(2,1fr) repeat(2, 10%) 1fr");
-  $(".login__body").css("grid-template-areas", "'email' 'password' 'remember' 'error' 'entrar'");
-  $(".login__body__remember").css("margin-bottom", "20px");
-  $('<span class="login__body__error" id="login-error">Usuario o contraseña incorrectos</span>').insertBefore("#login-entrar");
-}
 
-function loginVerify() {
-  estado = true;
-  var email = $("#login-email").val();
-  if (email.length == 0 || email.indexOf("@") == -1 || $("#login-password").val().length == 0) {
-    estado = false;
-  }
-  return estado;
-}
+
+
 
 function añadirPalabraclave(value) {
   $('<li class="list-group-item dropdown__notlevel__item"><button class="dropdown__notlevel__link boton-invisible" href="" id="' + value.id + '">' + value.palabra + '</button></li>').appendTo("#main-desplegable-productos");
 }
 
-async function loginVerifyServer(email, password) {
-  if ($("#remember").length && $("#remember").prop("checked")) {
-    checked = "true";
-  } else {
-    checked = "false";
-  }
 
-  return new Promise(function (resolve, reject) { //RESOLVER LA PROMISE o RECHAZAR
-    $.ajax({
-      url: 'php/login.php',
-      data: {
-        email: email,
-        password: password,
-        checked: checked
-      },
-      type: 'GET',
-      dataType: 'JSON',
-      success: function (json) {
-        if (json["igual"] == "TRUE") {
-          id = json["id"];
-          logueado(json["nombre"], json["imagen"]);
-          resolve("TRUE");
-        } else {
-          resolve("FALSE");
-        }
-      },
-      error: function (jqXHR, status, error) {
-        reject(Error("FALSE"));
-      },
-    });
-  });
-  //Termina return
-}
 
-function prepararMostrarProductos() {
+function prepararMostrarProductos() {  
   if ($(this).hasClass("dropdown__level2__link")) {
     php = 'php/productos.php';
     var key = $(this)[0].id;
   } else if ($(this).hasClass("dropdown__notlevel__link")) {
     php = 'php/productosPalabraClave.php';
     var key = $(this)[0].id;
+  } else if($(this).hasClass("card-title") || $(this).parent().is("#conteiner-imagen-deporte-temporada")){
+    php = 'php/productos.php';
+    var key = $(this)[0].id;
   } else {
     php = 'php/productosPalabraClave.php';
-    var key = $("#main-desplegable-productos").children()[0].children[0].id;
+    var key = $("#main-desplegable-productos").children()[0].children[0].id;    
   }
   mostrarProductos(key, php);
 }
-
+  
 //Cargar productos de las subcategorias
 function mostrarProductos(key, php) {
   $.ajax({
@@ -775,24 +680,27 @@ function mostrarProductos(key, php) {
 
       json.forEach(n => {
         $("<div class='col-lg-4 col-md-6 mb-4'>" +
-          "<div class='card h-100'>" +
-          "<a href='#'><img class='card-img-top' src=" + n.imagen + " alt=''></a>" +
-          "<div class='card-body'>" +
-          "<h4 class='card-title'>" +
-          "<a href='#'>" + n.nombre + "</a>" +
-          "</h4>" +
-          "<h5>$24.99</h5>" +
-          "<p class='card-text'>" + n.descripcion + "</p>" +
+          "<div class='card card-cascade narrower'>" +
+          "<div class='view overlay hm-white-slight hm-zoom'>" +
+          "<img class='img-fluid-producto' src=" + n.imagen + " alt=''>" +
+          "<a>" +
+          "<div class='mask waves-effect waves-light'></div>" +
+          "</a>" +
           "</div>" +
-          "<div class='card-footer'>" +
-          "<big id =" + n.id + "><i class='fa fa-star' aria-hidden='true'></i></big>" +
+          "<div class='card-body'>" +
+          "<h4 class='card-title producto-titulo-centrar'>" +
+          "<button class=' boton-invisible boton-invisible-producto'>" + n.nombre + "</button>" +
+          "</h4>" +
+          "<p class='card-text card-text-centrado'>" + n.descripcion + "</p>" +
+          "</div>" +
+          "<div class='card-footer card-footer-modificado'>" +
+          "<big id =" + n.id + "><i class='fa fa-heart' aria-hidden='true'></i></big>" +
           "</div>" +
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
-
       });
       $(".card").on("click", "div.card-footer", cambiarColor);
-
+      $(".card").on("click", "div.card-footer", guardarProductoDeseado);
     },
     error: function (jqXHR, status, error) {
       console.log("Fallo en la peticion ajax para los productos");
@@ -811,6 +719,7 @@ var frasesCarrusel = ["Amplia tus horizontes",
 ];
 
 function cambiarColor() {
+  id = this.children[0].id;
   var id = this.children[0].id;
   if ($("#" + id).hasClass("estrella-footer")) {
     $("#" + id).removeClass("estrella-footer");
@@ -825,6 +734,107 @@ async function asignarEventoClickarFuera() {
       loginout(event);
     })
     resolve("Resuelto");
+  });
+
+}
+function guardarProductoDeseado(){
+  idProducto = this.children[0].id;
+  if ($("#" + idProducto).hasClass("estrella-footer")) {
+  $.ajax({
+    url:"php/guardarProductoDeseado.php",
+    data:{
+      key: idProducto,
+      key1:id
+    },
+    type: 'POST'
+  });
+  }else{
+    $.ajax({
+      url:"php/borrarProductoDeseado.php",
+      data:{
+        key: idProducto,
+        key1:id
+      },
+      type: 'POST'
+    });
+  }
+}
+function productosDeseados(){
+  $.ajax({
+    url:"php/productosDeseados.php",
+    data:{
+      key:id
+    },
+    type: 'POST',
+    dataType: 'json',
+    success: function (json){
+      json.forEach(n=>{
+        $("#" + n.id).addClass("estrella-footer");
+      });
+    }
+
+  });
+}
+
+function crearCarrito() {
+  $.ajax({
+    url: "php/carrito.php",
+    data: {
+      key: id
+    },
+    type: 'POST',
+    dataType: 'json',
+    success: function (json) {
+      json.forEach(n => {
+        mostrarCarrito(n.idProducto);
+      });
+    },
+    error: function (jqXHR, status, error) {
+      console.log("Fallo en la peticion de deseados");
+    }
+  });
+
+}
+
+function mostrarCarrito(mierda) {
+
+  $.ajax({
+    url: "php/productos.php",
+    data: {
+      key: mierda
+    },
+    type: 'GET',
+    dataType: 'json',
+    success: function (json) {
+
+      json.forEach(n => {
+        console.log(n.nombre);
+
+        $("<div class='col-lg-4 col-md-6 mb-4'>" +
+          "<div class='card card-cascade narrower'>" +
+          "<div class='view overlay hm-white-slight hm-zoom'>" +
+          "<img class='img-fluid-producto' src=" + n.imagen + " alt=''>" +
+          "<a>" +
+          "<div class='mask waves-effect waves-light'></div>" +
+          "</a>" +
+          "</div>" +
+          "<div class='card-body'>" +
+          "<h4 class='card-title producto-titulo-centrar'>" +
+          "<button class=' boton-invisible boton-invisible-producto'>" + n.nombre + "</button>" +
+          "</h4>" +
+          "<p class='card-text card-text-centrado'>" + n.descripcion + "</p>" +
+          "</div>" +
+          "<div class='card-footer card-footer-modificado'>" +
+          "<big id =" + n.id + "><i class='fa fa-heart' aria-hidden='true'></i></big>" +
+          "</div>" +
+          "</div>" +
+          "</div>").appendTo("body");
+      });
+    },
+    error: function (jqXHR, status, error) {
+      console.log("Fallo en la peticion ajax para los productos");
+    }
+
   });
 
 }

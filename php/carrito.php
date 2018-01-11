@@ -1,11 +1,12 @@
 <?php
 $datos=[];
-$id=$_GET['key'];
+// $id=$_POST['key'];
+$id=$_POST['key'];
 $conn=mysqli_connect("localhost","root","root","bdtruekup");
-$sql="SELECT id,nombre,descripcion,imagen FROM productos where idSubcategoria='$id'";
+$sql="SELECT idProducto FROM deseados where idUsuario='$id'";
 $resultado=mysqli_query($conn,$sql);
 while($row=mysqli_fetch_array($resultado)){
-    array_push($datos,array("id"=>$row['id'], "nombre"=> $row['nombre'] ,"descripcion"=>$row['descripcion'], "imagen"=>$row['imagen']));
+    array_push($datos,array("idProducto"=>$row['idProducto']));
 }
 header('Content-type: application/json; charset=utf-8');
 echo json_encode($datos);
