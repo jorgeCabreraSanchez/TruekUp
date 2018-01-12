@@ -20,9 +20,9 @@
 
 .modal-propio__conteiner{
     display: grid;
-    grid-template-columns: 25% 1fr;
+    grid-template-columns: 20% 70%;
     grid-template-rows: 100%;
-    grid-template-areas: "izquierda" "derecha";
+    grid-template-areas: "izquierda derecha";
 }
 
 .modal-propio__lateral{
@@ -36,7 +36,7 @@
 }
 
 .modal-propio__lateral--derecho{
-    grid-area: derecha;
+    grid-area: derecha;    
 }
 
 // position: fixed;

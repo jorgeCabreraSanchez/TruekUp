@@ -935,7 +935,7 @@ slight .mask {
   padding: 0px !important;
 }
 
-.menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir {
+.menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout {
   cursor: pointer;
   -webkit-transition: background-color 1s ease-in;
   -moz-transition: background-color 1s ease-in;
@@ -943,15 +943,27 @@ slight .mask {
   transition: background-color 1s ease-in;
 }
 
-.menu-lateral__body__lista__item--normal:hover, .menu-lateral__body__lista__item--salir:hover {
+.menu-lateral__body__lista__item--normal:hover, .menu-lateral__body__lista__item--logout:hover {
   background-color: #17a2b8;
+}
+
+.menu-lateral__body__lista__item--logout:hover {
+  background-color: #eba3a3a2;
+}
+
+.menu-lateral__body__lista__item--salir {
+  font-size: 30px;
+}
+
+.menu-lateral__body__lista__item--salir:hover {
+  background-color: rgba(163, 235, 173, 0.635);
 }
 
 @media (min-width: 418px) {
   .menu-lateral__body__lista__item--title {
     font-size: 1.2rem;
   }
-  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir {
+  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout {
     font-size: 1rem;
   }
 }
@@ -961,7 +973,7 @@ slight .mask {
     font-size: 1.6rem;
     padding-bottom: 15px;
   }
-  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir {
+  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout {
     font-size: 1rem;
   }
 }
@@ -972,7 +984,7 @@ slight .mask {
     padding-top: 17px;
     padding-bottom: 18px;
   }
-  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir {
+  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout {
     font-size: 1.1rem;
   }
 }
@@ -1007,9 +1019,9 @@ slight .mask {
 
 .modal-propio__conteiner {
   display: grid;
-  grid-template-columns: 25% 1fr;
+  grid-template-columns: 20% 70%;
   grid-template-rows: 100%;
-  grid-template-areas: "izquierda" "derecha";
+  grid-template-areas: "izquierda derecha";
 }
 
 .modal-propio__lateral--izquierdo {
@@ -1079,5 +1091,17 @@ slight .mask {
 
 .td-texto--central {
   margin-left: 100px;
+}
+
+.contenedor-deseos {
+  background-color: white;
+  margin: 40px 30px 40px 70px;
+  width: 100%;
+  height: 80%;
+  border-radius: 5px !important;
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  -o-border-radius: 5px !important;
+  overflow: scroll;
 }
 /*# sourceMappingURL=main.css.map */

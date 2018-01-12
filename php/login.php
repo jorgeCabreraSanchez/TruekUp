@@ -44,7 +44,7 @@ if ($stmt = $conn -> prepare($sql)) {
     }
 }
 
-if($checked){
+if($checked == "true"){
     setcookie("logueado", $email."|".$password, time()+3600*24*365*10);      
 }
 

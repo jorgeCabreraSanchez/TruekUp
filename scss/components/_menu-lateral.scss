@@ -39,26 +39,36 @@
       
   }
 
-  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir{     
+  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout{     
      cursor: pointer;
      @include transition(background-color,1s,ease-in);
   }
 
   
-  .menu-lateral__body__lista__item--normal:hover, .menu-lateral__body__lista__item--salir:hover{               
+  .menu-lateral__body__lista__item--normal:hover, .menu-lateral__body__lista__item--logout:hover{               
     background-color: #17a2b8;
   }
 
-  .menu-lateral__body__lista__item--salir{
+  .menu-lateral__body__lista__item--logout:hover{
+    background-color: #eba3a3a2;
+  }
 
+  .menu-lateral__body__lista__item--logout{    
   }
   
+  .menu-lateral__body__lista__item--salir{
+    font-size: 30px;
+  }
+
+  .menu-lateral__body__lista__item--salir:hover{
+    background-color: hsla(128, 64%, 78%, 0.635);
+  }
 
   @media (min-width:418px) {
     .menu-lateral__body__lista__item--title {
       font-size: 1.2rem;
     }
-    .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir {
+    .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout {
       font-size: 1rem;
     }
   }
@@ -69,7 +79,7 @@
       font-size: 1.6rem;
       padding-bottom: 15px;
     }
-    .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir{
+    .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout{
       font-size: 1rem;
     }
   }
@@ -81,7 +91,7 @@
       padding-top: 17px;
       padding-bottom: 18px;    
     }
-    .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--salir{
+    .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout{
       font-size: 1.1rem;
     }
   }

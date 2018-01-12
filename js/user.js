@@ -27,16 +27,6 @@ function login() {
   }
 }
 
-function loginout(event) {
-  if ($(event.target).closest('#window-modal').length == 0 || $(event.target)[0] === $("#login-cancel")[0]) {
-    quitarLoginRegister();
-    document.removeEventListener("click", event);
-    console.log("Clicka fuera");
-  } else {
-    console.log("Clicka dentro");
-  }
-}
-
 function quitarLoginRegister() {
   $("#miModal").remove();
   $("#modal-backdrop").remove();
@@ -113,34 +103,167 @@ async function loginVerifyServer(email, password) {
 }
 
 function mostrarPerfil() {
- 
-     
-    var texto = '<div class="modal-propio modal-propio__capa-trasera">' +
+
+
+  var texto = '<div id="modal-propio-trasera" class="modal-propio modal-propio__capa-trasera">' +
     '</div>' +
-    '<div class="modal-propio modal-propio__conteiner">' +
-      '<div class="modal-propio__lateral modal-propio__lateral--izquierdo">' +
+    '<div id="modal-propio" class="modal-propio modal-propio__conteiner">' +
+    '<div class="modal-propio__lateral modal-propio__lateral--izquierdo">' +
 
-        '<div class="menu-lateral">' +          
-          '<div class="menu-lateral__body">' +
-            '<ul id="menu-lateral-perfil" class="menu-lateral__body__lista">'+
-              '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--title">Mi cuenta</li>'+
-              '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">'+
-              '<i class="fa fa-address-card-o" aria-hidden="true"></i> Datos personales'+              
-              '</li>'+
-              '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">'+
-              '<i class="fa fa-heart-o" aria-hidden="true"></i> Productos deseados'+
-              '</li>'+
-              '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--salir">'+
-              '<i class="fa fa-sign-out" aria-hidden="true"></i> Login out'+
-              '</li>'+
-            '</ul>'+
-          '</div>' +
-        '</div>' +
+    '<div class="menu-lateral">' +
+    '<div class="menu-lateral__body">' +
+    '<ul id="menu-lateral-perfil" class="menu-lateral__body__lista">' +
+    '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--title">Mi cuenta</li>' +
+    '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">' +
+    '<i class="fa fa-address-card-o" aria-hidden="true"></i> Datos personales' +
+    '</li>' +
+    '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">' +
+    '<i class="fa fa-heart-o" aria-hidden="true"></i> Productos deseados' +
+    '</li>' +
+    '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--logout">' +
+    '<i class="fa fa-sign-out" aria-hidden="true"></i> Login out' +
+    '</li>' +
+    '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal menu-lateral__body__lista__item--salir">' +
+    '<i class="fa fa-arrow-left" aria-hidden="true"></i>' +
+    '</li>' +
+    '</ul>' +
+    '</div>' +
+    '</div>' +
 
-      '</div>' +
-      '<div class="modal-propio__lateral modal-propio__lateral--derecho">' +
-      '</div>' +
+    '</div>' +
+    '<div id="modal-propio-lateral-derecho" class="modal-propio__lateral modal-propio__lateral--derecho">' +
+    '</div>' +
     '</div>';
 
   $("body").append(texto);
+
+  $("#menu-lateral-perfil").children()[2].addEventListener("click", crearCarrito);
+  $("#menu-lateral-perfil").children()[4].addEventListener("click", salirPerfil);
+  $("#menu-lateral-perfil").children()[3].addEventListener("click", desloguearse);
 };
+
+function crearCarrito() {
+  if (!$("#perfil-contenedor-deseos").length) {
+    $.ajax({
+      url: "php/carrito.php",
+      data: {
+        key: id
+      },
+      type: 'POST',
+      dataType: 'json',
+      success: function (json) {
+        var texto = '<div id="perfil-contenedor-deseos" class="contenedor-deseos">' +
+          '</div>';
+
+        $("#modal-propio-lateral-derecho").append(texto);
+        json.forEach(n => {
+          mostrarCarrito(n.idProducto);
+        });
+      },
+      error: function (jqXHR, status, error) {
+        console.log("Fallo en la peticion de deseados");
+      }
+    });
+  }
+}
+
+function mostrarCarrito(numero) {
+  contador = 0;
+  palabra = "Producto";
+  palabra1 = "Contacto";
+  palabra2 = "Eliminar";
+  $.ajax({
+    url: "php/productosCarrito.php",
+    data: {
+      key: numero
+    },
+    type: 'GET',
+    dataType: 'json',
+    success: function (json) {
+
+      json.forEach(n => {
+
+        if (contador == 1) {
+          palabra = "";
+          palabra1 = "";
+          palabra2 = "";
+        }
+
+        var texto = "<div class=contenedorCarrito>" +
+          '<div class="container">' +
+          '  <table id="cart" class="table table-hover table-condensed">' +
+          '<thead>' +
+          '  <tr>' +
+          ' <th style="width:50%">' + palabra + '</th>' +
+          ' <th style="width:10%">' + palabra2 + '</th>' +
+          '<th style="width:8%">' + palabra1 + '</th>' +
+          '  </tr>' +
+          ' </thead>' +
+          ' <tbody>' +
+          '  <tr>' +
+          '<td data-th="Product">' +
+          '<div class="row">' +
+          '  <div class="col-sm-2 hidden-xs"><img src="' + n.imagen + '" alt="..." class="img-responsive img-carro"/></div>' +
+          ' <div class="col-sm-8 td-texto--central">' +
+          '  <h4 class="nomargin">' + n.nombre + '</h4>' +
+          '<p>' + n.descripcion + '</p>' +
+          '  </div>' +
+          ' </div>' +
+          ' </td>' +
+          '  <td data-th="Quantity">' +
+          '<button class="btn btn-info btn-sm boton-eliminar">Eliminar</button>' +
+          ' </td>' +
+          '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación  <i class="fa fa-commenting" aria-hidden="true"></i></a></td>' +
+          ' </tr>' +
+          ' </tbody>' +
+          ' <tfoot>' +
+          '  <tr class="visible-xs">' +
+          ' </tr>' +
+          '  <tr>' +
+          ' <td colspan="2" class="hidden-xs"></td>' +
+          ' </tr>' +
+          ' </tfoot>' +
+          ' </table>' +
+          '</div>';
+
+        $("#perfil-contenedor-deseos").append(texto);
+
+        contador++;
+      });
+    },
+    //Termina success    
+    error: function (jqXHR, status, error) {
+      console.log("Fallo en la peticion ajax para los productos");
+    }
+
+  });
+
+}
+
+function salirPerfil() {
+  $("#modal-propio-trasera").remove();
+  $("#modal-propio").remove();
+}
+
+function desloguearse() {  
+  borrarCookieSiExiste().then(resolve => {
+    location.reload();
+  });
+}
+
+async function borrarCookieSiExiste() {
+
+  return new Promise(function (resolve, reject) {
+    $.ajax({
+      url: "php/desloguearse.php",
+      type: 'POST',
+      dataType: 'json',
+      success: function (json) {
+        resolve("True");
+      },
+      error: function (jqXHR, status, error) {
+        reject(Error("FALSE"));
+      }
+    });
+  });
+}
