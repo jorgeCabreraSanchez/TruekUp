@@ -30,10 +30,10 @@
 		// check for successfull registration
         if ( $stmt->execute() ) {
 			$response['status'] = 'success';
-			$response['message'] = '<span class="fa-check "></span> &nbsp; Usuario registrado, puedes loguearte';
+			$response['message'] = '<span class="fa fa-check-square "></span> &nbsp; Usuario registrado, puedes loguearte';
         } else {
             $response['status'] = 'error'; // could not register
-			$response['message'] = '<span class="fa-exclamation "></span> &nbsp; No se a podido registrar el usuario, prueba de nuevo';
+			$response['message'] = '<i class="fa fa-exclamation" aria-hidden="true"></i> &nbsp; No se a podido registrar el usuario, prueba de nuevo';
         }	
 	}
 	

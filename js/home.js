@@ -78,15 +78,15 @@ function home() {
     }
   });
   //Acaba petición AJAX
-    
+
   //Si escribe se autocompleta
-  $("#main-browser").on("keyup", function(event){
+  $("#main-browser").on("keyup", function (event) {
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
       $("#main-desplegable-productos").children().remove();
       anterior = undefined;
-    } else {      
+    } else {
       if (event.which == 13) {
         //Se muestran los productos relacionados con lo introducido
         prepararMostrarProductos();
@@ -103,7 +103,7 @@ function home() {
         }
 
 
-        if ($(this).val().length == 1 && typeof anterior === 'undefined') {          
+        if ($(this).val().length == 1 && typeof anterior === 'undefined') {
           $.ajax({
             url: 'php/autocompletar.php',
             data: {
@@ -482,7 +482,7 @@ function home() {
 
   $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", prepararMostrarProductos);
   $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", prepararMostrarProductos);
-  $('#btn-home1').on('click',crearCarrito);
+  $('#btn-home1').on('click', crearCarrito);
 
 };
 
@@ -523,7 +523,7 @@ function mostrarNavHome() {
 
     '</div>';
   $("#navbar").append(nav);
-  
+
 };
 
 
@@ -620,7 +620,7 @@ function mostrarMiddleContainer() {
       "</div>").appendTo("#contenedor-mid-interior");
   });
   $(".card-title").on("click", prepararMostrarProductos);
-  $("#conteiner-imagen-deporte-temporada").on("click","button", prepararMostrarProductos);
+  $("#conteiner-imagen-deporte-temporada").on("click", "button", prepararMostrarProductos);
 
 };
 
@@ -649,23 +649,23 @@ function añadirPalabraclave(value) {
 
 
 
-function prepararMostrarProductos() {  
+function prepararMostrarProductos() {
   if ($(this).hasClass("dropdown__level2__link")) {
     php = 'php/productos.php';
     key = $(this)[0].id;
   } else if ($(this).hasClass("dropdown__notlevel__link")) {
     php = 'php/productosPalabraClave.php';
     key = $(this)[0].id;
-  } else if($(this).hasClass("card-title") || $(this).parent().is("#conteiner-imagen-deporte-temporada")){
+  } else if ($(this).hasClass("card-title") || $(this).parent().is("#conteiner-imagen-deporte-temporada")) {
     php = 'php/productos.php';
     key = $(this)[0].id;
   } else {
     php = 'php/productosPalabraClave.php';
-    key = $("#main-desplegable-productos").children()[0].children[0].id;    
+    key = $("#main-desplegable-productos").children()[0].children[0].id;
   }
   mostrarProductos(key, php);
 }
-  
+
 //Cargar productos de las subcategorias
 function mostrarProductos(key, php) {
   $.ajax({
@@ -761,7 +761,7 @@ function productosDetallados(event) {
           "<div class='showcase-last'>" +
           "<h3>Detalles de producto</h3>" +
           "<p>" + n.descripcion + "</p>" +
-          "<button class = ' boton-invisible boton-invisible-producto' href='#'><img class='icono-back' src='images/iconos/back.ico'></button>"+
+          "<button class ='boton-invisible boton-invisible-producto' href='#'><img class='icono-back' src='images/iconos/back.ico'></button>" +
           "</div>" +
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
@@ -819,44 +819,45 @@ async function asignarEventoClickarFuera() {
   });
 
 }
-function guardarProductoDeseado(){
+
+function guardarProductoDeseado() {
   idProducto = this.children[0].id;
   if ($("#" + idProducto).hasClass("estrella-footer")) {
-  $.ajax({
-    url:"php/guardarProductoDeseado.php",
-    data:{
-      key: idProducto,
-      key1:id
-    },
-    type: 'POST'
-  });
-  }else{
     $.ajax({
-      url:"php/borrarProductoDeseado.php",
-      data:{
+      url: "php/guardarProductoDeseado.php",
+      data: {
         key: idProducto,
-        key1:id
+        key1: id
+      },
+      type: 'POST'
+    });
+  } else {
+    $.ajax({
+      url: "php/borrarProductoDeseado.php",
+      data: {
+        key: idProducto,
+        key1: id
       },
       type: 'POST'
     });
   }
 }
 
-function productosDeseados(){
+function productosDeseados() {
   console.log("hola");
-   
+
   $.ajax({
-    url:"php/productosDeseados.php",
-    data:{
-      key:id
+    url: "php/productosDeseados.php",
+    data: {
+      key: id
     },
     type: 'POST',
     dataType: 'json',
-    success: function (json){
-      
+    success: function (json) {
+
       json.forEach(n => {
         console.log(n.idProducto);
-        $("#"+ n.idProducto).addClass("estrella-footer");
+        $("#" + n.idProducto).addClass("estrella-footer");
       });
     }
 
@@ -884,10 +885,10 @@ function crearCarrito() {
 }
 
 function mostrarCarrito(numero) {
-  contador=0;
-  palabra="Producto";
-  palabra1="Contacto";
-  palabra2="Eliminar";
+  contador = 0;
+  palabra = "Producto";
+  palabra1 = "Contacto";
+  palabra2 = "Eliminar";
   $.ajax({
     url: "php/productosCarrito.php",
     data: {
@@ -899,49 +900,49 @@ function mostrarCarrito(numero) {
 
       json.forEach(n => {
         console.log(palabra);
-        
-        if(contador==1){
-          palabra="";
-          palabra1="";
-          palabra2=""; 
+
+        if (contador == 1) {
+          palabra = "";
+          palabra1 = "";
+          palabra2 = "";
         }
         console.log(palabra);
-        $("<div class=contenedorCarrito>"+
-        ('<div class="container">'+
-        '  <table id="cart" class="table table-hover table-condensed">'+
-                    '<thead>'+
-                  '  <tr>'+
-                     ' <th style="width:50%">'+palabra+'</th>'+
-                     ' <th style="width:10%">'+palabra2+'</th>'+
-                      '<th style="width:8%">'+palabra1+'</th>'+
-                  '  </tr>'+
-                 ' </thead>'+
-                 ' <tbody>'+
-                  '  <tr>'+
-                      '<td data-th="Product">'+
-                        '<div class="row">'+
-                        '  <div class="col-sm-2 hidden-xs"><img src="'+n.imagen+'" alt="..." class="img-responsive img-carro"/></div>'+
-                         ' <div class="col-sm-8 td-texto--central">'+
-                          '  <h4 class="nomargin">'+n.nombre+'</h4>'+
-                            '<p>'+n.descripcion+'</p>'+
-                        '  </div>'+
-                       ' </div>'+
-                     ' </td>'+
-                     '  <td data-th="Quantity">'+
-                     '<button class="btn btn-info btn-sm boton-eliminar">Eliminar</button>'+
-                     ' </td>'+
-                      '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación  <i class="fa fa-commenting" aria-hidden="true"></i></a></td>'+
-                   ' </tr>'+
-                 ' </tbody>'+
-                 ' <tfoot>'+
-                  '  <tr class="visible-xs">'+
-                   ' </tr>'+
-                  '  <tr>'+
-                     ' <td colspan="2" class="hidden-xs"></td>'+
-                   ' </tr>'+
-                 ' </tfoot>'+
-               ' </table>'+
-        '</div>')).appendTo("body");
+        $("<div class=contenedorCarrito>" +
+          ('<div class="container">' +
+            '  <table id="cart" class="table table-hover table-condensed">' +
+            '<thead>' +
+            '  <tr>' +
+            ' <th style="width:50%">' + palabra + '</th>' +
+            ' <th style="width:10%">' + palabra2 + '</th>' +
+            '<th style="width:8%">' + palabra1 + '</th>' +
+            '  </tr>' +
+            ' </thead>' +
+            ' <tbody>' +
+            '  <tr>' +
+            '<td data-th="Product">' +
+            '<div class="row">' +
+            '  <div class="col-sm-2 hidden-xs"><img src="' + n.imagen + '" alt="..." class="img-responsive img-carro"/></div>' +
+            ' <div class="col-sm-8 td-texto--central">' +
+            '  <h4 class="nomargin">' + n.nombre + '</h4>' +
+            '<p>' + n.descripcion + '</p>' +
+            '  </div>' +
+            ' </div>' +
+            ' </td>' +
+            '  <td data-th="Quantity">' +
+            '<button class="btn btn-info btn-sm boton-eliminar">Eliminar</button>' +
+            ' </td>' +
+            '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación  <i class="fa fa-commenting" aria-hidden="true"></i></a></td>' +
+            ' </tr>' +
+            ' </tbody>' +
+            ' <tfoot>' +
+            '  <tr class="visible-xs">' +
+            ' </tr>' +
+            '  <tr>' +
+            ' <td colspan="2" class="hidden-xs"></td>' +
+            ' </tr>' +
+            ' </tfoot>' +
+            ' </table>' +
+            '</div>')).appendTo("body");
         contador++;
       });
     },
