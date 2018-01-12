@@ -683,14 +683,14 @@ function mostrarProductos(key, php) {
         $("<div class='col-lg-4 col-md-6 mb-4'>" +
           "<div class='card card-cascade narrower'>" +
           "<div class='view overlay hm-white-slight hm-zoom'>" +
-          "<img class='img-fluid-producto' src=" + n.imagen + " alt=''>" +
+          "<img class='img-fluid-producto supercalifra' src=" + n.imagen + " alt=''>" +
           "<a>" +
           "<div class='mask waves-effect waves-light'></div>" +
           "</a>" +
           "</div>" +
           "<div class='card-body'>" +
-          "<h4 class='card-title producto-titulo-centrar'>" +
-          "<button class=' boton-invisible boton-invisible-producto'>" + n.nombre + "</button>" +
+          "<h4 id='supercali' class='card-title producto-titulo-centrar'>" +
+          "<button class='boton-invisible boton-invisible-producto nombre-boton'>" + n.nombre + "</button>" +
           "</h4>" +
           "<p class='card-text card-text-centrado'>" + n.descripcion + "</p>" +
           "</div>" +
@@ -703,6 +703,9 @@ function mostrarProductos(key, php) {
       productosDeseados();
       $(".card").on("click", "div.card-footer", cambiarColor);
       $(".card").on("click", "div.card-footer", guardarProductoDeseado);
+      $(".nombre-boton").on("click", event => {
+        productosDetallados(event)
+      });
     },
     error: function (jqXHR, status, error) {
       console.log("Fallo en la peticion ajax para los productos");
@@ -710,9 +713,81 @@ function mostrarProductos(key, php) {
 
   });
   
+}
 
+function productosDetallados(event) {
+  contador = 0;
+  padre = event.target.parentNode.parentNode.parentNode;
+  hijo = padre.lastChild.lastChild;
+  $.ajax({
+    url: 'php/productoDetallado.php',
+    data: {
+      key: hijo.id
+    },
+    type: 'GET',
+    dataType: 'json',
+    success: function (json) {
+
+      $("#contenedor-mid-interior").html("");
+      imagenesCarrusel = [];
+      var hellooou = "";
+
+      json.forEach(n => {
+        for (let i = 0; i < n.imagenes.split(" ").length; i++) {
+          imagenesCarrusel.push(n.imagenes.split(" ")[i]);
+        }
+        for (let i = 0; i < imagenesCarrusel.length; i++) {
+          hellooou += "<div class='col-md-2 miniatura' >" +
+            "<img class='img-fluid img-miniatura' src='" + imagenesCarrusel[i] + "' alt=''>" +
+            "</div>";
+
+        }
+
+        $("<div class='row panel-central'>" +
+          "<div class= 'col-md-8 panel-fotos'>" +
+          "<div id='foto-grande' class='col-md-8 col-foto'>" +
+          "<img id='foto' class='img-fluid imagen-detallada' src=" + n.imagen + " alt=''>" +
+          "</div>" +
+          "<div id='foto-miniarutas' class=fotos-miniatura>" +
+          hellooou +
+          "</div>" +
+          "</div>" +
+          "<div class='col-md-4 descripcion'>" +
+          "<div class='showcase-rt-top'>" +
+          "<div class='pull-left shoe-name'>" +
+          "<h2 class='nombre'>" + n.nombre + "</h2>" +
+          "</div>" +
+          "<div class='clearfix'></div>" +
+          "</div>" +
+          "<div class='showcase-last'>" +
+          "<h3>Detalles de producto</h3>" +
+          "<p>" + n.descripcion + "</p>" +
+          "</div>" +
+          "</div>" +
+          "</div>").appendTo("#contenedor-mid-interior");
+      });
+      $(".estrella").on("click", cambiarColor);
+      $(".img-miniatura").on("click", event => {
+        cambiarImagen(event)
+      });
+
+    },
+    error: function (jqXHR, status, error) {
+
+    }
+
+  });
 
 }
+
+function cambiarImagen(event) {
+  var srcMiniatura = event.target.src;
+  var divPadre = event.target.parentNode.parentNode.parentNode;
+  var idHijo = divPadre.firstChild.firstChild.id;
+  $("#" + idHijo).attr("src", srcMiniatura);
+
+}
+
 var frasesCarrusel = ["Amplia tus horizontes",
   "Los grandes logros requieren tiempo y paciencia",
   "Todo lo que sea capaz de creer, eres capaz de conseguir",

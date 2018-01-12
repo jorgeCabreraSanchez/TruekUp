@@ -159,6 +159,56 @@ body {
   color: blue;
 }
 
+.nombre {
+  color: #17a2b8;
+}
+
+.imagen-detallada {
+  margin-bottom: 5%;
+  margin-top: 5%;
+  width: 100% !important;
+}
+
+.miniatura {
+  margin-bottom: 5%;
+  margin-top: 2%;
+  display: flex;
+  width: 50% !important;
+}
+
+.col-foto {
+  margin-left: -30px !important;
+  margin-right: -50px !important;
+  display: inline-block;
+  justify-content: center;
+}
+
+.img-miniatura {
+  margin-left: 5%;
+  border: 1px solid #484848;
+  width: 100%;
+  height: 100%;
+}
+
+.panel-central {
+  width: 100%;
+}
+
+.descripcion {
+  margin-top: 40px;
+  text-align: left;
+}
+
+.fotos-miniatura {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.panel-fotos {
+  margin-bottom: 20px;
+}
+
 .navbar-list__item {
   display: flex;
   padding-bottom: 10px;
