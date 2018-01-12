@@ -158,8 +158,6 @@ function home() {
               añadirPalabraclave(value);
             });
           }
-
-
         }
         anterior = $(this).val();
       }
