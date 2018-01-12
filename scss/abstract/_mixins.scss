@@ -1,4 +1,11 @@
-@mixin appearance($type){
+@mixin transition($property,$duration,$timingFunction){
+	-webkit-transition: $property $duration $timingFunction;
+    -moz-transition: $property $duration $timingFunction;
+    -o-transition: $property $duration $timingFunction;
+    transition: $property $duration $timingFunction;
+}
+
+@mixin appearance($type){ //Como se ve de forma nativa, valor como checbox, si le pones none desaparece
 	appearance: $type;
     -moz-appearance: $type;
     -webkit-appearance: $type;

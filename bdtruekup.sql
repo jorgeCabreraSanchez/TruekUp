@@ -195,19 +195,19 @@ INSERT INTO `subcategorias` (`id`, `nombre`, `idCategoria`, `imagen`, `icono`) V
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
-  `apellidos` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `contraseña` varchar(1000) NOT NULL,
   `imagen` varchar(50) NOT NULL DEFAULT '0.jpg',
   `fechaAlta` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla bdtruekup.usuarios: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `email`, `contraseña`, `imagen`, `fechaAlta`) VALUES
-	(3, 'jorge', 'cabrera sánchez', 'jorge@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0.jpg', '2018-01-10 20:29:25');
+INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contraseña`, `imagen`, `fechaAlta`) VALUES
+	(3, 'Jorge Cabrera Sánchez', 'jorge@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0.jpg', '2018-01-10 20:29:25'),
+	(5, 'borja orts', 'borja@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '0.jpg', '2018-01-11 17:14:05');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

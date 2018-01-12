@@ -15,7 +15,10 @@
         "components/_registro.scss",
         "components/_estrella-footer.scss",
         "components/_card.scss",
-        "components/_carrito.scss"
+        "components/_menu-lateral.scss",
+        "components/_propio-modal-lateral.scss",
+        "components/_carrito.scss",
+        "components/_contenedor-deseos.scss"
     ],
     "names": [],
     "file": "main.css"

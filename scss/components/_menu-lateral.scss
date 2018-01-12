@@ -1,0 +1,105 @@
+  .menu-lateral {}
+
+  // .menu-lateral__header {    
+  //   margin-right: 10px;
+  //   margin-left: 10px;
+  //   display: flex;
+  //   align-content: center;
+  //   justify-content: center;
+  //   padding-top: 16px;
+  //   padding-bottom: 10px;
+  // }
+  .menu-lateral__body {}
+
+  .menu-lateral__body__lista {    
+  }
+
+  .menu-lateral__body__lista__item {
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;        
+  }
+
+  .menu-lateral__body__lista__item--title {
+    color: #17a2b8;
+    font-size: 1rem;
+  }
+
+  .menu-lateral__body__lista__item__button{
+    color:white;
+    background-color: transparent;
+    border: 0px;
+    outline: none !important;
+    vertical-align: center;
+    padding: 0px !important;
+  }
+
+  .menu-lateral__body__lista__item--normal{  
+      
+  }
+
+  .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout{     
+     cursor: pointer;
+     @include transition(background-color,1s,ease-in);
+  }
+
+  
+  .menu-lateral__body__lista__item--normal:hover, .menu-lateral__body__lista__item--logout:hover{               
+    background-color: #17a2b8;
+  }
+
+  .menu-lateral__body__lista__item--logout:hover{
+    background-color: #eba3a3a2;
+  }
+
+  .menu-lateral__body__lista__item--logout{    
+  }
+  
+  .menu-lateral__body__lista__item--salir{
+    font-size: 30px;
+  }
+
+  .menu-lateral__body__lista__item--salir:hover{
+    background-color: hsla(128, 64%, 78%, 0.635);
+  }
+
+  @media (min-width:418px) {
+    .menu-lateral__body__lista__item--title {
+      font-size: 1.2rem;
+    }
+    .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout {
+      font-size: 1rem;
+    }
+  }
+
+  @media (min-width:590px) {
+    // Esta sera la última, luego lo pondremos diferente
+    .menu-lateral__body__lista__item--title {
+      font-size: 1.6rem;
+      padding-bottom: 15px;
+    }
+    .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout{
+      font-size: 1rem;
+    }
+  }
+
+
+  @media (min-width:768px) {
+    .menu-lateral__body__lista__item--title {
+      font-size: 1.9rem;  
+      padding-top: 17px;
+      padding-bottom: 18px;    
+    }
+    .menu-lateral__body__lista__item--normal, .menu-lateral__body__lista__item--logout{
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (min-width:992px) {
+    .menu-lateral__body__lista__item--title {
+      font-size: 2.2rem;
+      padding-top: 19px;
+      padding-bottom: 26px;
+    }
+  }

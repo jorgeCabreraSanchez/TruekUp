@@ -168,33 +168,10 @@ function home() {
   //Acaba autocompletar
 
   //Mostrar la capa de categorias
-  $("#main-browser,#browser-icon").on("click", function () {
-    //Crear capa solo para el textfield --> Tamaño pequeño
-    if ($(window).width() < 575) {
-      if (!$("#navbar,#contenedor,#footer").hasClass("ocultar")) {
-        $("<div class='main-browser-min' id='main-browser-min'><span class='contenedor-boton-invisible' id='contenedor-boton-invisible'><button type='button' class='boton-invisible'><i class='fa fa-times boton-invisible__icon' aria-hidden='true'></i></button></span></div>").append($("#main-browser-dropdown-conteiner")).appendTo("body");
-        $("#navbar,#contenedor,#footer").addClass("ocultar");
-        $("#main-browser-dropdown-conteiner").addClass("main-browser-dropdown-conteiner-mini");
-        //La x del texfield en tamaño pequeño
-        $("#contenedor-boton-invisible").on("click", function () {
-          quitarMainBrowserMin();
-        });
-        $("#main-browser").focus();
-      }
-    }
+  // #browser-icon
 
-    if ($("#main-drop").hasClass("mostrar")) {
-      $("#main-drop").removeClass("mostrar");
-      $("#main-browser-conteiner").removeClass("browser-extended");
-      $("#main-desplegable-categorias").children(".dropdown__level1__item--marked").removeClass("dropdown__level1__item--marked");
-      $("#main-desplegable-subcategorias").children().remove();
-    } else {
-      $("#main-drop").addClass("mostrar");
-      $("#main-browser-conteiner").addClass("browser-extended");
-      $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
-    }
-
-  });
+  $("#main-browser").on("focusout", buscador);
+  $("#main-browser").on("focusin", buscador);
 
 
   $("#button-cancel").on("click", function () {
@@ -214,7 +191,6 @@ function home() {
 
   $("#login").on("click", () => {
 
-    asignarEventoClickarFuera().then(() => {
       $("body").addClass("modal-open");
       $("#navbar").addClass("navbar-modal-open");
       ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
@@ -245,10 +221,9 @@ function home() {
         if (event.which == 13) {
           login();
         }
-      });
-
-    });
-
+      });  
+      $("#modal-backdrop").on("click",quitarLoginRegister);
+      $("#login-cancel").on("click",quitarLoginRegister);
   });
 
 
@@ -482,7 +457,6 @@ function home() {
 
   $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", prepararMostrarProductos);
   $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", prepararMostrarProductos);
-  $('#btn-home1').on('click', crearCarrito);
 
 };
 
@@ -810,15 +784,8 @@ function cambiarColor() {
   }
 }
 
-async function asignarEventoClickarFuera() {
-  return new Promise(function (resolve, reject) {
-    $(document).on("click", event => {
-      loginout(event);
-    })
-    resolve("Resuelto");
-  });
 
-}
+
 
 function guardarProductoDeseado() {
   idProducto = this.children[0].id;
@@ -844,115 +811,55 @@ function guardarProductoDeseado() {
 }
 
 function productosDeseados() {
-  console.log("hola");
+  if (typeof id != 'undefined') {
+    $.ajax({
+      url: "php/productosDeseados.php",
+      data: {
+        key: id
+      },
+      type: 'POST',
+      dataType: 'json',
+      success: function (json) {
 
-  $.ajax({
-    url: "php/productosDeseados.php",
-    data: {
-      key: id
-    },
-    type: 'POST',
-    dataType: 'json',
-    success: function (json) {
+        json.forEach(n => {
+          $("#" + n.idProducto).addClass("estrella-footer");
+        });
+      }
 
-      json.forEach(n => {
-        console.log(n.idProducto);
-        $("#" + n.idProducto).addClass("estrella-footer");
-      });
-    }
-
-  });
+    });
+  }
 }
 
-function crearCarrito() {
-  $.ajax({
-    url: "php/carrito.php",
-    data: {
-      key: id
-    },
-    type: 'POST',
-    dataType: 'json',
-    success: function (json) {
-      json.forEach(n => {
-        mostrarCarrito(n.idProducto);
-      });
-    },
-    error: function (jqXHR, status, error) {
-      console.log("Fallo en la peticion de deseados");
+function buscador() {
+  setTimeout(function () {
+
+
+    //Crear capa solo para el textfield --> Tamaño pequeño
+    if ($(window).width() < 575) {
+      if (!$("#navbar,#contenedor,#footer").hasClass("ocultar")) {
+        $("<div class='main-browser-min' id='main-browser-min'><span class='contenedor-boton-invisible' id='contenedor-boton-invisible'><button type='button' class='boton-invisible'><i class='fa fa-times boton-invisible__icon' aria-hidden='true'></i></button></span></div>").append($("#main-browser-dropdown-conteiner")).appendTo("body");
+        $("#navbar,#contenedor,#footer").addClass("ocultar");
+        $("#main-browser-dropdown-conteiner").addClass("main-browser-dropdown-conteiner-mini");
+        //La x del texfield en tamaño pequeño
+        $("#contenedor-boton-invisible").on("click", function () {
+          quitarMainBrowserMin();
+        });
+        $("#main-browser").focus();
+      }
     }
-  });
-
-}
-
-function mostrarCarrito(numero) {
-  contador = 0;
-  palabra = "Producto";
-  palabra1 = "Contacto";
-  palabra2 = "Eliminar";
-  $.ajax({
-    url: "php/productosCarrito.php",
-    data: {
-      key: numero
-    },
-    type: 'GET',
-    dataType: 'json',
-    success: function (json) {
-
-      json.forEach(n => {
-        console.log(palabra);
-
-        if (contador == 1) {
-          palabra = "";
-          palabra1 = "";
-          palabra2 = "";
-        }
-        console.log(palabra);
-        $("<div class=contenedorCarrito>" +
-          ('<div class="container">' +
-            '  <table id="cart" class="table table-hover table-condensed">' +
-            '<thead>' +
-            '  <tr>' +
-            ' <th style="width:50%">' + palabra + '</th>' +
-            ' <th style="width:10%">' + palabra2 + '</th>' +
-            '<th style="width:8%">' + palabra1 + '</th>' +
-            '  </tr>' +
-            ' </thead>' +
-            ' <tbody>' +
-            '  <tr>' +
-            '<td data-th="Product">' +
-            '<div class="row">' +
-            '  <div class="col-sm-2 hidden-xs"><img src="' + n.imagen + '" alt="..." class="img-responsive img-carro"/></div>' +
-            ' <div class="col-sm-8 td-texto--central">' +
-            '  <h4 class="nomargin">' + n.nombre + '</h4>' +
-            '<p>' + n.descripcion + '</p>' +
-            '  </div>' +
-            ' </div>' +
-            ' </td>' +
-            '  <td data-th="Quantity">' +
-            '<button class="btn btn-info btn-sm boton-eliminar">Eliminar</button>' +
-            ' </td>' +
-            '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación  <i class="fa fa-commenting" aria-hidden="true"></i></a></td>' +
-            ' </tr>' +
-            ' </tbody>' +
-            ' <tfoot>' +
-            '  <tr class="visible-xs">' +
-            ' </tr>' +
-            '  <tr>' +
-            ' <td colspan="2" class="hidden-xs"></td>' +
-            ' </tr>' +
-            ' </tfoot>' +
-            ' </table>' +
-            '</div>')).appendTo("body");
-        contador++;
-      });
-    },
-    error: function (jqXHR, status, error) {
-      console.log("Fallo en la peticion ajax para los productos");
+    if ($("#main-drop").hasClass("mostrar")) {
+      $("#main-drop").removeClass("mostrar");
+      $("#main-browser-conteiner").removeClass("browser-extended");
+      $("#main-desplegable-categorias").children(".dropdown__level1__item--marked").removeClass("dropdown__level1__item--marked");
+      $("#main-desplegable-subcategorias").children().remove();
+    } else {
+      $("#main-drop").addClass("mostrar");
+      $("#main-browser-conteiner").addClass("browser-extended");
+      $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
     }
+  }, 100)
+};
 
-  });
-
-}
 
 function politicaCookie() {
   window.cookieconsent.initialise({
@@ -970,5 +877,5 @@ function politicaCookie() {
       "dismiss": "Aceptar",
       "link": "Ver mas"
     }
-  })
-};
+  });
+} 
