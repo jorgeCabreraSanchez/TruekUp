@@ -330,7 +330,6 @@ function home() {
     });
 
     $("#register-form").validate({
-
       rules: {
         nombre: {
           required: true,
@@ -879,3 +878,5 @@ function politicaCookie() {
     }
   });
 } 
+
+

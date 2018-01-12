@@ -194,12 +194,12 @@ function mostrarCarrito(numero) {
           '  <table id="cart" class="table table-hover table-condensed">' +
           '<thead>' +
           '  <tr>' +
-          ' <th style="width:50%">' + palabra + '</th>' +
-          ' <th style="width:10%">' + palabra2 + '</th>' +
-          '<th style="width:8%">' + palabra1 + '</th>' +
+          ' <th style="width:50%;border-top: 0px;">' + palabra + '</th>' +
+          ' <th style="width:10%;border-top: 0px;">' + palabra2 + '</th>' +
+          '<th style="width:8%;border-top: 0px;">' + palabra1 + '</th>' +
           '  </tr>' +
           ' </thead>' +
-          ' <tbody>' +
+          ' <tbody id='+n.id+"tbody"+'>' +
           '  <tr>' +
           '<td data-th="Product">' +
           '<div class="row">' +
@@ -210,8 +210,8 @@ function mostrarCarrito(numero) {
           '  </div>' +
           ' </div>' +
           ' </td>' +
-          '  <td data-th="Quantity">' +
-          '<button class="btn btn-info btn-sm boton-eliminar">Eliminar</button>' +
+          '  <td  class="tabla" data-th="Quantity">' +
+          '<button id='+n.id+' class="btn btn-info btn-sm boton-eliminar">Eliminar</button>' +
           ' </td>' +
           '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación  <i class="fa fa-commenting" aria-hidden="true"></i></a></td>' +
           ' </tr>' +
@@ -229,7 +229,10 @@ function mostrarCarrito(numero) {
         $("#perfil-contenedor-deseos").append(texto);
 
         contador++;
+       
       });
+      $(".tabla").on('click',  "button.boton-eliminar",eliminarProducto);
+
     },
     //Termina success    
     error: function (jqXHR, status, error) {
@@ -237,8 +240,11 @@ function mostrarCarrito(numero) {
     }
 
   });
+  
 
 }
+
+
 
 function salirPerfil() {
   $("#modal-propio-trasera").remove();
@@ -267,3 +273,22 @@ async function borrarCookieSiExiste() {
     });
   });
 }
+
+function eliminarProducto(){
+idEliminar=this.id;
+console.log(idEliminar);
+console.log(id);
+$.ajax({
+  url: "php/borrarProductoDeseado.php",
+  data: {
+    key: idEliminar,
+    key1: id
+  },
+  type: 'POST'
+});
+
+$("#"+idEliminar+"tbody").remove();
+
+}
+
+
