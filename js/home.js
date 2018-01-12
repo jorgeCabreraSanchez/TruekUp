@@ -8,6 +8,7 @@ function home() {
   mostrarNavHome();
   mostrarBodyHome();
   loginVerifyServer(null, null);
+  politicaCookie();
 
   $('.carousel').carousel({
     interval: 4000
@@ -700,7 +701,6 @@ function mostrarProductos(key, php) {
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
       });
-      productosDeseados();
       $(".card").on("click", "div.card-footer", cambiarColor);
       $(".card").on("click", "div.card-footer", guardarProductoDeseado);
       $(".nombre-boton").on("click", event => {
@@ -712,7 +712,8 @@ function mostrarProductos(key, php) {
     }
 
   });
-  
+  productosDeseados();
+
 }
 
 function productosDetallados(event) {
@@ -949,3 +950,22 @@ function mostrarCarrito(numero) {
   });
 
 }
+
+function politicaCookie() {
+  window.cookieconsent.initialise({
+    "palette": {
+      "popup": {
+        "background": "#252e39"
+      },
+      "button": {
+        "background": "#14a7d0"
+      }
+    },
+    "theme": "classic",
+    "content": {
+      "message": "Las cookies de este sitio se usan para personalizar el contenido y los anuncios, para ofrecer funciones de medios sociales y para analizar el tráfico. Además, compartimos información sobre el uso que haga del sitio web con nuestros partners de medios sociales, de publicidad y de análisis web.",
+      "dismiss": "Aceptar",
+      "link": "Ver mas"
+    }
+  })
+};
