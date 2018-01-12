@@ -191,39 +191,39 @@ function home() {
 
   $("#login").on("click", () => {
 
-      $("body").addClass("modal-open");
-      $("#navbar").addClass("navbar-modal-open");
-      ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
-        '<div class="modal-dialog window-dialog" role="document">' +
-        '<div class="modal-content login" id="window-modal">' +
-        '<div class="modal-header login__header">' +
-        '<button type="button" id="login-cancel" class="boton-invisible login__header__cancel">' +
-        '<i class="fa fa-times" aria-hidden="true"></i>' +
-        '</button>' +
-        '<h3 class="modal-title login__header__title">Log in</h3>' +
-        '</div>' +
-        '<div class="modal-body login__body">' +
-        '<input type="email" id="login-email" class="login__body__input login__body__input--email" placeholder="correo@ejemplo.com">' +
-        '<input type="password" maxlength="20" id="login-password" class="login__body__input login__body__input--password" placeholder="Contraseña">' +
-        '<div class="login__body__remember"><input type="checkbox" id="remember" class="login__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
-        '<input type="button" id="login-entrar" class="login__body__entrar" value="Entrar">' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '<!-- Termina Div -->' +
-        '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
+    $("body").addClass("modal-open");
+    $("#navbar").addClass("navbar-modal-open");
+    ventanaModal = '<div class="modal fade window-modal" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+      '<div class="modal-dialog window-dialog" role="document">' +
+      '<div class="modal-content login" id="window-modal">' +
+      '<div class="modal-header login__header">' +
+      '<button type="button" id="login-cancel" class="boton-invisible login__header__cancel">' +
+      '<i class="fa fa-times" aria-hidden="true"></i>' +
+      '</button>' +
+      '<h3 class="modal-title login__header__title">Log in</h3>' +
+      '</div>' +
+      '<div class="modal-body login__body">' +
+      '<input type="email" id="login-email" class="login__body__input login__body__input--email" placeholder="correo@ejemplo.com">' +
+      '<input type="password" maxlength="20" id="login-password" class="login__body__input login__body__input--password" placeholder="Contraseña">' +
+      '<div class="login__body__remember"><input type="checkbox" id="remember" class="login__body__checkbox" value="Entrar"><label for="remember" class="login__body__checkbox__text">Recordarme</label></div>' +
+      '<input type="button" id="login-entrar" class="login__body__entrar" value="Entrar">' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '<!-- Termina Div -->' +
+      '<div id="modal-backdrop" class="modal-backdrop fade show"></div>';
 
-      $("body").append(ventanaModal);
+    $("body").append(ventanaModal);
 
-      $("#login-entrar").on("click", login);
-      $("#login-password").on("keyup", event => {
-        if (event.which == 13) {
-          login();
-        }
-      });  
-      $("#modal-backdrop").on("click",quitarLoginRegister);
-      $("#login-cancel").on("click",quitarLoginRegister);
+    $("#login-entrar").on("click", login);
+    $("#login-password").on("keyup", event => {
+      if (event.which == 13) {
+        login();
+      }
+    });
+    $("#modal-backdrop").on("click", quitarLoginRegister);
+    $("#login-cancel").on("click", quitarLoginRegister);
   });
 
 
@@ -456,6 +456,8 @@ function home() {
 
   $("#main-desplegable-subcategorias").on("click", ".dropdown__level2__link", prepararMostrarProductos);
   $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", prepararMostrarProductos);
+  $('#btn-home1').on('click', gohome);
+
 
 };
 
@@ -877,6 +879,29 @@ function politicaCookie() {
       "link": "Ver mas"
     }
   });
-} 
+}
 
 
+function gohome() {
+  $('#contenedor-mid').html("");
+
+  $('<div class="row row-middle" id="contenedor-mid-interior">' +
+    '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>' +
+    '</div>').appendTo("#contenedor-mid");
+
+  subcategoriasImagen.forEach(url => {
+    $("<div class='col-lg-4 col-md-6 mb-4'>" +
+      "<div class='card-body'>" +
+      " <h4 class='card-title producto-titulo-centrar' id=" + url.id + ">" +
+      " <button class='boton-invisible boton-invisible-producto'>" + url.nombre + "</button>" +
+      "</div>" +
+      "<div id='conteiner-imagen-deporte-temporada' class='card h-80'>" +
+      "<button id=" + url.id + " class='boton-invisible'>" +
+      "<img  class='card-img-top' src=" + 'images/middle/' + url.imagen + " alt=''>" +
+      "</button>" +
+      "</div>" +
+      "</div>").appendTo("#contenedor-mid-interior");
+  });
+  $(".card-title").on("click", prepararMostrarProductos);
+  $("#conteiner-imagen-deporte-temporada").on("click", "button", prepararMostrarProductos);
+};

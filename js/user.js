@@ -194,9 +194,9 @@ function mostrarCarrito(numero) {
           '  <table id="cart" class="table table-hover table-condensed">' +
           '<thead>' +
           '  <tr>' +
-          ' <th style="width:50%;border-top: 0px;">' + palabra + '</th>' +
-          ' <th style="width:10%;border-top: 0px;">' + palabra2 + '</th>' +
-          '<th style="width:8%;border-top: 0px;">' + palabra1 + '</th>' +
+          ' <th style="width:50%;border-top: 0px;border-bottom: 0px">' + palabra + '</th>' +
+          ' <th style="width:10%;border-top: 0px; border-bottom: 0px;">' + palabra2 + '</th>' +
+          '<th style="width:8%;border-top: 0px;border-bottom: 0px">' + palabra1 + '</th>' +
           '  </tr>' +
           ' </thead>' +
           ' <tbody id='+n.id+"tbody"+'>' +
@@ -219,9 +219,9 @@ function mostrarCarrito(numero) {
           ' <tfoot>' +
           '  <tr class="visible-xs">' +
           ' </tr>' +
-          '  <tr>' +
-          ' <td colspan="2" class="hidden-xs"></td>' +
-          ' </tr>' +
+          // '  <tr>' +
+          // ' <td colspan="2" class="hidden-xs"></td>' +
+          // ' </tr>' +
           ' </tfoot>' +
           ' </table>' +
           '</div>';
