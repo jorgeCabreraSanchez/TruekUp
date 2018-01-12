@@ -654,16 +654,16 @@ function añadirPalabraclave(value) {
 function prepararMostrarProductos() {  
   if ($(this).hasClass("dropdown__level2__link")) {
     php = 'php/productos.php';
-    var key = $(this)[0].id;
+    key = $(this)[0].id;
   } else if ($(this).hasClass("dropdown__notlevel__link")) {
     php = 'php/productosPalabraClave.php';
-    var key = $(this)[0].id;
+    key = $(this)[0].id;
   } else if($(this).hasClass("card-title") || $(this).parent().is("#conteiner-imagen-deporte-temporada")){
     php = 'php/productos.php';
-    var key = $(this)[0].id;
+    key = $(this)[0].id;
   } else {
     php = 'php/productosPalabraClave.php';
-    var key = $("#main-desplegable-productos").children()[0].children[0].id;    
+    key = $("#main-desplegable-productos").children()[0].children[0].id;    
   }
   mostrarProductos(key, php);
 }
@@ -763,6 +763,7 @@ function productosDetallados(event) {
           "<div class='showcase-last'>" +
           "<h3>Detalles de producto</h3>" +
           "<p>" + n.descripcion + "</p>" +
+          "<button class = ' boton-invisible boton-invisible-producto' href='#'><img class='icono-back' src='images/iconos/back.ico'></button>"+
           "</div>" +
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
@@ -770,6 +771,9 @@ function productosDetallados(event) {
       $(".estrella").on("click", cambiarColor);
       $(".img-miniatura").on("click", event => {
         cambiarImagen(event)
+      });
+      $(".icono-back").on("click", event => {
+        mostrarProductos(key, php);
       });
 
     },
