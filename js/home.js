@@ -715,8 +715,4 @@ function carruselPrincipal() {
       alert('Disculpe, existió un problema trayendo las categorias. Error: ' + error);
     }
   });
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> cristian2
