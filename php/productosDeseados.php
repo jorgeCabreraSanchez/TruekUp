@@ -1,8 +1,8 @@
 <?php
 session_start();
 $datos=[];
-$id = $_SESSION['id'];
-$conn=mysqli_connect("localhost","root","root","bdtruekup");
+require_once 'configBD.php';
+$id=$_SESSION['id'];
 $sql="SELECT idProducto FROM deseados where idUsuario='$id'";
 $resultado=mysqli_query($conn,$sql);
 while($row=mysqli_fetch_array($resultado)){

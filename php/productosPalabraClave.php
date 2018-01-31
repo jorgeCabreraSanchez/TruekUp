@@ -1,7 +1,7 @@
 <?php
 $datos=[];
 $id=$_GET['key'];
-$conn=mysqli_connect("localhost","root","root","bdtruekup");
+require_once 'configBD.php';
 $sql="SELECT id,nombre,descripcion,imagen from productos where id in (Select idProducto from busquedaproductos where idPalabraClave in (".$id."))";
 $resultado=mysqli_query($conn,$sql);
 while($row=mysqli_fetch_array($resultado)){

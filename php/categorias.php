@@ -1,8 +1,11 @@
 <?php
-    $conn = new mysqli('localhost', 'root', 'root', 'bdtruekup');
+	require_once 'configBD.php';
     if ($conn->error) {
         die('No se puede conectar a la BD' . $conn->connect_error);
     }
+
+    $subcategorias = [];
+    $categorias = [];
 
     $sql = "SELECT * FROM subcategorias";
 
@@ -15,6 +18,7 @@
     }
     $stmt -> close();
 
+
     $sql = "SELECT * FROM categorias";
     
     if ($stmt = $conn -> prepare($sql)) {
@@ -24,14 +28,16 @@
             if (isset($subcategorias[$id])) {
                 $categorias[$id] = array("categoria" => $nombre,"imagen" => $imagen, "icono" => $icono, "subcategorias" => $subcategorias[$id]);
             } else {
-                $categorias[$id] = array("categoria" => $nombre,"imagen" => $imagen, "icono" => $icono, "subcategorias" => "");
+                $categorias[$id] = array("categoria" => $nombre,"imagen" => $imagen, "icono" => $icono, "subcategorias" => "0");
             }
         }
     }
     $stmt -> close();
     
     header('Content-type: application/json; charset=utf-8');
-    echo json_encode($categorias);
-    
+	
+	echo json_encode($categorias);	
+   
+
     $conn -> close();
 ?>

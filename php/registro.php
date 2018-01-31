@@ -20,12 +20,12 @@
 		// sha256 password hashing
 		$hashed_password = hash('sha1', $user_pass);
 		
-		$query = "INSERT INTO usuarios(nombre,email,contraseña) VALUES(:nombre, :email, :pass)";
+		$query = "INSERT INTO usuarios(nombre,email,contraseña) VALUES(?,?,?)";
 		
-		$stmt = $DBcon->prepare( $query );
-		$stmt->bindParam(':nombre', $nombre_entero);
-		$stmt->bindParam(':email', $user_email);
-		$stmt->bindParam(':pass', $hashed_password);
+		$stmt = $conn->prepare( $query );
+		$stmt->bind_param('sss',$nombre_entero,$user_email,$hashed_password);
+		// $stmt->bindParam(':email', $user_email);
+		// $stmt->bindParam(':pass', $hashed_password);
 
 		// check for successfull registration
         if ( $stmt->execute() ) {

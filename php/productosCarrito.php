@@ -1,7 +1,7 @@
 <?php
 $datos=[];
 $id=$_GET['key'];
-$conn=mysqli_connect("localhost","root","root","bdtruekup");
+require_once 'configBD.php';
 $sql="SELECT id,nombre,descripcion,imagen FROM productos where id='$id'";
 $resultado=mysqli_query($conn,$sql);
 while($row=mysqli_fetch_array($resultado)){

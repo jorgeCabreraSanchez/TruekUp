@@ -3,8 +3,13 @@
     width: 100%;
     height: 100%;
     display: grid;
+<<<<<<< HEAD
     grid-template-columns: 30% 45% 25%;
     grid-template-rows: 15% 85%;
+=======
+    grid-template-columns: 25% 48% 27%;
+    grid-template-rows: min-content auto;
+>>>>>>> david
     grid-template-areas: "nombreUsuarios usuario usuario" "usuarios        chat    trade";
     border: 3px solid black;
     @include border-radius(10px);
@@ -26,17 +31,52 @@
 .contenedor-chats__nombre-chat__item{
     align-self: center;
     text-align: center;
+<<<<<<< HEAD
     justify-content: center;
+=======
+    justify-content: center;    
+>>>>>>> david
 }
 
 .contenedor-chats__usuario {
     grid-area: usuario;
     border-bottom: 1px solid #e4e0e0; 
+<<<<<<< HEAD
+=======
+    display:flex;    
+    justify-content: center;
+    align-content: center;
+    background-color:#444753;
+    color:wheat;    
+}
+
+.contenedor-chats__usuario__item {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.contenedor-chats__usuario__imagen{
+    width: 45px;
+    height: 45px;
+    @include border-radius(30px);
+    margin-right: 10px;
+}
+
+.contenedor-chats__usuario__nombre{
+
+>>>>>>> david
 }
 
 .contenedor-chats__usuarios {
     grid-area: usuarios;
     border-right: 1px solid #e4e0e0;
+<<<<<<< HEAD
+=======
+    background-color: #444753;
+    overflow: auto;
+>>>>>>> david
 }
 
 .contenedor-chats__usuarios__item {
@@ -50,4 +90,11 @@
 .contenedor-chats__trade {
     grid-area: trade;
     border-left: 1px solid #e4e0e0;
+<<<<<<< HEAD
+=======
+    display: flex;
+    justify-content: center;    
+    background-color:#f2f2f24d;
+    overflow: auto;
+>>>>>>> david
 }

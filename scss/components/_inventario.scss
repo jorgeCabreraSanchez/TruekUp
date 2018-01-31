@@ -1,0 +1,48 @@
+.container__inventario {
+    position: fixed;
+    top: 25%;
+    bottom: 25%;
+    left: 44%;
+    right: 24%;
+    overflow: auto;
+    background-color: #f2f2f24d;
+    border: 1px solid #bfbfbf4d;
+    display: none;
+}
+
+.inventario {
+    display: flex;
+    justify-content: center;
+    background-color: #f2f2f24d;
+    flex-wrap: wrap;
+    padding-top: 25px;
+    padding-left: 20px;
+    padding-bottom: 25px;
+}
+
+.inventario__item {
+    width: 180px;
+    box-shadow: 1px solid black;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 15px;
+    margin-right: 10px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.inventario__item:hover {
+    cursor: pointer;
+}
+
+.inventario__imagen {
+    width: 100%;
+    height: 140px;
+}
+
+.inventario__nombre {
+    text-align: center;
+    margin-top: 4px;
+    line-height: 1.4;
+}

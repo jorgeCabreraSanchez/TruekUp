@@ -1,5 +1,4 @@
 <?php
-	
 	define('DBhost', 'localhost');
 	define('DBuser', 'root');
 	define('DBPass', 'root');
@@ -7,9 +6,20 @@
 	
 	try {
 		
-		$DBcon = new PDO("mysql:host=".DBhost.";dbname=".DBname,DBuser,DBPass);
+		$conn=mysqli_connect("localhost","root","root","bdtruekup");
+		mysqli_set_charset($conn, "utf8");	
+		} catch(mysqli_error $e){
+			
+			die($e->getMessage());
+		}
+	try {
 		
-	} catch(PDOException $e){
-		
-		die($e->getMessage());
-	}
+		$conn1 = new PDO("mysql:host=".DBhost.";dbname=".DBname,DBuser,DBPass);
+				
+		} catch(mysqli_error $e){
+				
+			die($e->getMessage());
+		}
+
+		// $conn->close();
+?>

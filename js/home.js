@@ -9,74 +9,8 @@ function home() {
   mostrarBodyHome();
   loginVerifyServer(null, null);
   politicaCookie();
-
-  $('.carousel').carousel({
-    interval: 4000
-  })
-
-
-  $.ajax({
-    url: 'php/categorias.php',
-    type: 'GET',
-    dataType: 'json',
-    success: function (json) {
-      first = true;
-      contador = 1;
-      subcategoriasImagen = [];
-      subcategorias = [];
-      //Recorro las categorias
-      var frasesCarruselTemporal = frasesCarrusel.slice();
-      // var contador = 0;
-      $.each(json, (id, value) => {
-        //Cargo el carousel
-
-        if (value.imagen != null) {
-          if (first) {
-            first = false;
-            aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
-            seleccion = frasesCarruselTemporal[aleatorio];
-            $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
-              '<h1>' + seleccion + '</h1>' +
-              '</div></div>').appendTo('#carousel');
-            $('<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>').appendTo('#indicators');
-          } else {
-            aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
-            seleccion = frasesCarruselTemporal[aleatorio];
-            $('<div class="carousel-item"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
-              '<h1>' + seleccion + '</h1>' +
-              '</div></div>').appendTo('#carousel');
-            $('<li data-target="#carouselExampleIndicators" data-slide-to="' + contador + '"></li>').appendTo('#indicators');
-            contador++;
-          }
-        }
-
-        /*Cargo las categorias y me guardo las subcategorias en un Array llamado subcategorias[] 
-         con la key de la id de la categoria a la que pertenece. */
-        $('<li class="list-group-item dropdown__level1__item" id=' + id + '><img src=' + value.icono + '>' + "  " + value.categoria + '</li>').appendTo("#main-desplegable-categorias");
-        subcategorias[id] = [];
-        i = 1;
-        //Recorro las subCategorias
-        $.each(value.subcategorias, (index, subcategoria) => {
-          subcategorias[id] = value.subcategorias;
-          if (subcategoria.imagen != null && subcategoria.imagen.startsWith(estacion()) && i <= 3) {
-            subcategoriasImagen[subcategoria.id] = {
-              'id': subcategoria.id,
-              'nombre': subcategoria.nombre,
-              'imagen': subcategoria.imagen
-            };
-            i++;
-          }
-        });
-      });
-
-      //Fin recorrer JSON
-      mostrarMiddleContainer();
-    },
-
-    error: function (jqXHR, status, error) {
-      alert('Disculpe, existió un problema trayendo las categorias. Error: ' + error);
-    }
-  });
+  carruselPrincipal();
+  
   //Acaba petición AJAX
 
   //Si escribe se autocompleta
@@ -237,7 +171,7 @@ function home() {
       ' <!-- form start -->' +
       '<form method="post" role="form" id="register-form" autocomplete="off">' +
       ' <div class="form-header">' +
-      '<h2 class="form-title"><i class="fa fa-user"></i><span class="glyphicon glyphicon-user"></span> Registro de nuevo usu@rio</h2>' +
+      '<h2 class="form-title"><i class="fa fa-user"></i><span class="glyphicon glyphicon-user"></span> Registro de nuevo usuari@</h2>' +
       ' <div class="pull-right">' +
       '<h3 class="form-title"><span class="glyphicon glyphicon-pencil"></span></h3>' +
       ' </div>' +
@@ -284,7 +218,7 @@ function home() {
       '</div>' +
       ' </div>' +
       ' </div>' +
-      ' <div class="form-footer">' +
+      ' <div class="form-footer form-footer--responsive">' +
       '<button type="submit" class="btn btn-info btn-info-form" id="btn-signup">' +
       '  <span class="fa fa-sign-in"></span> Registrarse' +
       '</button>' +
@@ -458,6 +392,8 @@ function home() {
   $("#main-desplegable-productos").on("click", ".dropdown__notlevel__link", prepararMostrarProductos);
   $('#btn-home1').on('click', gohome);
 
+  
+
 
 };
 
@@ -503,7 +439,7 @@ function mostrarNavHome() {
 
 
 function mostrarBodyHome() {
-  $(".main-conteiner").html('<div class="row">' +
+  $(".main-conteiner").html('<div id="puta" class="row">' +
 
     '<div class="col-lg-12 col-carousel">' +
 
@@ -598,7 +534,6 @@ function mostrarMiddleContainer() {
   $(".h-80").on("click", "button", prepararMostrarProductos);
 
 };
-
 
 
 function estacion() {
@@ -711,3 +646,73 @@ function gohome() {
   $(".card-title").on("click", prepararMostrarProductos);
   $(".h-80").on("click", "button", prepararMostrarProductos);
 };
+
+function carruselPrincipal() {
+  $('.carousel').carousel({
+    interval: 4000
+  })
+
+
+  $.ajax({
+    url: 'php/categorias.php',
+    type: 'GET',
+    dataType: 'json',
+    success: function (json) {
+      first = true;
+      contador = 1;
+      subcategoriasImagen = [];
+      subcategorias = [];
+      //Recorro las categorias
+      var frasesCarruselTemporal = frasesCarrusel.slice();
+      // var contador = 0;
+      $.each(json, (id, value) => {
+        //Cargo el carousel
+
+        if (value.imagen != null) {
+          if (first) {
+            first = false;
+            aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
+            seleccion = frasesCarruselTemporal[aleatorio];
+            $('<div class="carousel-item active"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
+              '<h1>' + seleccion + '</h1>' +
+              '</div></div>').appendTo('#carousel');
+            $('<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>').appendTo('#indicators');
+          } else {
+            aleatorio = Math.floor(Math.random() * (frasesCarruselTemporal.length));
+            seleccion = frasesCarruselTemporal[aleatorio];
+            $('<div class="carousel-item"><img class="d-block img-fluid" src=' + value.imagen + '></img><div class="carousel-text carousel-caption d-none d-md-block">' +
+              '<h1>' + seleccion + '</h1>' +
+              '</div></div>').appendTo('#carousel');
+            $('<li data-target="#carouselExampleIndicators" data-slide-to="' + contador + '"></li>').appendTo('#indicators');
+            contador++;
+          }
+        }
+
+        /*Cargo las categorias y me guardo las subcategorias en un Array llamado subcategorias[] 
+         con la key de la id de la categoria a la que pertenece. */
+        $('<li class="list-group-item dropdown__level1__item" id=' + id + '><img src=' + value.icono + '>' + "  " + value.categoria + '</li>').appendTo("#main-desplegable-categorias");
+        subcategorias[id] = [];
+        i = 1;
+        //Recorro las subCategorias
+        $.each(value.subcategorias, (index, subcategoria) => {
+          subcategorias[id] = value.subcategorias;
+          if (subcategoria.imagen != null && subcategoria.imagen.startsWith(estacion()) && i <= 3) {
+            subcategoriasImagen[subcategoria.id] = {
+              'id': subcategoria.id,
+              'nombre': subcategoria.nombre,
+              'imagen': subcategoria.imagen
+            };
+            i++;
+          }
+        });
+      });
+
+      //Fin recorrer JSON
+      mostrarMiddleContainer();
+    },
+
+    error: function (jqXHR, status, error) {
+      alert('Disculpe, existió un problema trayendo las categorias. Error: ' + error);
+    }
+  });
+}

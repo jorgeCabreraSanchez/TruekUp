@@ -4,7 +4,11 @@
     width: 88%;
     height: 80%;
     @include border-radius(5px);
+<<<<<<< HEAD
     overflow: scroll;
+=======
+    overflow: auto;
+>>>>>>> david
 }
 
 .carrito-header {

@@ -21,7 +21,15 @@
         "components/_contenedor-deseos.scss",
         "components/_contenedor-chats.scss",
         "components/_lista-usuarios.scss",
+<<<<<<< HEAD
         "components/_subir-producto.scss"
+=======
+        "components/_trade.scss",
+        "components/_subir-producto.scss",
+        "components/_inventario.scss",
+        "components/_perfil-usuario.scss",
+        "components/_carrusel-productos.scss"
+>>>>>>> david
     ],
     "names": [],
     "file": "main.css"

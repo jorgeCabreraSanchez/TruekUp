@@ -2,7 +2,7 @@
 $datos=[];
 session_start();
 $idPropietario=$_SESSION['id'];
-$conn=mysqli_connect("localhost","root","root","bdtruekup");
+require_once 'configBD.php';
 $sql="SELECT id FROM productos where visible=1 AND idPropietario='$idPropietario'";
 $resultado=mysqli_query($conn,$sql);
 while($row=mysqli_fetch_array($resultado)){

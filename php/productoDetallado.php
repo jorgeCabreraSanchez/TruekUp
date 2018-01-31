@@ -1,7 +1,8 @@
 <?php
 $datos=[];
 $id=$_GET['key'];
-$conn=mysqli_connect("localhost","root","root","bdtruekup");
+require_once 'configBD.php';
+
 mysqli_set_charset($conn, "utf8");
 $sql="SELECT * FROM productos where id='$id'";
 $resultado=mysqli_query($conn,$sql);
