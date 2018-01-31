@@ -35,7 +35,6 @@ function logueado(nombre, imagen) {
     $("#navbar-list").children()[1].remove();
   }
 
-  
   img = imagen.split(".")[0] + "-35x30." + imagen.split(".")[1];
 
   $("<li class='navbar-list__item navbar-list__item--perfil navbar-list__item--highlighted' id='perfil'>" +

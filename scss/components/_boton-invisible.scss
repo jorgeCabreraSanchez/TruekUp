@@ -20,3 +20,24 @@
 .boton-eliminar{
     padding:7px !important;
 }
+.boton-visible{
+    font-size: 25px;
+    margin-left:20px;
+    color:green;
+}
+.boton-color{
+    color:red !important;
+}
+.boton-cancelar{
+    background-color: red;
+    border:1px solid red;
+}
+.boton-cancelar:hover{
+    background-color:darken(red,15%);
+    border:1px solid red;
+}
+
+.custom-file{
+    margin-left:65px;  
+}
+

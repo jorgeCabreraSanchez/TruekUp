@@ -505,6 +505,30 @@ body {
   padding: 7px !important;
 }
 
+.boton-visible {
+  font-size: 25px;
+  margin-left: 20px;
+  color: green;
+}
+
+.boton-color {
+  color: red !important;
+}
+
+.boton-cancelar {
+  background-color: red;
+  border: 1px solid red;
+}
+
+.boton-cancelar:hover {
+  background-color: #b30000;
+  border: 1px solid red;
+}
+
+.custom-file {
+  margin-left: 65px;
+}
+
 .window-modal {
   opacity: 1 !important;
   display: block;
@@ -596,7 +620,7 @@ body {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: repeat(2, 1fr) 10% 1fr;
-  grid-template-areas: "email"  "password"  "remember"  "entrar";
+  grid-template-areas: "email"  "password"  "remember"  "entrar";
   padding-top: 30px;
 }
 
@@ -1233,5 +1257,27 @@ slight .mask {
   -moz-border-radius: 20px !important;
   -o-border-radius: 20px !important;
   margin-right: 10px;
+}
+
+.form-group {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 7px;
+}
+
+.titulo {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  color: #17A2B8;
+}
+
+.control-label {
+  font-size: 15px;
+}
+
+.control-label-texto {
+  padding: 7px;
 }
 /*# sourceMappingURL=main.css.map */
