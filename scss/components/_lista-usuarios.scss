@@ -1,10 +1,17 @@
 
-.lista-usuarios{
-    
+
+.lista-usuarios {
+    padding:0px;
 }
 
-.lista-usuarios__item{
-
+.lista-usuarios__item {
+    padding: 10px 15px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: wheat;
+    overflow: hidden;
+    height: 70px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .lista-usuarios__item:nth-child(0){
@@ -19,6 +26,23 @@
 }
 
 .lista-usuarios__nombre{
+
+
+
+.lista-usuarios__item--clicked {
+    background-color: #3b3d4a;    
+}
+
+.lista-usuarios__item--clicked + .lista-usuarios__imagen{
+    border: 2px solid #4a4a4a !important;
+}
+
+.lista-usuarios__item:hover {
+    cursor: pointer;
+    background-color: #3b3d4a;
+}
+
+.lista-usuarios__imagen {
     width: 45px;
     height: 45px;
     @include border-radius(30px);
@@ -26,9 +50,4 @@
     border: 2px solid #6f6f6f;
 }
 
-.lista-usuarios__nombre {
-}
-
-.lista-usuarios__nombre{
-
-}
+.lista-usuarios__nombre {}

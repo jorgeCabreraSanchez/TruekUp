@@ -33,7 +33,8 @@
 }
 
 .modal-propio__lateral--derecho{
-    grid-area: derecha;    
+    grid-area: derecha;  
+    display: flex;  
 }
 
 // position: fixed;

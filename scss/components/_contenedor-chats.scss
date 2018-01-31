@@ -7,8 +7,6 @@
     grid-template-rows: 15% 85%;
     grid-template-columns: 25% 48% 27%;
     grid-template-rows: min-content auto;
-    grid-template-columns: 30% 45% 25%;
-    grid-template-rows: 15% 85%;
     grid-template-areas: "nombreUsuarios usuario usuario" "usuarios        chat    trade";
     border: 3px solid black;
     @include border-radius(10px);
@@ -41,9 +39,6 @@
     align-content: center;
     background-color:#444753;
     color:wheat;    
-    display:flex;    
-    justify-content: center;
-    align-content: center;
 }
 
 .contenedor-chats__usuario__item {

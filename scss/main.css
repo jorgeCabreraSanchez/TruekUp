@@ -516,6 +516,9 @@ body {
   font-size: 25px;
   margin-left: 20px;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> presentacion26
   color: green;
 }
 
@@ -535,6 +538,7 @@ body {
 
 .custom-file {
   margin-left: 65px;
+<<<<<<< HEAD
 =======
   color: green !important;
 }
@@ -542,6 +546,8 @@ body {
 .boton-color {
   color: red;
 >>>>>>> cristian2
+=======
+>>>>>>> presentacion26
 }
 
 .window-modal {
@@ -635,10 +641,14 @@ body {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: repeat(2, 1fr) 10% 1fr;
+<<<<<<< HEAD
   grid-template-areas: "email" 
  "password" 
  "remember" 
  "entrar";
+=======
+  grid-template-areas: "email"  "password"  "remember"  "entrar";
+>>>>>>> presentacion26
   padding-top: 30px;
 }
 
@@ -1017,6 +1027,10 @@ slight .mask {
   text-align: justify !important;
 }
 
+.menu-lateral__body__lista {
+  padding: 0px;
+}
+
 .menu-lateral__body__lista__item {
   color: white;
   padding-top: 10px;
@@ -1132,6 +1146,7 @@ slight .mask {
 
 .modal-propio__lateral--derecho {
   grid-area: derecha;
+  display: flex;
 }
 
 .table > tbody > tr > td,
@@ -1298,6 +1313,13 @@ slight .mask {
   overflow: auto;
 }
 
+<<<<<<< HEAD
+=======
+.lista-usuarios {
+  padding: 0px;
+}
+
+>>>>>>> presentacion26
 .lista-usuarios__item {
   padding: 10px 15px;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -1373,6 +1395,10 @@ slight .mask {
 .trade__header__list {
   margin: 0px;
   display: flex;
+<<<<<<< HEAD
+=======
+  padding: 0px;
+>>>>>>> presentacion26
 }
 
 .trade__header__list__item {
@@ -1542,6 +1568,11 @@ body {
 .container-perfil {
   background-color: #eee;
   margin-top: 100px;
+<<<<<<< HEAD
+=======
+  margin-bottom: 20px;
+  overflow: auto;
+>>>>>>> presentacion26
 }
 
 .row-perfil {
@@ -2230,6 +2261,7 @@ datepicker table tr td.day:hover,
 
 .carrusel-activo {
   height: 100% !important;
+<<<<<<< HEAD
 }
 
 .carrito-header {
@@ -2706,5 +2738,7 @@ datepicker table tr td.day:hover,
 
 .carrusel-activo {
   height: 100% !important;
+=======
+>>>>>>> presentacion26
 }
 /*# sourceMappingURL=main.css.map */

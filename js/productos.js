@@ -84,7 +84,7 @@ function productosDetallados(event) {
     php = "php/productosCarrito.php";
     padre = event.target.parentNode.parentNode.parentNode.parentNode;
     hijo = padre.firstChild.nextSibling.firstChild;
-  }else{
+  } else {
     padre = event.target.parentNode.parentNode.parentNode;
     hijo = padre.lastChild.lastChild;
   }
@@ -160,7 +160,7 @@ function productosDetallados(event) {
           "</div>").appendTo("#contenedor-mid-interior");
       });
       $(".estrella").on("click", cambiarColor);
-      $(".carousel-item").on("click","img.imagen-carrusel", event => {
+      $(".carousel-item").on("click", "img.imagen-carrusel", event => {
         cambiarImagen(event)
       });
       $(".icono-volver").on("click", event => {
@@ -180,15 +180,25 @@ function productosDetallados(event) {
 function volver(key, php) {
   if (key == "modal" && php == "php/misProductos.php") {
     mostrarPerfil();
-    misProductos();
+    setTimeout(
+      function () {
+        $("#modal-propio-lateral-derecho").html("");
+        misProductos();
+      }, 500);
+
   } else if (key == "modal-carrito" && php == "php/productosCarrito.php") {
     mostrarPerfil();
+    setTimeout(
+      function () {
+        $("#modal-propio-lateral-derecho").html("");
     crearCarrito();
-} else {
-    mostrarProductos(key, php);
+      }, 500);
     
+  } else {
+    mostrarProductos(key, php);
+
   }
-  
+
 }
 
 function prepararCarrusel() {
@@ -205,8 +215,7 @@ function prepararCarrusel() {
 
     if (next.next().length > 0) {
       next.next().children(':first-child').clone().appendTo($(this));
-    }
-    else {
+    } else {
       $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
     }
   });
@@ -221,6 +230,10 @@ function cambiarImagen(event) {
 }
 
 function cambiarColor() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> presentacion26
   var id = this.children[0].id;
   if ($("#" + id).hasClass("estrella-footer")) {
     $("#" + id).removeClass("estrella-footer");
@@ -340,7 +353,7 @@ function misProductos() {
             '<tr>' +
             '<td data-th="Product">' +
             '<div class="row">' +
-            '<div class="col-sm-2 hidden-xs"><img src="' + n.imagen + '" alt="..." class="img-responsive img-carro"/></div>' +
+            '<div class="col-sm-2 hidden-xs"><img src="' + n.imagen + '" alt="..." class="img-responsive img-carro div-volver"/></div>' +
             '<div class="col-sm-8 td-texto--central">' +
             '<h4 class="nomargin">' + n.nombre + '</h4>' +
             '<p>' + n.descripcion + '</p>' +
@@ -350,7 +363,7 @@ function misProductos() {
             '<td  class="tabla" data-th="Quantity">' +
             '<button class="btn btn-info btn-sm boton-eliminar">Eliminar</button>' +
             '</td>' +
-            '<td><big id='+ n.id +' class="boton-visible"><i class="fa fa-eye" aria-hidden="true"></i></big></td>' +
+            '<td><big id=' + n.id + ' class="boton-visible"><i class="fa fa-eye" aria-hidden="true"></i></big></td>' +
             '</tr>';
 
 
@@ -359,6 +372,16 @@ function misProductos() {
         $("td").on('click', "button.boton-eliminar", eliminarMiProducto);
         $("big").on("click", "i.fa-eye", cambiarVisible);
         comprobarMisproductos();
+        $(".nomargin").on("click", event => {
+          key = "modal";
+          productosDetallados(event);
+          salirPerfil();
+        });
+        $(".div-volver").on("click", event => {
+          key = "modal";
+          productosDetallados(event);
+          salirPerfil();
+        });
 
       },
       error: function (jqXHR, status, error) {
@@ -372,7 +395,6 @@ function cambiarVisible() {
   var id = this.parentNode.id;
   console.log(id);
   if ($("#" + id).hasClass("boton-color")) {
-    
     $("#" + id).removeClass("boton-color");
     $.ajax({
       url: "php/cambiarVisible.php",
@@ -418,7 +440,6 @@ function comprobarMisproductos() {
 }
 
 function eliminarMiProducto() {
-  alert("hola");
   var id = this.parentNode.parentNode.children[2].children[0].id;
   var borrarProducto = this.parentNode.parentNode;
   $(borrarProducto).remove();
@@ -444,107 +465,107 @@ function subirProducto() {
 
     $("#modal-propio-lateral-derecho").append(texto);
 
-    var texto = '<form class="form-horizontal">'  + 
-    '<div class="capa-principal">'  + 
-    '<h3 class="titulo">Nuevo Producto</h3>'  +
+    var texto = '<form class="form-horizontal">' +
+      '<div class="capa-principal">' +
+      '<h3 class="titulo">Nuevo Producto</h3>' +
 
-    '   <!-- Text input-->'  + 
-    '   <div class="form-group">'  + 
-    '     <label class="col-md-2 control-label control-label-texto" for="product_categorie">Nombre:</label>'  + 
-    '     <div class="col-md-4">'  + 
-    '     <input id="product_name" name="product_name" placeholder="" class="form-control input-md" required="" type="text">'  +
-    '     </div>'  + 
-    '   </div>'  + 
+      '   <!-- Text input-->' +
+      '   <div class="form-group form-group1">' +
+      '     <label class="col-md-2 control-label  control-label1-texto" for="product_categorie">Nombre:</label>' +
+      '     <div class="col-md-4">' +
+      '     <input id="product_name" name="product_name" placeholder="" class="form-control input-md" required="" type="text">' +
+      '     </div>' +
+      '   </div>' +
 
-    '   <!-- Select Basic -->'  + 
-    '   <div class="form-group">'  + 
-    '     <label class="col-md-2 control-label control-label-texto" for="product_categorie">Categoria:</label>'  + 
-    '     <div class="col-md-4">'  + 
-    '       <select id="categoria" name="product_categorie" class="form-control" onchange="rellenarSubcategorias()">'+ 
-                '<option value="" selected disabled hidden>Selecciona categoria</option>'+
-    '       </select>'  + 
-    '     </div>'  + 
-    '   </div>'  + 
+      '   <!-- Select Basic -->' +
+      '   <div class="form-group form-group1">' +
+      '     <label class="col-md-2 control-label  control-label1l-texto" for="product_categorie">Categoria:</label>' +
+      '     <div class="col-md-4">' +
+      '       <select id="categoria" name="product_categorie" class="form-control" onchange="rellenarSubcategorias()">' +
+      '<option value="" selected disabled hidden>Selecciona categoria</option>' +
+      '       </select>' +
+      '     </div>' +
+      '   </div>' +
 
-    '   <!-- Select Basic -->'  + 
-    '   <div class="form-group">'  + 
-    '     <label class="col-md-2 control-label control-label-texto" for="product_categorie">Subcategoria:</label>'  + 
-    '     <div class="col-md-4">'  + 
-    '       <select id="subcategoria" name="product_categorie" class="form-control">'+
-                '<option value="" selected disabled hidden>Selecciona subcategoria</option>'+
-    '       </select>'  + 
-    '     </div>'  + 
-    '   </div>'  + 
+      '   <!-- Select Basic -->' +
+      '   <div class="form-group form-group1">' +
+      '     <label class="col-md-2 control-label  control-label1-texto" for="product_categorie">Subcategoria:</label>' +
+      '     <div class="col-md-4">' +
+      '       <select id="subcategoria" name="product_categorie" class="form-control">' +
+      '<option value="" selected disabled hidden>Selecciona subcategoria</option>' +
+      '       </select>' +
+      '     </div>' +
+      '   </div>' +
 
-    '   <!-- Textarea -->'  + 
-    '   <div class="form-group">'  + 
-    '     <label class="col-md-2 control-label" for="product_description">Descripcion:</label>'  + 
-    '     <div class="col-md-4">'  + 
-    '       <textarea class="form-control" id="product_description" name="product_description"></textarea>  '  + 
-    '     </div>'  + 
-    '   </div>'  + 
+      '   <!-- Textarea -->' +
+      '   <div class="form-group form-group1">' +
+      '     <label class="col-md-2 control-label control-label1" for="product_description">Descripcion:</label>' +
+      '     <div class="col-md-4">' +
+      '       <textarea class="form-control" id="product_description" name="product_description"></textarea>  ' +
+      '     </div>' +
+      '   </div>' +
 
-    '   <!-- File Button --> '  + 
-    '   <div class="form-group">'  + 
-    '   <label class="custom-file">  '  + 
-    '     <input type="file" id="file" class="custom-file-input">  '  + 
-    '     <span class="custom-file-control"></span>  '  + 
-    '  </label>  ' +
-    '   </div>'  + 
-    
-    '   <!-- Button -->'  + 
-    '   <div class="form-group">'  + 
-    '     <label class="col-md-2 control-label" for="singlebutton"></label>'  + 
-    '     <div class="col-md-4">'  + 
-    '       <button id="singlebutton" name="singlebutton" class="btn btn-primary">Publicar</button>'  +
-    '       <button id="singlebutton" name="singlebutton" class="btn btn-primary boton-cancelar">Cancelar</button>'  +
-    '     </div>'  + 
-    '     </div>'  + 
-    '   </div>'  + 
-    '  </form>' ; 
+      '   <!-- File Button --> ' +
+      '   <div class="form-group form-group1">' +
+      '   <label class="custom-file">  ' +
+      '     <input type="file" id="file" class="custom-file-input">  ' +
+      '     <span class="custom-file-control"></span>  ' +
+      '  </label>  ' +
+      '   </div>' +
+
+      '   <!-- Button -->' +
+      '   <div class="form-group form-group1">' +
+      '     <label class="col-md-2 control-label control-label1" for="singlebutton"></label>' +
+      '     <div class="col-md-4">' +
+      '       <button id="singlebutton" name="singlebutton" class="btn btn-primary">Publicar</button>' +
+      '       <button id="singlebutton" name="singlebutton" class="btn btn-primary boton-cancelar">Cancelar</button>' +
+      '     </div>' +
+      '     </div>' +
+      '   </div>' +
+      '  </form>';
     $("#perfil-contenedor-subirProducto").append(texto);
-    
-    
+
+
 
   }
   rellenarCategorias();
-  
-    
+
+
 }
 
 
-function rellenarCategorias(){
+function rellenarCategorias() {
   $.ajax({
     url: "php/consultarCategorias.php",
     type: "POST",
     dataType: 'json',
-    success: function (json){
-      json.forEach(n=>{
+    success: function (json) {
+      json.forEach(n => {
         console.log(n.nombre);
-        $('#categoria').append('<option value="'+n.id+'">'+n.nombre+'</option>');
+        $('#categoria').append('<option value="' + n.id + '">' + n.nombre + '</option>');
       });
     }
   });
-  
-  
+
+
 }
 
-function rellenarSubcategorias(){
+function rellenarSubcategorias() {
   $("#subcategoria").empty()
   var valor = document.getElementById("categoria").value;
   $.ajax({
     url: "php/consultarSubcategorias.php",
-    data:{
-      key:valor
+    data: {
+      key: valor
     },
     type: "POST",
     dataType: 'json',
-    success: function (json){
-      json.forEach(n=>{
+    success: function (json) {
+      json.forEach(n => {
         console.log(n.nombre);
-        $('#subcategoria').append('<option value="'+n.nombre+'">'+n.nombre+'</option>');
+        $('#subcategoria').append('<option value="' + n.nombre + '">' + n.nombre + '</option>');
       });
     }
   });
-  
+
 }
