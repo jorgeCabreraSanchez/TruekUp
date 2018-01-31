@@ -1,8 +1,3 @@
-function saludar() {
-  alert("hola");
-}
-
-
 function login() {
   if ($("#login-error").length) {
     // Si existe       
@@ -40,6 +35,7 @@ function logueado(nombre, imagen) {
     $("#navbar-list").children()[1].remove();
   }
 
+  
   img = imagen.split(".")[0] + "-35x30." + imagen.split(".")[1];
 
   $("<li class='navbar-list__item navbar-list__item--perfil navbar-list__item--highlighted' id='perfil'>" +
@@ -87,7 +83,6 @@ async function loginVerifyServer(email, password) {
       dataType: 'JSON',
       success: function (json) {
         if (json["igual"] == "TRUE") {
-          id = json["id"];
           logueado(json["nombre"], json["imagen"]);
           resolve("TRUE");
         } else {
@@ -95,7 +90,7 @@ async function loginVerifyServer(email, password) {
         }
       },
       error: function (jqXHR, status, error) {
-        reject(Error("FALSE"));
+        reject(Error("FALSE " + error));
       },
     });
   });
@@ -120,6 +115,15 @@ function mostrarPerfil() {
     '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">' +
     '<i class="fa fa-heart-o" aria-hidden="true"></i> Productos deseados' +
     '</li>' +
+    '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">' +
+    '<i class="fa fa-list" aria-hidden="true"></i> Mis productos' +
+    '</li>' +
+    '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">' +
+    '<i class="fa fa-comments-o" aria-hidden="true"></i> Chats' +
+    '</li>' +
+    '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">' +
+    '<i class="fa fa-handshake-o" aria-hidden="true"></i> Trades realizados' +
+    '</li>' +
     '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--logout">' +
     '<i class="fa fa-sign-out" aria-hidden="true"></i> Login out' +
     '</li>' +
@@ -136,19 +140,26 @@ function mostrarPerfil() {
     '</div>';
 
   $("body").append(texto);
+  $("body").css("overflow", "hidden");
+
 
   $("#menu-lateral-perfil").children()[2].addEventListener("click", crearCarrito);
-  $("#menu-lateral-perfil").children()[4].addEventListener("click", salirPerfil);
-  $("#menu-lateral-perfil").children()[3].addEventListener("click", desloguearse);
+  $("#menu-lateral-perfil").children()[3].addEventListener("click", misProductos);
+  $("#menu-lateral-perfil").children()[4].addEventListener("click", chats);
+  // $("#menu-lateral-perfil").children()[5].addEventListener("click", tradesRealizados);
+  $("#menu-lateral-perfil").children()[6].addEventListener("click", desloguearse);
+  $("#menu-lateral-perfil").children()[7].addEventListener("click", salirPerfil);
+
 };
 
 function crearCarrito() {
   if (!$("#perfil-contenedor-deseos").length) {
+    if ($("#modal-propio-lateral-derecho").children().length!=0 ) {
+      borrarContenidoCapaDerecha();
+    }
+
     $.ajax({
       url: "php/carrito.php",
-      data: {
-        key: id
-      },
       type: 'POST',
       dataType: 'json',
       success: function (json) {
@@ -156,6 +167,29 @@ function crearCarrito() {
           '</div>';
 
         $("#modal-propio-lateral-derecho").append(texto);
+        var texto = '<div class="container">' +
+          '<table id="cart" class="table table-hover table-condensed">' +
+          '<thead>' +
+          '<tr class="carrito-header">' +
+          '<th style="width:50%;border-top: 0px;border-bottom: 0px">Producto</th>' +
+          '<th style="width:10%;border-top: 0px; border-bottom: 0px;">Contacto</th>' +
+          '<th style="width:8%;border-top: 0px;border-bottom: 0px">Eliminar</th>' +
+          '</tr>' +
+          '</thead>' +
+          '<tbody id="cuerpoCarritoProductosDeseados">' +
+          '</tbody>' +
+          '</table>' +
+          '</div>';
+        $("#perfil-contenedor-deseos").append(texto);
+        if (json.length == 0) {
+          var texto =
+            '<tr>' +
+            '<td class="carrito-vacio" COLSPAN="3"><h3>Usted no desea ningún producto</h3></td>' +
+            '</tr>';
+
+          $("#cuerpoCarritoProductosDeseados").append(texto);
+        }
+
         json.forEach(n => {
           mostrarCarrito(n.idProducto);
         });
@@ -168,10 +202,10 @@ function crearCarrito() {
 }
 
 function mostrarCarrito(numero) {
-  contador = 0;
-  palabra = "Producto";
-  palabra1 = "Contacto";
-  palabra2 = "Eliminar";
+  if (!$("#perfil-contenedor-deseos").length) {
+    if ($("#modal-propio-lateral-derecho").children().length!=0 ) {
+      borrarContenidoCapaDerecha();
+    }
   $.ajax({
     url: "php/productosCarrito.php",
     data: {
@@ -182,56 +216,28 @@ function mostrarCarrito(numero) {
     success: function (json) {
 
       json.forEach(n => {
-
-        if (contador == 1) {
-          palabra = "";
-          palabra1 = "";
-          palabra2 = "";
-        }
-
-        var texto = "<div class=contenedorCarrito>" +
-          '<div class="container">' +
-          '  <table id="cart" class="table table-hover table-condensed">' +
-          '<thead>' +
-          '  <tr>' +
-          ' <th style="width:50%;border-top: 0px;border-bottom: 0px">' + palabra + '</th>' +
-          ' <th style="width:10%;border-top: 0px; border-bottom: 0px;">' + palabra2 + '</th>' +
-          '<th style="width:8%;border-top: 0px;border-bottom: 0px">' + palabra1 + '</th>' +
-          '  </tr>' +
-          ' </thead>' +
-          ' <tbody id='+n.id+"tbody"+'>' +
-          '  <tr>' +
+        var texto =
+          '<tr id=' + n.id + '>' +
           '<td data-th="Product">' +
           '<div class="row">' +
-          '  <div class="col-sm-2 hidden-xs"><img src="' + n.imagen + '" alt="..." class="img-responsive img-carro"/></div>' +
-          ' <div class="col-sm-8 td-texto--central">' +
-          '  <h4 class="nomargin">' + n.nombre + '</h4>' +
+          '<div class="col-sm-2 hidden-xs"><img src="' + n.imagen + '" alt="..." class="img-responsive img-carro"/></div>' +
+          '<div class="col-sm-8 td-texto--central">' +
+          '<h4 class="nomargin">' + n.nombre + '</h4>' +
           '<p>' + n.descripcion + '</p>' +
-          '  </div>' +
-          ' </div>' +
-          ' </td>' +
-          '  <td  class="tabla" data-th="Quantity">' +
-          '<button id='+n.id+' class="btn btn-info btn-sm boton-eliminar">Eliminar</button>' +
-          ' </td>' +
+          '</div>' +
+          '</div>' +
+          '</td>' +
+          '<td  class="tabla" data-th="Quantity">' +
+          '<button id=' + n.id + ' class="btn btn-info btn-sm boton-eliminar">Eliminar</button>' +
+          '</td>' +
           '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación  <i class="fa fa-commenting" aria-hidden="true"></i></a></td>' +
-          ' </tr>' +
-          ' </tbody>' +
-          ' <tfoot>' +
-          '  <tr class="visible-xs">' +
-          ' </tr>' +
-          // '  <tr>' +
-          // ' <td colspan="2" class="hidden-xs"></td>' +
-          // ' </tr>' +
-          ' </tfoot>' +
-          ' </table>' +
-          '</div>';
+          '</tr>';
 
-        $("#perfil-contenedor-deseos").append(texto);
 
-        contador++;
-       
+        $("#cuerpoCarritoProductosDeseados").append(texto);
+
       });
-      $(".tabla").on('click',  "button.boton-eliminar",eliminarProducto);
+      $(".tabla").on('click', "button.boton-eliminar", eliminarProducto);
 
     },
     //Termina success    
@@ -240,7 +246,7 @@ function mostrarCarrito(numero) {
     }
 
   });
-  
+  }
 
 }
 
@@ -249,9 +255,10 @@ function mostrarCarrito(numero) {
 function salirPerfil() {
   $("#modal-propio-trasera").remove();
   $("#modal-propio").remove();
+  $("body").css("overflow", "inherit");
 }
 
-function desloguearse() {  
+function desloguearse() {
   borrarCookieSiExiste().then(resolve => {
     location.reload();
   });
@@ -274,21 +281,8 @@ async function borrarCookieSiExiste() {
   });
 }
 
-function eliminarProducto(){
-idEliminar=this.id;
-console.log(idEliminar);
-console.log(id);
-$.ajax({
-  url: "php/borrarProductoDeseado.php",
-  data: {
-    key: idEliminar,
-    key1: id
-  },
-  type: 'POST'
-});
 
-$("#"+idEliminar+"tbody").remove();
 
+function borrarContenidoCapaDerecha() {
+  $("#modal-propio-lateral-derecho").empty();
 }
-
-

@@ -13,6 +13,9 @@ if($email == null && $password == null){
         $cookie = explode("|",$_COOKIE["logueado"]);   
         $email = $cookie[0];
         $password = $cookie[1];
+    } else {
+        session_start();
+        session_destroy();        
     }
 }
 
@@ -32,7 +35,7 @@ if ($stmt = $conn -> prepare($sql)) {
                 $stmt -> execute();
                 $stmt -> bind_result($id,$nombre,$imagen);
                 $stmt->fetch();                  
-                $devolver = array("igual" => "TRUE", "id" => $id, "nombre" => $nombre, "imagen" => $imagen);                
+                $devolver = array("igual" => "TRUE", "nombre" => $nombre, "imagen" => $imagen);                
                 $stmt -> close();                                    
         }
 
@@ -41,11 +44,10 @@ if ($stmt = $conn -> prepare($sql)) {
         $_SESSION['nombre'] = $nombre;
         $_SESSION['imagen'] = $imagen;
 
+        if($checked == "true"){
+            setcookie("logueado", $email."|".$password, time()+3600*24*365*10);      
+        }
     }
-}
-
-if($checked == "true"){
-    setcookie("logueado", $email."|".$password, time()+3600*24*365*10);      
 }
 
 echo json_encode($devolver);

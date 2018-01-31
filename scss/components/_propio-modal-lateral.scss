@@ -3,9 +3,6 @@
     background-color: black;    
 }
 
-.modal-propio__capa-trasera::-webkit-scrollbar {
-    display: none;
-  }
 
 .modal-propio {
     position: fixed;    
@@ -15,12 +12,12 @@
     left: 0;
     z-index: 1041;
     width: 100%;
-    height: 100%;
+    height: 100%;    
 }
 
 .modal-propio__conteiner{
     display: grid;
-    grid-template-columns: 20% 70%;
+    grid-template-columns: 20% 80%;
     grid-template-rows: 100%;
     grid-template-areas: "izquierda derecha";
 }

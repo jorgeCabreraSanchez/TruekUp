@@ -1057,10 +1057,6 @@ slight .mask {
   background-color: black;
 }
 
-.modal-propio__capa-trasera::-webkit-scrollbar {
-  display: none;
-}
-
 .modal-propio {
   position: fixed;
   top: 0;
@@ -1074,7 +1070,7 @@ slight .mask {
 
 .modal-propio__conteiner {
   display: grid;
-  grid-template-columns: 20% 70%;
+  grid-template-columns: 20% 80%;
   grid-template-rows: 100%;
   grid-template-areas: "izquierda derecha";
 }
@@ -1148,15 +1144,94 @@ slight .mask {
   margin-left: 100px;
 }
 
+.carrito-vacio {
+  text-align: center;
+  color: gray;
+}
+
 .contenedor-deseos {
   background-color: white;
   margin: 40px 30px 40px 70px;
-  width: 100%;
+  width: 88%;
   height: 80%;
   border-radius: 5px !important;
   -webkit-border-radius: 5px !important;
   -moz-border-radius: 5px !important;
   -o-border-radius: 5px !important;
   overflow: scroll;
+}
+
+.carrito-header {
+  position: sticky;
+  z-index: 2000;
+  top: 0;
+  background-color: white;
+}
+
+.contenedor-chats {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 30% 45% 25%;
+  grid-template-rows: 15% 85%;
+  grid-template-areas: "nombreUsuarios usuario usuario" "usuarios        chat    trade";
+  border: 3px solid black;
+  border-radius: 10px !important;
+  -webkit-border-radius: 10px !important;
+  -moz-border-radius: 10px !important;
+  -o-border-radius: 10px !important;
+}
+
+.contenedor-chats__nombre-chat {
+  grid-area: nombreUsuarios;
+  position: sticky;
+  z-index: 2000;
+  top: 0;
+  background-color: white;
+  border-bottom: 1px solid #e4e0e0;
+  border-right: 1px solid #e4e0e0;
+  color: #17a2b8;
+  display: flex;
+  justify-content: center;
+}
+
+.contenedor-chats__nombre-chat__item {
+  align-self: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.contenedor-chats__usuario {
+  grid-area: usuario;
+  border-bottom: 1px solid #e4e0e0;
+}
+
+.contenedor-chats__usuarios {
+  grid-area: usuarios;
+  border-right: 1px solid #e4e0e0;
+}
+
+.contenedor-chats__chat {
+  grid-area: chat;
+}
+
+.contenedor-chats__trade {
+  grid-area: trade;
+  border-left: 1px solid #e4e0e0;
+}
+
+.lista-usuarios__item:nth-child(0) {
+  margin-top: 15px;
+}
+
+.lista-usuarios__imagen {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px !important;
+  -webkit-border-radius: 20px !important;
+  -moz-border-radius: 20px !important;
+  -o-border-radius: 20px !important;
+  margin-right: 10px;
 }
 /*# sourceMappingURL=main.css.map */

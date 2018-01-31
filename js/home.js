@@ -595,7 +595,7 @@ function mostrarMiddleContainer() {
       "</div>").appendTo("#contenedor-mid-interior");
   });
   $(".card-title").on("click", prepararMostrarProductos);
-  $("#conteiner-imagen-deporte-temporada").on("click", "button", prepararMostrarProductos);
+  $(".h-80").on("click", "button", prepararMostrarProductos);
 
 };
 
@@ -624,147 +624,7 @@ function añadirPalabraclave(value) {
 
 
 
-function prepararMostrarProductos() {
-  if ($(this).hasClass("dropdown__level2__link")) {
-    php = 'php/productos.php';
-    key = $(this)[0].id;
-  } else if ($(this).hasClass("dropdown__notlevel__link")) {
-    php = 'php/productosPalabraClave.php';
-    key = $(this)[0].id;
-  } else if ($(this).hasClass("card-title") || $(this).parent().is("#conteiner-imagen-deporte-temporada")) {
-    php = 'php/productos.php';
-    key = $(this)[0].id;
-  } else {
-    php = 'php/productosPalabraClave.php';
-    key = $("#main-desplegable-productos").children()[0].children[0].id;
-  }
-  mostrarProductos(key, php);
-}
 
-//Cargar productos de las subcategorias
-function mostrarProductos(key, php) {
-  $.ajax({
-    url: php,
-    data: {
-      key: key
-    },
-    type: 'GET',
-    dataType: 'json',
-    success: function (json) {
-      $("#contenedor-mid-interior").html("");
-
-      json.forEach(n => {
-        $("<div class='col-lg-4 col-md-6 mb-4'>" +
-          "<div class='card card-cascade narrower'>" +
-          "<div class='view overlay hm-white-slight hm-zoom'>" +
-          "<img class='img-fluid-producto supercalifra' src=" + n.imagen + " alt=''>" +
-          "<a>" +
-          "<div class='mask waves-effect waves-light'></div>" +
-          "</a>" +
-          "</div>" +
-          "<div class='card-body'>" +
-          "<h4 id='supercali' class='card-title producto-titulo-centrar'>" +
-          "<button class='boton-invisible boton-invisible-producto nombre-boton'>" + n.nombre + "</button>" +
-          "</h4>" +
-          "<p class='card-text card-text-centrado'>" + n.descripcion + "</p>" +
-          "</div>" +
-          "<div class='card-footer card-footer-modificado'>" +
-          "<big id =" + n.id + "><i class='fa fa-heart' aria-hidden='true'></i></big>" +
-          "</div>" +
-          "</div>" +
-          "</div>").appendTo("#contenedor-mid-interior");
-      });
-      $(".card").on("click", "div.card-footer", cambiarColor);
-      $(".card").on("click", "div.card-footer", guardarProductoDeseado);
-      $(".nombre-boton").on("click", event => {
-        productosDetallados(event)
-      });
-    },
-    error: function (jqXHR, status, error) {
-      console.log("Fallo en la peticion ajax para los productos");
-    }
-
-  });
-  productosDeseados();
-
-}
-
-function productosDetallados(event) {
-  contador = 0;
-  padre = event.target.parentNode.parentNode.parentNode;
-  hijo = padre.lastChild.lastChild;
-  $.ajax({
-    url: 'php/productoDetallado.php',
-    data: {
-      key: hijo.id
-    },
-    type: 'GET',
-    dataType: 'json',
-    success: function (json) {
-
-      $("#contenedor-mid-interior").html("");
-      imagenesCarrusel = [];
-      var hellooou = "";
-
-      json.forEach(n => {
-        for (let i = 0; i < n.imagenes.split(" ").length; i++) {
-          imagenesCarrusel.push(n.imagenes.split(" ")[i]);
-        }
-        for (let i = 0; i < imagenesCarrusel.length; i++) {
-          hellooou += "<div class='col-md-2 miniatura' >" +
-            "<img class='img-fluid img-miniatura' src='" + imagenesCarrusel[i] + "' alt=''>" +
-            "</div>";
-
-        }
-
-        $("<div class='row panel-central'>" +
-          "<div class= 'col-md-8 panel-fotos'>" +
-          "<div id='foto-grande' class='col-md-8 col-foto'>" +
-          "<img id='foto' class='img-fluid imagen-detallada' src=" + n.imagen + " alt=''>" +
-          "</div>" +
-          "<div id='foto-miniarutas' class=fotos-miniatura>" +
-          hellooou +
-          "</div>" +
-          "</div>" +
-          "<div class='col-md-4 descripcion'>" +
-          "<div class='showcase-rt-top'>" +
-          "<div class='pull-left shoe-name'>" +
-          "<h2 class='nombre'>" + n.nombre + "</h2>" +
-          "</div>" +
-          "<div class='clearfix'></div>" +
-          "</div>" +
-          "<div class='showcase-last'>" +
-          "<h3>Detalles de producto</h3>" +
-          "<p>" + n.descripcion + "</p>" +
-          "<button class ='boton-invisible boton-invisible-producto' href='#'><img class='icono-back' src='images/iconos/back.ico'></button>" +
-          "</div>" +
-          "</div>" +
-          "</div>").appendTo("#contenedor-mid-interior");
-      });
-      $(".estrella").on("click", cambiarColor);
-      $(".img-miniatura").on("click", event => {
-        cambiarImagen(event)
-      });
-      $(".icono-back").on("click", event => {
-        mostrarProductos(key, php);
-      });
-
-    },
-    error: function (jqXHR, status, error) {
-
-    }
-
-  });
-
-}
-
-function cambiarImagen(event) {
-  var srcMiniatura = event.target.src;
-  var divPadre = event.target.parentNode.parentNode.parentNode;
-  var idHijo = divPadre.firstChild.firstChild.id;
-  $("#" + idHijo).attr("src", srcMiniatura);
-
-}
 
 var frasesCarrusel = ["Amplia tus horizontes",
   "Los grandes logros requieren tiempo y paciencia",
@@ -775,61 +635,7 @@ var frasesCarrusel = ["Amplia tus horizontes",
   "Olvídate del reloj y sigue su paso, adelante"
 ];
 
-function cambiarColor() {
-  id = this.children[0].id;
-  var id = this.children[0].id;
-  if ($("#" + id).hasClass("estrella-footer")) {
-    $("#" + id).removeClass("estrella-footer");
-  } else {
-    $("#" + id).addClass("estrella-footer");
-  }
-}
 
-
-
-
-function guardarProductoDeseado() {
-  idProducto = this.children[0].id;
-  if ($("#" + idProducto).hasClass("estrella-footer")) {
-    $.ajax({
-      url: "php/guardarProductoDeseado.php",
-      data: {
-        key: idProducto,
-        key1: id
-      },
-      type: 'POST'
-    });
-  } else {
-    $.ajax({
-      url: "php/borrarProductoDeseado.php",
-      data: {
-        key: idProducto,
-        key1: id
-      },
-      type: 'POST'
-    });
-  }
-}
-
-function productosDeseados() {
-  if (typeof id != 'undefined') {
-    $.ajax({
-      url: "php/productosDeseados.php",
-      data: {
-        key: id
-      },
-      type: 'POST',
-      dataType: 'json',
-      success: function (json) {
-
-        json.forEach(n => {
-          $("#" + n.idProducto).addClass("estrella-footer");
-        });
-      }
-
-    });
-  }
-}
 
 function buscador() {
   setTimeout(function () {
@@ -903,5 +709,5 @@ function gohome() {
       "</div>").appendTo("#contenedor-mid-interior");
   });
   $(".card-title").on("click", prepararMostrarProductos);
-  $("#conteiner-imagen-deporte-temporada").on("click", "button", prepararMostrarProductos);
+  $(".h-80").on("click", "button", prepararMostrarProductos);
 };
