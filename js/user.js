@@ -245,6 +245,11 @@ function mostrarCarrito(numero) {
 
       });
       $(".tabla").on('click', "button.boton-eliminar", eliminarProducto);
+      $(".volver-carrito").on("click", event => {
+        key = "modal-carrito";
+        productosDetallados(event)
+        salirPerfil()
+      });
 
     },
     //Termina success    
@@ -255,6 +260,78 @@ function mostrarCarrito(numero) {
   });
   }
 
+
+}
+
+function tradesRealizados() {
+  if (!$("#perfil-contenedor-trades").length) {
+    if ($("#modal-propio-lateral-derecho").children().length != 0) {
+      borrarContenidoCapaDerecha();
+    }
+
+    $.ajax({
+      url: "php/misTruekes.php",
+      type: 'POST',
+      dataType: 'json',
+      success: function (json) {
+        var texto = '<div id="perfil-contenedor-trades" class="contenedor-deseos">' +
+          '</div>';
+
+        $("#modal-propio-lateral-derecho").append(texto);
+        var texto = '<div class="container contenedor-historial">' +
+        '<h1>Historial de Truekes</h1>'+
+          '<table id="cart" class="table table-hover table-condensed">' +
+          '<thead>' +
+          '<tr class="carrito-header">' +
+          '<th style="width:10%;border-top: 0px;border-bottom: 0px">Usuario 1</th>' +
+          '<th style="width:10%;border-top: 0px;border-bottom: 0px">Usuario 2</th>' +
+          '<th style="width:10%;border-top: 0px;border-bottom: 0px">Produc 1</th>' +
+          '<th style="width:15%;border-top: 0px;border-bottom: 0px">Foto 1</th>' +
+          '<th style="width:10%;border-top: 0px;border-bottom: 0px">Produc 2</th>' +
+          '<th style="width:15%;border-top: 0px;border-bottom: 0px">Foto 2</th>' +
+          '<th style="width:15%;border-top: 0px;border-bottom: 0px">Fecha Inicio</th>' +
+          '<th style="width:15%;border-top: 0px;border-bottom: 0px">Fecha Fin</th>' +
+          '</tr>' +
+          '</thead>' +
+          '<tbody id="cuerpoCarritoMisProductos">' +
+          '</tbody>' +
+          '</table>' +
+          '</div>';
+        $("#perfil-contenedor-trades").append(texto);
+        if (json.length == 0) {
+          var texto =
+            '<tr>' +
+            '<td class="carrito-vacio" COLSPAN="3"><h3>Usted no tiene productos</h3></td>' +
+            '</tr>';
+
+          $("#cuerpoCarritoMisProductos").append(texto);
+        }
+
+        json.forEach(n => {
+          var texto =
+            '<tr>' +
+            '<td>' + n.Nombre1 + '</td>' +
+            '<td>' + n.Nombre2 + '</td>' +
+            '<td>' + n.Producto1 + '</td>' +
+            '<td><img src="' + n.imagen1 + '" alt="..." class="img-responsive imagen-pequeña"/></td>' +
+            '<td>' + n.Producto2 + '</td>' +
+            '<td><img src="' + n.imagen2 + '" alt="..." class="img-responsive imagen-pequeña"/></td>' +
+            '<td>' + n.fecha_inicio + '</td>' +
+            '<td>' + n.fecha_fin + '</td>' +
+          
+            '</tr>';
+
+
+          $("#cuerpoCarritoMisProductos").append(texto);
+        });
+        comprobarMisproductos();
+
+      },
+      error: function (jqXHR, status, error) {
+        console.log("Fallo en la peticion de mis productos");
+      }
+    });
+  }
 }
 
 function tradesRealizados() {

@@ -32,9 +32,9 @@ function mostrarProductos(key, php) {
         $("<div class='col-lg-4 col-md-6 mb-4'>" +
           "<div class='card card-cascade narrower'>" +
           "<div class='view overlay hm-white-slight hm-zoom'>" +
-          "<img class='img-fluid-producto supercalifra' src=" + n.imagen + " alt=''>" +
+          "<img class='img-fluid-producto' src=" + n.imagen + " alt=''>" +
           "<a>" +
-          "<div class='mask waves-effect waves-light'></div>" +
+          "<div class='supercalifra mask waves-effect waves-light'></div>" +
           "</a>" +
           "</div>" +
           "<div class='card-body'>" +
@@ -52,6 +52,9 @@ function mostrarProductos(key, php) {
       $(".card").on("click", "div.card-footer", cambiarColor);
       $(".card").on("click", "div.card-footer", guardarProductoDeseado);
       $(".nombre-boton").on("click", event => {
+        productosDetallados(event)
+      });
+      $(".supercalifra").on("click", event => {
         productosDetallados(event)
       });
       productosDeseados().then(response => {
@@ -73,8 +76,18 @@ function mostrarProductos(key, php) {
 
 function productosDetallados(event) {
   contador = 0;
-  padre = event.target.parentNode.parentNode.parentNode;
-  hijo = padre.lastChild.lastChild;
+  if (event.target.className == "nomargin" || event.target.className == "img-responsive img-carro div-volver") {
+    php = "php/misProductos.php";
+    padre = event.target.parentNode.parentNode.parentNode.parentNode;
+    hijo = padre.lastChild.lastChild;
+  } else if (event.target.className == "nomargin volver-carrito" || event.target.className == "img-responsive img-carro volver-carrito") {
+    php = "php/productosCarrito.php";
+    padre = event.target.parentNode.parentNode.parentNode.parentNode;
+    hijo = padre.firstChild.nextSibling.firstChild;
+  }else{
+    padre = event.target.parentNode.parentNode.parentNode;
+    hijo = padre.lastChild.lastChild;
+  }
   $.ajax({
     url: 'php/productoDetallado.php',
     data: {
@@ -85,17 +98,25 @@ function productosDetallados(event) {
     success: function (json) {
 
       $("#contenedor-mid-interior").html("");
+
       imagenesCarrusel = [];
-      var hellooou = "";
+      var carrusel = "";
 
       json.forEach(n => {
         for (let i = 0; i < n.imagenes.split(" ").length; i++) {
           imagenesCarrusel.push(n.imagenes.split(" ")[i]);
         }
         for (let i = 0; i < imagenesCarrusel.length; i++) {
-          hellooou += "<div class='col-md-2 miniatura' >" +
-            "<img class='img-fluid img-miniatura' src='" + imagenesCarrusel[i] + "' alt=''>" +
-            "</div>";
+          if (i == 0) {
+            carrusel += '                   <div class="carousel-item active carrusel-activo">  ' +
+              '                       <img class="d-block col-4 img-fluid imagen-carrusel" src="' + imagenesCarrusel[i] + '">  ' +
+              '                   </div>  ';
+          } else {
+            carrusel += '                   <div class="carousel-item carrusel-activo">  ' +
+              '                       <img class="d-block col-4 img-fluid imagen-carrusel" src="' + imagenesCarrusel[i] + '">  ' +
+              '                   </div>  ';
+          }
+
 
         }
 
@@ -104,8 +125,23 @@ function productosDetallados(event) {
           "<div id='foto-grande' class='col-md-8 col-foto'>" +
           "<img id='foto' class='img-fluid imagen-detallada' src=" + n.imagen + " alt=''>" +
           "</div>" +
-          "<div id='foto-miniarutas' class=fotos-miniatura>" +
-          hellooou +
+
+          '   <div class="container text-center my-3 container-carrusel">  ' +
+          '       <div class="row mx-auto my-auto subcontainer-carrusel">  ' +
+          '           <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">  ' +
+          '               <div class="carousel-inner carrusel-items" role="listbox">  ' +
+          carrusel +
+          '               </div>  ' +
+          '               <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">  ' +
+          '                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>  ' +
+          '                   <span class="sr-only">Previous</span>  ' +
+          '               </a>  ' +
+          '               <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">  ' +
+          '                   <span class="carousel-control-next-icon" aria-hidden="true"></span>  ' +
+          '                   <span class="sr-only">Next</span>  ' +
+          '               </a>  ' +
+          '           </div>  ' +
+          '       </div>  ' +
           "</div>" +
           "</div>" +
           "<div class='col-md-4 descripcion'>" +
@@ -118,18 +154,19 @@ function productosDetallados(event) {
           "<div class='showcase-last'>" +
           "<h3>Detalles de producto</h3>" +
           "<p>" + n.descripcion + "</p>" +
-          "<button class ='boton-invisible boton-invisible-producto' href='#'><img class='icono-back' src='images/iconos/back.ico'></button>" +
+          "<button class ='icono-volver boton-invisible boton-invisible-producto' href='#'><img class='icono-back' src='images/iconos/back.ico'></button>" +
           "</div>" +
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
       });
       $(".estrella").on("click", cambiarColor);
-      $(".img-miniatura").on("click", event => {
+      $(".carousel-item").on("click","img.imagen-carrusel", event => {
         cambiarImagen(event)
       });
-      $(".icono-back").on("click", event => {
-        mostrarProductos(key, php);
+      $(".icono-volver").on("click", event => {
+        volver(key, php);
       });
+      prepararCarrusel();
 
     },
     error: function (jqXHR, status, error) {
@@ -140,9 +177,44 @@ function productosDetallados(event) {
 
 }
 
+function volver(key, php) {
+  if (key == "modal" && php == "php/misProductos.php") {
+    mostrarPerfil();
+    misProductos();
+  } else if (key == "modal-carrito" && php == "php/productosCarrito.php") {
+    mostrarPerfil();
+    crearCarrito();
+} else {
+    mostrarProductos(key, php);
+    
+  }
+  
+}
+
+function prepararCarrusel() {
+  $('#recipeCarousel').carousel({
+    interval: 10000
+  })
+
+  $('.carousel .carousel-item').each(function () {
+    var next = $(this).next();
+    if (!next.length) {
+      next = $(this).siblings(':first');
+    }
+    next.children(':first-child').clone().appendTo($(this));
+
+    if (next.next().length > 0) {
+      next.next().children(':first-child').clone().appendTo($(this));
+    }
+    else {
+      $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+    }
+  });
+}
+
 function cambiarImagen(event) {
   var srcMiniatura = event.target.src;
-  var divPadre = event.target.parentNode.parentNode.parentNode;
+  var divPadre = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
   var idHijo = divPadre.firstChild.firstChild.id;
   $("#" + idHijo).attr("src", srcMiniatura);
 
