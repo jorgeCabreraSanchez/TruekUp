@@ -52,27 +52,6 @@ function rellenarUsuarios(idProducto) {
     type: 'GET',
     dataType: 'json',
     success: function (json) {
-      $.each(json,(index,data)=>{   
-        var text = "<li id='"+data.id+"' class='lista-usuarios__item'><img src='images/usuarios/"+ data.imagen +"' class='lista-usuarios__imagen' />"+
-        "<span class='lista-usuarios__nombre'>"+data.nombre+"</span></li>";   
-        $("#lista-usuarios").append(text);
-      });
-    },
-    error: function (jqXHR, status, error) {
-      console.log("Error al traer los chats. " + error);
-    }
-  });
-
-  var texto = '<div class="contenedor-chats__usuarios__item">' +
-    '<ul id="lista-usuarios" class="lista-usuarios">'+
-    '</ul>'+
-    '</div>';
-  $("#perfil-contenedor-chats").children(".contenedor-chats__usuarios").append(texto);
-
-  rellenarUsuario("0-35x30.jpg", "Borja Orts");
-}
-
-function rellenarChat() {
       $.each(json, (index, data) => {
         var text = "<li value='" + data.id + "' class='lista-usuarios__item'><img src='images/usuarios/" + data.imagen + "' class='lista-usuarios__imagen' />" +
           "<span class='lista-usuarios__nombre'>" + data.nombre + "</span></li>";
@@ -90,20 +69,6 @@ function rellenarChat() {
     },
     error: function (jqXHR, status, error) {
       console.log("Error al traer los usuarios. " + error);
-      $.each(json, (index, data) => {
-        var text = "<li id='" + data.id + "' class='lista-usuarios__item'><img src='images/usuarios/" + data.imagen + "' class='lista-usuarios__imagen' />" +
-          "<span class='lista-usuarios__nombre'>" + data.nombre + "</span></li>";
-        $("#lista-usuarios").append(text);
-        if (index == 0) {
-          $("#lista-usuarios").children(".lista-usuarios__item:first").addClass("lista-usuarios__item--clicked");
-          rellenarUsuario(data.imagen, data.nombre);
-          rellenarChat(data.id);
-          rellenarTrade(data.id);
-        }
-      });
-    },
-    error: function (jqXHR, status, error) {
-      console.log("Error al traer los chats. " + error);
     }
   });
 

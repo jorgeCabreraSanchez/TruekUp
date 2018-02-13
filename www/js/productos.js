@@ -29,7 +29,7 @@ function mostrarProductos(key, php) {
       $("#contenedor-mid-interior").html("");
 
       json.forEach(n => {
-        $("<div class='col-lg-4 col-md-6 mb-4'>" +
+        $("<div class='col-lg-4 col-md-6 mb-4 producto__animacion'>" +
           "<div class='card card-cascade narrower'>" +
           "<div class='view overlay hm-white-slight hm-zoom'>" +
           "<img class='img-fluid-producto' src=" + n.imagen + " alt=''>" +
@@ -44,13 +44,14 @@ function mostrarProductos(key, php) {
           "<p class='card-text card-text-centrado'>" + n.descripcion + "</p>" +
           "</div>" +
           "<div class='card-footer card-footer-modificado'>" +
-          "<big id =" + n.id + "><i class='fa fa-heart' aria-hidden='true'></i></big>" +
+          "<big id =" + n.id + " class='corazon'><i class='fa fa-heart' aria-hidden='true'></i></big>" +
           "</div>" +
           "</div>" +
           "</div>").appendTo("#contenedor-mid-interior");
       });
       $(".card").on("click", "div.card-footer", cambiarColor);
       $(".card").on("click", "div.card-footer", guardarProductoDeseado);
+      // window.addEventListener("scroll", añadirAnimacion);
       $(".nombre-boton").on("click", event => {
         productosDetallados(event)
       });
@@ -73,6 +74,28 @@ function mostrarProductos(key, php) {
 
   });
 }
+
+function añadirAnimacion() {
+  console.log("entra");
+   var numero=$("#contenedor-mid-interior").children().length;
+  
+  for (let i = 1; i <= numero; i++){
+    var n=$("#contenedor-mid-interior:nth-child("+i+")");
+    var windowTop = $(document).scrollTop();
+    var windowBottom = windowTop + window.innerHeight;
+    var elementPositionTop = n.offset().top;
+    var elementPositionBottom = elementPositionTop + n.height();
+
+    if (elementPositionTop < windowBottom || elementPositionBottom > windowTop) {
+      n.addClass("start_animation");
+    }
+  }
+
+  
+}
+
+
+
 
 function productosDetallados(event) {
   contador = 0;
@@ -104,6 +127,7 @@ function productosDetallados(event) {
 
       json.forEach(n => {
         for (let i = 0; i < n.imagenes.split(" ").length; i++) {
+          console.log(n.imagenes.split(" "));
           imagenesCarrusel.push(n.imagenes.split(" ")[i]);
         }
         for (let i = 0; i < imagenesCarrusel.length; i++) {
@@ -191,9 +215,9 @@ function volver(key, php) {
     setTimeout(
       function () {
         $("#modal-propio-lateral-derecho").html("");
-    crearCarrito();
+        crearCarrito();
       }, 500);
-    
+
   } else {
     mostrarProductos(key, php);
 
@@ -230,10 +254,11 @@ function cambiarImagen(event) {
 }
 
 function cambiarColor() {
-<<<<<<< HEAD
-=======
 
->>>>>>> presentacion26
+
+
+
+
   var id = this.children[0].id;
   if ($("#" + id).hasClass("estrella-footer")) {
     $("#" + id).removeClass("estrella-footer");
@@ -393,9 +418,17 @@ function misProductos() {
 
 function cambiarVisible() {
   var id = this.parentNode.id;
-  console.log(id);
-  if ($("#" + id).hasClass("boton-color")) {
-    $("#" + id).removeClass("boton-color");
+  var src1 = this.parentNode.parentNode.parentNode.firstChild.lastChild.firstChild.firstChild.src;
+  var numero = this.parentNode.parentNode.parentNode.firstChild.lastChild.firstChild.firstChild.src.split("/").length;
+  var src = this.parentNode.parentNode.parentNode.firstChild.lastChild.firstChild.firstChild.src.split("/").slice(numero - 3, numero).join("/");
+  console.log(src);
+  console.log(src1);
+  var nombre = this.parentNode.parentNode.parentNode.firstChild.lastChild.lastChild.firstChild.textContent;
+  var descripcion = this.parentNode.parentNode.parentNode.firstChild.lastChild.lastChild.lastChild.textContent;
+
+  if ($("big#" + id + ".boton-visible").hasClass("boton-color")) {
+
+    $("big#" + id + ".boton-visible").removeClass("boton-color");
     $.ajax({
       url: "php/cambiarVisible.php",
       data: {
@@ -407,8 +440,30 @@ function cambiarVisible() {
         console.log("Fallo al cambiar el valor");
       }
     });
+    $("<div class='col-lg-4 col-md-6 mb-4'>" +
+      "<div class='card card-cascade narrower'>" +
+      "<div class='view overlay hm-white-slight hm-zoom'>" +
+      "<img class='img-fluid-producto' src= 'images/productos/" + src + "' alt=''>" +
+      "<a>" +
+      "<div class='supercalifra mask waves-effect waves-light'></div>" +
+      "</a>" +
+      "</div>" +
+      "<div class='card-body'>" +
+      "<h4 id='supercali' class='card-title producto-titulo-centrar'>" +
+      "<button class='boton-invisible boton-invisible-producto nombre-boton'>" + nombre + "</button>" +
+      "</h4>" +
+      "<p class='card-text card-text-centrado'>" + descripcion + "</p>" +
+      "</div>" +
+      "<div class='card-footer card-footer-modificado'>" +
+      "<big id =" + id + "><i class='fa fa-heart' aria-hidden='true'></i></big>" +
+      "</div>" +
+      "</div>" +
+      "</div>").appendTo("#contenedor-mid-interior");
+
+
   } else {
-    $("#" + id).addClass("boton-color");
+    $("big#" + id + ".boton-visible").addClass("boton-color");
+    $("big#" + id + ".corazon").parent().parent().parent().remove();
     $.ajax({
       url: "php/cambiarVisible.php",
       data: {
@@ -430,7 +485,6 @@ function comprobarMisproductos() {
     dataType: "json",
     success: function (json) {
       json.forEach(n => {
-        console.log(n);
         $("#" + n.id).addClass("boton-color");
       });
     }
@@ -465,23 +519,23 @@ function subirProducto() {
 
     $("#modal-propio-lateral-derecho").append(texto);
 
-    var texto = '<form class="form-horizontal">' +
+    var texto = '<form   action=""  onSubmit="altaProducto(); return false" method="POST" enctype="multipart/form-data" class="form-horizontal" id="up-product">' +
       '<div class="capa-principal">' +
       '<h3 class="titulo">Nuevo Producto</h3>' +
 
       '   <!-- Text input-->' +
       '   <div class="form-group form-group1">' +
-      '     <label class="col-md-2 control-label  control-label1-texto" for="product_categorie">Nombre:</label>' +
+      '     <label class="col-md-2 control-label  control-label1-texto letra_label" for="product_categorie">Nombre:</label>' +
       '     <div class="col-md-4">' +
-      '     <input id="product_name" name="product_name" placeholder="" class="form-control input-md" required="" type="text">' +
+      '     <input id="product_name" name="nombre" placeholder="" class="form-control input-md" required="" type="text">' +
       '     </div>' +
       '   </div>' +
 
       '   <!-- Select Basic -->' +
       '   <div class="form-group form-group1">' +
-      '     <label class="col-md-2 control-label  control-label1l-texto" for="product_categorie">Categoria:</label>' +
+      '     <label class="col-md-2 control-label  control-label1l-texto letra_label" for="product_categorie">Categoria:</label>' +
       '     <div class="col-md-4">' +
-      '       <select id="categoria" name="product_categorie" class="form-control" onchange="rellenarSubcategorias()">' +
+      '       <select id="categoria" name="categoria" class="form-control" onchange="rellenarSubcategorias()">' +
       '<option value="" selected disabled hidden>Selecciona categoria</option>' +
       '       </select>' +
       '     </div>' +
@@ -489,9 +543,9 @@ function subirProducto() {
 
       '   <!-- Select Basic -->' +
       '   <div class="form-group form-group1">' +
-      '     <label class="col-md-2 control-label  control-label1-texto" for="product_categorie">Subcategoria:</label>' +
+      '     <label class="col-md-2 control-label  control-label1-texto letra_label" for="product_categorie">Subcategoria:</label>' +
       '     <div class="col-md-4">' +
-      '       <select id="subcategoria" name="product_categorie" class="form-control">' +
+      '       <select id="subcategoria" name="subcategoria" class="form-control">' +
       '<option value="" selected disabled hidden>Selecciona subcategoria</option>' +
       '       </select>' +
       '     </div>' +
@@ -499,41 +553,39 @@ function subirProducto() {
 
       '   <!-- Textarea -->' +
       '   <div class="form-group form-group1">' +
-      '     <label class="col-md-2 control-label control-label1" for="product_description">Descripcion:</label>' +
+      '     <label class="col-md-2 control-label control-label1 letra_label" for="product_description">Descripcion:</label>' +
       '     <div class="col-md-4">' +
-      '       <textarea class="form-control" id="product_description" name="product_description"></textarea>  ' +
+      '       <textarea class="form-control" id="product_description" name="descripcion"></textarea>  ' +
       '     </div>' +
       '   </div>' +
 
-      '   <!-- File Button --> ' +
+      '   <!-- Drag and Drop --> ' +
       '   <div class="form-group form-group1">' +
-      '   <label class="custom-file">  ' +
-      '     <input type="file" id="file" class="custom-file-input">  ' +
-      '     <span class="custom-file-control"></span>  ' +
-      '  </label>  ' +
+      '     <div class="capa_fotos" ondrop="drop(event)" ondragover="allowDrop(event)">'+
+            '<div class="capa_texto">'+
+               '<p class="parrafo_icon"><i class="fa fa-cloud-upload"></i></p>'+
+               '<p>Drag & Drop</p>'+
+            '</div>'+
+          '</div>'+     
       '   </div>' +
+      '   <div class="capa_input" id="cap-in">'+
+          '<input type="file" name="file[]" id="file" class="inputfile" multiple/>'+
+          '<label for="file" class="boton_label letra_label">Seleccionar archivos</label>'+
+      '   </div>'+
 
       '   <!-- Button -->' +
-      '   <div class="form-group form-group1">' +
-      '     <label class="col-md-2 control-label control-label1" for="singlebutton"></label>' +
-      '     <div class="col-md-4">' +
-      '       <button id="singlebutton" name="singlebutton" class="btn btn-primary">Publicar</button>' +
-      '       <button id="singlebutton" name="singlebutton" class="btn btn-primary boton-cancelar">Cancelar</button>' +
-      '     </div>' +
+      '     <div class=" capa_botones-upProduct" >' +
+      '       <input id="publicar" type="submit"  class="btn btn-primary boton-publicar"  value="Publicar">' +
+      '       <button id="volver"  class="btn btn-primary boton-cancelar">Volver</button>' +
       '     </div>' +
       '   </div>' +
       '  </form>';
     $("#perfil-contenedor-subirProducto").append(texto);
-
-
-
   }
+  $("#file").on("change",cargarArchivos);
+  // $("#publicar").on("click",altaProducto);
   rellenarCategorias();
-
-
 }
-
-
 function rellenarCategorias() {
   $.ajax({
     url: "php/consultarCategorias.php",
@@ -541,7 +593,6 @@ function rellenarCategorias() {
     dataType: 'json',
     success: function (json) {
       json.forEach(n => {
-        console.log(n.nombre);
         $('#categoria').append('<option value="' + n.id + '">' + n.nombre + '</option>');
       });
     }
@@ -549,7 +600,6 @@ function rellenarCategorias() {
 
 
 }
-
 function rellenarSubcategorias() {
   $("#subcategoria").empty()
   var valor = document.getElementById("categoria").value;
@@ -562,10 +612,114 @@ function rellenarSubcategorias() {
     dataType: 'json',
     success: function (json) {
       json.forEach(n => {
-        console.log(n.nombre);
-        $('#subcategoria').append('<option value="' + n.nombre + '">' + n.nombre + '</option>');
+        
+        $('#subcategoria').append('<option value="' + n.id + '">' + n.nombre + '</option>');
       });
     }
   });
 
 }
+function allowDrop(ev) {
+  ev.preventDefault();
+ 
+}
+
+
+
+blob=[];
+srcCortado=[];
+function drop(ev) {
+  ev.preventDefault();
+
+  const files = ev.dataTransfer.files;
+  for (let i = 0; i < files.length; i++) {
+    blob.push(files[i].name);
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      var src=event.target.result;
+      srcCortado.push(src.split(",")[1]);
+      
+      
+      
+      $(".capa_texto").remove();
+      $('.capa_fotos').append(
+        '<div class="capa_minifoto">'+
+        '<img src='+src+' class="img-product">'+
+        '<p class="capa_parrafo"><i class="fa fa-trash"></i></p>'+
+        '</div>');
+        $(".fa-trash").on("click", eliminarFoto);
+    };
+    reader.readAsDataURL(files[i]); 
+    
+  }
+  console.log(srcCortado);
+  
+  
+    
+}
+
+function eliminarFoto(){
+  
+  var borrar=this.parentNode.parentNode;
+  borrar.remove();
+  if($(".capa_fotos").children().length==0){
+    $(".capa_fotos").append('<div class="capa_texto">'+
+    '<p class="parrafo_icon"><i class="fa fa-cloud-upload"></i></p>'+
+    '<p>Drag & Drop</p>'+
+ '</div>');
+  }
+}
+
+function cargarArchivos(){
+  const files = document.getElementById("file").files;
+  for (let i = 0; i < files.length; i++) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      var src=event.target.result;
+      $(".capa_texto").remove();
+      $('.capa_fotos').append(
+        '<div class="capa_minifoto">'+
+        '<img src='+src+' class="img-product">'+
+        '<p class="capa_parrafo"><i class="fa fa-trash"></i></p>'+
+        '</div>');
+        $(".fa-trash").on("click", eliminarFoto);
+    };
+    reader.readAsDataURL(files[i]);
+  }
+  
+}
+
+
+
+function altaProducto(){
+  
+  var subcategoria=document.getElementById("subcategoria")[document.getElementById("subcategoria").selectedIndex].textContent;
+  var categoria=document.getElementById("categoria")[document.getElementById("categoria").selectedIndex].textContent;
+  var formulario = new FormData($('#up-product')[0]);
+  
+    formulario.append("imagenes[]", blob);
+    formulario.append("nombreSubcategoria",subcategoria);
+    formulario.append("nombreCategoria",categoria);
+    formulario.append("srcCortado",JSON.stringify(srcCortado));
+
+  $.ajax({
+    url: 'php/subirProducto.php',
+    type: 'POST',
+    data: formulario,
+    contentType: false,
+    processData: false,
+    dataType: 'text',
+    success: function (json) {
+      
+      $('<span class="span-error-foto" id="span-foto">'+json+'</span>').insertBefore("#cap-in");
+
+    },
+    //Termina success    
+    error: function (jqXHR, status, error) {
+      console.log("Fallo en la peticion ajax para subir el producto");
+      console.log(error);
+      
+    }
+  });
+}
+

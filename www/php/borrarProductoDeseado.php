@@ -1,7 +1,5 @@
 <?php
-
 	require_once 'configBD.php';
-session_start();
 $datos=[];
 session_start();
 $idProducto=$_POST['key'];

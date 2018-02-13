@@ -1,5 +1,3 @@
-
-
 .lista-usuarios {
     padding:0px;
 }
@@ -13,21 +11,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
-.lista-usuarios__item:nth-child(0){
-    margin-top: 15px;
-}
-
-.lista-usuarios__imagen{
-    width: 40px;
-    height: 40px;
-    @include border-radius(20px);
-    margin-right: 10px;
-}
-
-.lista-usuarios__nombre{
-
-
 
 .lista-usuarios__item--clicked {
     background-color: #3b3d4a;    
