@@ -11,7 +11,7 @@ function chats(idProducto) {
       '<div class="contenedor-chats__chat"></div>' +
       '<div class="contenedor-chats__trade"></div>' +
       '</div>';
-
+    $("#perfil-contenedor-chats").addClass("modal-propio__lateral--derecho__animation");
     $("#modal-propio-lateral-derecho").append(texto);
 
     rellenarUsuarios(idProducto);

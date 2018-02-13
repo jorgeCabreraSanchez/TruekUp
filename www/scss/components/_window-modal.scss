@@ -1,19 +1,8 @@
 .window-modal {
     opacity: 1 !important;
-    display: block;    
+    display: block;  
 }
 
-/* Safari 4.0 - 8.0 */
-@-webkit-keyframes example {
-    from {width: 0px;}
-    to {width:auto;}
-}
-
-/* Standard syntax */
-@keyframes example {
-    from {width: 0px;}
-    to {width:auto;}
-}
 
 .window-dialog{
     transform: translate(0, 0%) !important;    
@@ -21,10 +10,10 @@
     margin-top: 54px;
     // width: auto;
     overflow: hidden;
-    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
-    animation-name: example;
+    animation-name: fadeInDown;
     animation-duration: 1s;
+    animation-play-state: running;
+    
 }
 
 @media (min-width:576px) {
@@ -45,8 +34,6 @@
         margin: 75px auto !important;  
     }    
 }
-
-
 
 .modal-open {
     overflow: hidden;

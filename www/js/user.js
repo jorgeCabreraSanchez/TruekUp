@@ -9,7 +9,6 @@ function login() {
 
   if (loginVerify()) {
     loginVerifyServer($("#login-email").val(), SHA1($("#login-password").val())).then(response => {
-
       if (response == "TRUE") {
         quitarLoginRegister();
       } else {
@@ -149,7 +148,7 @@ function mostrarPerfil() {
   $("#menu-lateral-perfil").children()[1].addEventListener("click", perfilExtendido);
   $("#menu-lateral-perfil").children()[2].addEventListener("click", crearCarrito);
   $("#menu-lateral-perfil").children()[3].addEventListener("click", misProductos);
-  $("#menu-lateral-perfil").children()[4].addEventListener("click", function(){
+  $("#menu-lateral-perfil").children()[4].addEventListener("click", function () {
     chats(null);
   });
   $("#menu-lateral-perfil").children()[5].addEventListener("click", tradesRealizados);
@@ -172,6 +171,7 @@ function crearCarrito() {
       success: function (json) {
         var texto = '<div id="perfil-contenedor-deseos" class="contenedor-deseos">' +
           '</div>';
+        $("#modal-propio-lateral-derecho").addClass("modal-propio__lateral--derecho__animation");
 
         $("#modal-propio-lateral-derecho").append(texto);
         var texto = '<div class="container">' +
@@ -271,10 +271,10 @@ function tradesRealizados() {
       success: function (json) {
         var texto = '<div id="perfil-contenedor-trades" class="contenedor-deseos">' +
           '</div>';
-
+        $("#modal-propio-lateral-derecho").addClass("modal-propio__lateral--derecho__animation");
         $("#modal-propio-lateral-derecho").append(texto);
         var texto = '<div class="container contenedor-historial">' +
-        '<h1>Historial de Truekes</h1>'+
+          '<h1>Historial de Truekes</h1>' +
           '<table id="cart" class="table table-hover table-condensed">' +
           '<thead>' +
           '<tr class="carrito-header">' +
@@ -313,7 +313,6 @@ function tradesRealizados() {
             '<td><img src="' + n.imagen2 + '" alt="..." class="img-responsive imagen-pequeña"/></td>' +
             '<td>' + n.fecha_inicio + '</td>' +
             '<td>' + n.fecha_fin + '</td>' +
-          
             '</tr>';
 
 
@@ -327,6 +326,8 @@ function tradesRealizados() {
       }
     });
   }
+  $("#modal-propio-lateral-derecho").removeClass("modal-propio__lateral--derecho__animation");
+
 }
 
 
@@ -361,7 +362,14 @@ async function borrarCookieSiExiste() {
 }
 
 function borrarContenidoCapaDerecha() {
+  // $("#modal-propio-lateral-derecho").addClass("modal-propio__lateral--derecho__animation--exit");
   $("#modal-propio-lateral-derecho").empty();
+  $("#modal-propio-lateral-derecho").removeClass("modal-propio__lateral--derecho__animation");
+  // setTimeout(function(){
+  //   $("#modal-propio-lateral-derecho").empty();
+  //   $("#modal-propio-lateral-derecho").removeClass("modal-propio__lateral--derecho__animation");
+  //   }, 2000);
+
 }
 
 function perfilExtendido() {
@@ -369,6 +377,7 @@ function perfilExtendido() {
   if (!$("#container-perfil").length) {
     if (!jQuery.isEmptyObject($("#modal-propio-lateral-derecho"))) {
       borrarContenidoCapaDerecha();
+      // $("#modal-propio-lateral-derecho").addClass("modal-propio__lateral--derecho__animation");
     }
 
     $.ajax({
@@ -564,12 +573,30 @@ function perfilExtendido() {
           '           </form>  ' +
           '   </div>  ' +
           '  <hr>  ';
+        $("#modal-propio-lateral-derecho").addClass("modal-propio__lateral--derecho__animation");
         $("#modal-propio-lateral-derecho").append(texto); //añade el perfil a la capa derecha
         $("#btn-edit").on("click", editar); // lanza la funcion editar perfil
         $(function () {
           $("#datepicker").datepicker();
         });
         // alert para avisos
+
+        function actualizarImagen() {
+          const files = document.getElementById("file-5").files[0];
+          
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              var src = event.target.result;
+              $(".avatar").remove();
+              $('<img class="avatar img-circle imagen-perfil"  alt="avatar" src='+src+'>').insertBefore("h6");
+            };
+            reader.readAsDataURL(files);
+        }
+
+        $('#file-5').on('change', actualizarImagen);
+
+
+
         if ($("#idNombre").val().length > 0 &&
           $("#idEmail").val().length > 0 &&
           $("#idProvincia").val().length > 0 &&
@@ -614,106 +641,64 @@ function perfilExtendido() {
 
     function editar() {
       var datos = $('#edit-form1').serializeArray();
-      // console.log($('#file-5')[0].value);   
-      // alert('Datos serializados: ' + dataString);
-
       var almacen = new FormData($('#edit-form1')[0]);
-      // for (var pair of almacen.entries()) {
-      //   console.log(pair[0] + ', ' + pair[1]);
-      // }
-      $.ajax({
-        url: 'php/editarPerfil.php',
-        type: 'POST',
-        data: almacen,
-        contentType: false,
-        processData: false,
-        dataType: 'json',
-        success: function (json) {
-          console.log("success");
-          if ($("#container-perfil").length) {
-            if (!jQuery.isEmptyObject($("#modal-propio-lateral-derecho"))) {
-              borrarContenidoCapaDerecha();
-              perfilExtendido();
+
+      validacion = true;
+      if ($("#idNombre").val().length < 5) {
+        alertaMensaje('El nombre');
+        validacion = false;
+      }
+
+      if ($("#idEmail").val().length < 5) {
+        alertaMensaje('El Email');
+        validacion = false;
+      }
+
+      if ($("#idDireccion").val().length < 5) {
+        alertaMensaje('La direccion');
+        validacion = false;
+      }
+
+      if (validacion == true) {
+        $.ajax({
+          url: 'php/editarPerfil.php',
+          type: 'POST',
+          data: almacen,
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          success: function (json) {
+            console.log("success");
+            if ($("#container-perfil").length) {
+              if (!jQuery.isEmptyObject($("#modal-propio-lateral-derecho"))) {
+                borrarContenidoCapaDerecha();
+                perfilExtendido();
+              }
+            }
+          },
+          //Termina success    
+          error: function (jqXHR, status, error) {
+            console.log("Fallo en la peticion ajax para los productos");
+            console.log(error);
+            if ($("#container-perfil").length) {
+              if (!jQuery.isEmptyObject($("#modal-propio-lateral-derecho"))) {
+                borrarContenidoCapaDerecha();
+                perfilExtendido();
+              }
             }
           }
-        },
-        //Termina success    
-        error: function (jqXHR, status, error) {
-          console.log("Fallo en la peticion ajax para los productos");
-          console.log(error);
-          if ($("#container-perfil").length) {
-            if (!jQuery.isEmptyObject($("#modal-propio-lateral-derecho"))) {
-              borrarContenidoCapaDerecha();
-              perfilExtendido();
-            }
-          }
-        }
-      });
-
-
-      // .done(function (data) {
-      //   if (data.status === 'success') {
-      //     console.log("success");
-      //   } else {
-      //     console.log("no success");
-
-      //   }
-      // })
-      // .fail(function () {
-
-
-      //     }
-      //   }
-
-      // });
-
-
-
-
+        });
+      }
     };
-    //DEJAR POR SI ACASO
-
-    // .done(function (data) {
-
-    //   $('#btn-signup').html('<img src="images/ajax-loader.gif" /> &nbsp; registrando...').prop('disabled', true);
-    //   $('input[type=text],input[type=email],input[type=password]').prop('disabled', true);
-
-    //   setTimeout(function () {
-
-    //     if (data.status === 'success') {
-    //       console.log("ok");
-
-    //       $('#alertmessage').slideDown('fast', function () {
-    //         $('#errorDiv').html('<div class="alert alert-info">' + data.message + '</div>');
-    //         $("#edit-form").trigger('reset');
-    //         $('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
-    //         $('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
-    //         console.log("ok");
-
-
-    //       }).delay(3000).slideUp('fast');
-
-
-    //     } else {
-    //       console.log("no ok");
-
-    //       $('#alertmessage').slideDown('fast', function () {
-    //         console.log("no ok");
-
-    //         $('#errorDiv').html('<div class="alert alert-danger">' + data.message + '</div>');
-    //         $("#edit-form").trigger('reset');
-    //         $('input[type=text],input[type=email],input[type=password]').prop('disabled', false);
-    //         $('#btn-signup').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registrar').prop('disabled', false);
-    //       }).delay(3000).slideUp('fast');
-    //     }
-
-    //   }, 3000);
-
-    // })
-    // .fail(function () {
-    //   $("#edit-form").trigger('reset');
-    //   alert('Ocurrio un error, prueba de nuevo mas tarde...');
-    // });
   }
+}
 
+function alertaMensaje(campo) {
+  mensaje = '<a class="panel-close close" data-dismiss="alert">X' +
+    '</a><i class="fa fa-coffee"></i>' +
+    '<strong>Aviso!</strong>. El ' + campo + 'debe tener como mínimo 5 caracteres.';
+  $('#alertmessageperfil').removeClass('alert-info').addClass('alert-danger');
+  $('#alertmessageperfil').removeClass('alert-success').addClass('alert-danger');
+  $('#alertmessageperfil').html("");
+  $('#alertmessageperfil').html('</div>' + mensaje + '</div>');
 }

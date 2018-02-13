@@ -1,4 +1,3 @@
-function prepararMostrarProductos() {
   if ($(this).hasClass("dropdown__level2__link")) {
     php = 'php/productos.php';
     key = $(this)[0].id;
@@ -13,7 +12,7 @@ function prepararMostrarProductos() {
     key = $("#main-desplegable-productos").children()[0].children[0].id;
   }
   mostrarProductos(key, php);
-}
+
 
 //Cargar productos de las subcategorias
 function mostrarProductos(key, php) {
@@ -348,6 +347,7 @@ function misProductos() {
       success: function (json) {
         var texto = '<div id="perfil-contenedor-misproductos" class="contenedor-deseos">' +
           '</div>';
+          $("#modal-propio-lateral-derecho").addClass("modal-propio__lateral--derecho__animation");
 
         $("#modal-propio-lateral-derecho").append(texto);
         var texto = '<div class="container">' +
@@ -369,7 +369,6 @@ function misProductos() {
             '<tr>' +
             '<td class="carrito-vacio" COLSPAN="3"><h3>Usted no tiene productos</h3></td>' +
             '</tr>';
-
           $("#cuerpoCarritoMisProductos").append(texto);
         }
 

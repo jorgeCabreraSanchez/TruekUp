@@ -77,6 +77,7 @@ INSERT INTO `chats` (`idUsuario1`, `idUsuario2`) VALUES
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	(7, 3),
 	(3, 5);
 =======
@@ -91,6 +92,10 @@ INSERT INTO `chats` (`idUsuario1`, `idUsuario2`) VALUES
 	(3, 5),
 	(7, 3);
 >>>>>>> presentacion26
+=======
+	(3, 5),
+	(7, 3);
+>>>>>>> davidEfectos
 /*!40000 ALTER TABLE `chats` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtruekup.deseados
@@ -103,6 +108,7 @@ CREATE TABLE IF NOT EXISTS `deseados` (
   CONSTRAINT `FK_Usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -129,15 +135,21 @@ INSERT INTO `deseados` (`idUsuario`, `idProducto`) VALUES
 	(7, 12),
 >>>>>>> cristian2
 =======
+=======
+>>>>>>> davidEfectos
 -- Volcando datos para la tabla bdtruekup.deseados: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `deseados` DISABLE KEYS */;
 INSERT INTO `deseados` (`idUsuario`, `idProducto`) VALUES
 	(3, 7),	
+<<<<<<< HEAD
 >>>>>>> presentacion26
+=======
+>>>>>>> davidEfectos
 	(3, 30),
 	(3, 31),
 	(3, 32),
 	(3, 34),
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -147,10 +159,13 @@ INSERT INTO `deseados` (`idUsuario`, `idProducto`) VALUES
 <<<<<<< HEAD
 =======
 >>>>>>> presentacion26
+=======
+>>>>>>> davidEfectos
 	(3, 35),
 	(7, 12),
 	(11, 15),
 	(11, 16);
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	(3, 35);
@@ -161,6 +176,8 @@ INSERT INTO `deseados` (`idUsuario`, `idProducto`) VALUES
 >>>>>>> cristian2
 =======
 >>>>>>> presentacion26
+=======
+>>>>>>> davidEfectos
 /*!40000 ALTER TABLE `deseados` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtruekup.historialtruekes
@@ -220,6 +237,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   `imagenes` text DEFAULT NULL,
   `caracteristicas` text DEFAULT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT 0,
@@ -238,6 +256,11 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `caracteristicas` text,
   `visible` tinyint(1) NOT NULL DEFAULT '0',
 >>>>>>> presentacion26
+=======
+  `imagenes` text,
+  `caracteristicas` text,
+  `visible` tinyint(1) NOT NULL DEFAULT '0',
+>>>>>>> davidEfectos
   PRIMARY KEY (`id`),
   KEY `fk_categoria_idx` (`idSubcategoria`),
   CONSTRAINT `FK_categorias` FOREIGN KEY (`idSubcategoria`) REFERENCES `subcategorias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -246,6 +269,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
 -- Volcando datos para la tabla bdtruekup.productos: ~31 rows (aproximadamente)
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
 INSERT INTO `productos` (`id`, `idSubcategoria`, `idPropietario`, `nombre`, `descripcion`, `imagen`, `imagenes`, `caracteristicas`, `visible`) VALUES
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -275,6 +299,8 @@ INSERT INTO `productos` (`id`, `idSubcategoria`, `idPropietario`, `nombre`, `des
 >>>>>>> cristian2
 =======
 >>>>>>> presentacion26
+=======
+>>>>>>> davidEfectos
 	(7, 1, 3, 'Balón de baloncesto tarmak 300 azul kipsta', 'Balón ideal para jugar en el exterior. Su revestimiento de caucho le proporciona una excelente resistencia y su diseño específico ofrece un agarre perfecto.', 'images/productos/pelota/baloncesto/balon.jpg', 'images/productos/pelota/baloncesto/balon.jpg images/productos/pelota/baloncesto/balon1.jpg images/productos/pelota/baloncesto/balon2.jpg images/productos/pelota/baloncesto/balon3.jpg', NULL, 0),
 	(8, 4, 5, 'Casco Hebo Stage Negro', 'Casco fabricado en material termoplástico ABS e interior en EPS de 2 densidades, diseñado para la práctica del Off-Road. Disponible en 2 tallas de calota, el Stage incorpora un interior en espuma y tejido hipo alérgico desmontable', 'images/productos/motor/motoCross/casco.png', 'images/productos/motor/motoCross/casco.png', NULL, 0),
 	(10, 4, 3, 'Chaqueta Alpinestars T-Jaws WP Negro', 'Una chaqueta textil de estilo agresivo que es ideal tanto para un uso deportivo como para su uso en ciudad', 'images/productos/motor/motoCross/chaqueta.png', 'images/productos/motor/motoCross/chaqueta.png', NULL, 0),
@@ -298,11 +324,14 @@ INSERT INTO `productos` (`id`, `idSubcategoria`, `idPropietario`, `nombre`, `des
 	(28, 25, 8, 'Vela Prolimit Powerkid', 'Mástil de dos piezas de fibra.Botavara de diametro fino, muy ligera y diseñada para los mas pequeños.', 'images/productos/acuaticos/windsurf/vela.png', 'images/productos/acuaticos/windsurf/vela.png', NULL, 0),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> david
 =======
 >>>>>>> cristian2
 =======
 >>>>>>> presentacion26
+=======
+>>>>>>> davidEfectos
 	(29, 25, 9, 'Arnes Dakine T7', 'Arnés de windsurf Dakine T7, para windsurfistas que quieran las máximas prestaciones en uno de los mejores arneses para para windsurf.  Con pre curva deformada, interior en espuma inteligente, con doble cinturón una de las mejores compras.', 'images/productos/acuaticos/windsurf/arnes.png', NULL, NULL, 0),
 	(30, 15, 6, 'Fischer Ranger 90 TI', 'Un rendimiento fiable en todos los terrenos: en polvo, pistas y terrenos difíciles - el Ranger 90 Ti le da estabilidad en todas las situaciones. Gracias al carbono y la pared lateral.', 'images/productos/invierno/sky/skiInvierno.png', NULL, NULL, 0),
 	(31, 15, 7, 'Blizzard Brahma', 'Potente Rendimiento Todo Terreno En Todo Tipo De Condiciones De Nieve. Nuestra Más Reciente Construcción Powerdrive Free Desprende Una Potencia Suave Y Dinámica, Una Energía Juguetona, Y Un Agarre Revolucionario.', 'images/productos/invierno/sky/skyInvierno1.png', NULL, NULL, 0),
@@ -370,6 +399,7 @@ CREATE TABLE IF NOT EXISTS `trades` (
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   `idUsuario1` int(11) NOT NULL DEFAULT 0,
   `idUsuario2` int(11) NOT NULL DEFAULT 0,
   `idProducto1` int(11) NOT NULL DEFAULT 0,
@@ -379,6 +409,8 @@ CREATE TABLE IF NOT EXISTS `trades` (
 >>>>>>> cristian2
 =======
 >>>>>>> presentacion26
+=======
+>>>>>>> davidEfectos
   `idUsuario1` int(11) NOT NULL DEFAULT '0',
   `idUsuario2` int(11) NOT NULL DEFAULT '0',
   `idProducto1` int(11) NOT NULL DEFAULT '0',
@@ -387,11 +419,14 @@ CREATE TABLE IF NOT EXISTS `trades` (
   `estado` enum('Pendiente','Finalizado') DEFAULT NULL,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> david
 =======
 >>>>>>> cristian2
 =======
 >>>>>>> presentacion26
+=======
+>>>>>>> davidEfectos
   PRIMARY KEY (`idTrade`),
   KEY `FK_idUsuario1` (`idUsuario1`),
   KEY `FK_idUsuario2` (`idUsuario2`),
@@ -401,6 +436,7 @@ CREATE TABLE IF NOT EXISTS `trades` (
   CONSTRAINT `FK_idProducto2` FOREIGN KEY (`idProducto2`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_idUsuario1` FOREIGN KEY (`idUsuario1`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_idUsuario2` FOREIGN KEY (`idUsuario2`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -428,6 +464,11 @@ INSERT INTO `trades` (`idTrade`, `idUsuario1`, `idUsuario2`, `idProducto1`, `idP
 
 -- Volcando datos para la tabla bdtruekup.trades: ~4 rows (aproximadamente)
 >>>>>>> presentacion26
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- Volcando datos para la tabla bdtruekup.trades: ~4 rows (aproximadamente)
+>>>>>>> davidEfectos
 /*!40000 ALTER TABLE `trades` DISABLE KEYS */;
 INSERT INTO `trades` (`idTrade`, `idUsuario1`, `idUsuario2`, `idProducto1`, `idProducto2`, `fecha`, `estado`) VALUES
 	(3, 3, 5, 7, 8, '2018-01-25 19:19:55', 'Pendiente'),
@@ -436,11 +477,14 @@ INSERT INTO `trades` (`idTrade`, `idUsuario1`, `idUsuario2`, `idProducto1`, `idP
 	(7, 7, 5, 32, 7, '2018-01-25 21:42:54', 'Finalizado');
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> david
 =======
 >>>>>>> cristian2
 =======
 >>>>>>> presentacion26
+=======
+>>>>>>> davidEfectos
 /*!40000 ALTER TABLE `trades` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtruekup.usuarios
@@ -452,10 +496,14 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `imagen` varchar(50) NOT NULL DEFAULT '0.jpg',
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> davidEfectos
   `fechaAlta` timestamp NOT NULL DEFAULT current_timestamp(),
   `direccion` varchar(50) DEFAULT 'Introducir nueva dirección',
   `provincia` varchar(50) DEFAULT 'Sin introducir',
   `fechaNacimiento` varchar(1000) DEFAULT NULL,
+<<<<<<< HEAD
 <<<<<<< HEAD
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
@@ -485,13 +533,18 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> davidEfectos
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla bdtruekup.usuarios: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+<<<<<<< HEAD
 >>>>>>> presentacion26
+=======
+>>>>>>> davidEfectos
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contraseña`, `imagen`, `fechaAlta`, `direccion`, `provincia`, `fechaNacimiento`) VALUES
 	(3, 'Jorge Cabrera Sánchez', 'jorge@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0.jpg', '2018-01-10 20:29:25', NULL, 'Sin introducir', NULL),
 	(5, 'borja orts', 'borja@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '0.jpg', '2018-01-11 17:14:05', NULL, 'Sin introducir', NULL),
@@ -501,6 +554,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contraseña`, `imagen`, `fecha
 	(9, 'jorge cabrera', 'j@gmail.com', '00787666ba1cc85ca3e571fcf6b92c3ea8b3eeb6', '0.jpg', '2018-01-11 19:23:27', NULL, 'Sin introducir', NULL),
 	(10, 'aaaaa aaaaa', 'a@a.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0.jpg', '2018-01-23 16:54:56', NULL, 'Sin introducir', NULL),
 	(11, 'David Poveda Bartolome', 'aa@a.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '5.JPG', '2018-01-23 16:57:10', 'Santiago Rusiñol 33 a 2', 'Madrid', NULL);
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contraseña`, `imagen`, `fechaAlta`) VALUES
@@ -526,6 +580,8 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contraseña`, `imagen`, `fecha
 >>>>>>> cristian2
 =======
 >>>>>>> presentacion26
+=======
+>>>>>>> davidEfectos
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
