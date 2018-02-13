@@ -3,7 +3,7 @@ session_start();
 $data = $_POST['dato1'];
 $usuario=$_SESSION['id'];
 $usuario2=$_POST['dato2'];
-$file = 'logs/chatLog'.$usuario."-".$usuario2.'.txt';
+$file = explode("/",$_POST['url'],2)[1];
 
 if (isset($data)) {
     $fp = fopen($file, "a+");

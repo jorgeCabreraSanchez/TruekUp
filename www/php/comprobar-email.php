@@ -1,9 +1,10 @@
 <?php
 
-	require_once 'configBD.php';
+	
 
 	if ( isset($_REQUEST['email']) && !empty($_REQUEST['email']) ) {
-		
+		require_once 'configBD.php';
+
 		$email = trim($_REQUEST['email']);
 		$email = strip_tags($email);
 		
@@ -16,6 +17,7 @@
 		} else {
 			echo 'true'; 
 		}
+		$conn->close();
 	}
-
+	
 ?>

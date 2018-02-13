@@ -16,7 +16,7 @@ include("header.inc.php");
 
 $id=(int)$_GET["id"]?$_GET["id"]:$_POST["id"];
 
-		$service_url = "http://localhost/proyecto/truekup/php/php_admin/usuarios/".$id;
+		$service_url = "http://localhost/2DAW/truekup/php/php_admin/usuarios/".$id;
 		$method="GET";
 		$CURL = new CURL($service_url,$method);
     	if(isset($fields)){
@@ -80,7 +80,7 @@ $id=(int)$_GET["id"]?$_GET["id"]:$_POST["id"];
 	$fechanac=$_POST['fechanac'];
 	$direccion=$_POST['direccion'];
 
-	$service_url = "http://localhost/proyecto/truekup/php/php_admin/usuarios/".$id;
+	$service_url = "http://localhost/2DAW/truekup/php/php_admin/usuarios/".$id;
 		$method="PUT";
 		$CURL = new CURL($service_url,$method);
 		$fields = ['nombre'=>$nombre, 'email'=>$email, 'provincia'=>$provincia, 'fechaNacimiento'=>$fechanac, 'direccion'=>$direccion];

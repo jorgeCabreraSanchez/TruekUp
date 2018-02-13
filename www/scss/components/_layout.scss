@@ -216,6 +216,40 @@ body {
     width: 100% !important;
 }
 
-.contenedor-historial{
+.contenedor-historial {
     padding-top: 10px;
+}
+
+.boton--antes {
+    // background-color: yellow;
+}
+
+.boton--despues {
+    // background-color: yellow;
+}
+
+.trueke-iniciado {}
+
+.empezar-trueke {
+    background-color: #FFB847;
+    border-color: #F3A62B;
+    color: white;
+    outline: none !important;
+}
+
+.empezar-trueke:hover {
+    background-color: hsl(37, 100%, 57%);
+    border-color: rgb(243, 183, 87);
+    color: white;
+}
+
+.empezar-trueke:focus {
+    background-color: hsl(37, 100%, 57%) !important;
+    border-color: rgb(243, 183, 87) !important;
+    box-shadow: none !important;
+}
+
+.empezar-trueke:active {
+    background-color: hsl(37, 100%, 57%) !important;
+    border-color: rgb(243, 183, 87) !important;
 }

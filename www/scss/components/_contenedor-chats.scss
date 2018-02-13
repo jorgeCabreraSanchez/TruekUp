@@ -5,8 +5,7 @@
     display: grid;
     grid-template-columns: 25% 48% 27%;
     grid-template-rows: min-content auto;
-    grid-template-areas: "nombreUsuarios usuario usuario" "usuarios        chat    trade";
-    border: 3px solid black;
+    grid-template-areas: "nombreUsuarios usuario usuario" "usuarios        chat    trade";    
     @include border-radius(10px);
 }
 

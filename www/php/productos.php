@@ -9,4 +9,5 @@ while($row=mysqli_fetch_array($resultado)){
 }
 header('Content-type: application/json; charset=utf-8');
 echo json_encode($datos);
+$conn->close();
 ?>

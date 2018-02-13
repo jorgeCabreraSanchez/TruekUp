@@ -50,6 +50,7 @@ if (!empty($imagenes[0])) {
     foreach ($imagenesInput as $key => $value) {
         $rutasCarrusel.="images/productos/".strtolower($nombreCategoria)."/".strtolower($nombreSubcategoria)."/".$value." ";
     }
+    $rutasCarrusel=substr($rutasCarrusel, 0, -1);
     $sql="INSERT INTO productos VALUES(null,'$idSubcategoria','$usuario','$nombre','$descripcion','$rutaP','$rutasCarrusel',null,0)";
     mysqli_query($conn,$sql);
 
@@ -67,6 +68,6 @@ if (!empty($imagenes[0])) {
     echo $respuesta;
 }
 
-
+$conn->close();
 
 ?>

@@ -2,12 +2,12 @@
 	header('Content-type: application/json');
     session_start();
     // JSON ('Content-Type →application/json; charset=utf-8');
-    $usuario = $_SESSION['id'];
-
-	require_once 'configBD.php';
+    
 	
 	$response = array();
     if ($_POST) {
+        $usuario = $_SESSION['id'];
+	    require_once 'configBD.php';
         $nombre=$_POST['nombre'];
         $email=$_POST['email'];
         $cpassword=$_POST['password'];
@@ -68,8 +68,10 @@
             $response['status'] = 'error; // No se puede editar';
 			$response['message'] = 'No editado prueba de nuevo';
         }	
+        $stmt->close();
 	}
 
-	echo json_encode($response);
+    echo json_encode($response);    
+    $conn->close();
 
 ?>

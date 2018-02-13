@@ -1,9 +1,7 @@
 <?php
 
-    $conn = new mysqli('localhost', 'root', 'root', 'bdtruekup');
-    if ($conn->error) {
-        die('No se puede conectar a la BD' . $conn->connect_error);
-    }
+require_once 'configBD.php';
+
 
     session_start();
     $id = $_SESSION['id'];
@@ -30,4 +28,6 @@
         $stmt -> close();           
     }     
     echo json_encode($usuarios);
+    
+$conn->close();
 ?>

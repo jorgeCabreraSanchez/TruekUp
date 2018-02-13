@@ -23,5 +23,6 @@
         }
         $stmt -> close();           
     }     
-    echo json_encode($usuarios);
+    echo json_encode($usuarios);    
+    $conn->close();
 ?>

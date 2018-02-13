@@ -41,7 +41,7 @@ if (isset($_POST['guardar'])) {
     $email=$_POST['email'];
     $pass=$_POST['pass'];
     
-		$service_url = "http://localhost/proyecto/truekup/php/php_admin/admin";
+		$service_url = "http://localhost/2DAW/truekup/php/php_admin/admin";
 			$method="POST";
 			$CURL = new CURL($service_url,$method);
     	$fields = ['nombre'=>$nombre, 'email'=>$email, 'pass'=>$pass];

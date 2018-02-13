@@ -1,8 +1,5 @@
 <?php
-	require_once 'configBD.php';
-    if ($conn->error) {
-    die('No se puede conectar a la BD' . $conn->connect_error);
-}
+require_once 'configBD.php';
 
 session_start();
 
@@ -40,5 +37,5 @@ if($idPropietario == $id){
 }
 
 // header('Content-type: application/json; charset=utf-8');
-
+$conn->close();
 ?>

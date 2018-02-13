@@ -470,9 +470,6 @@ function mostrarBodyHome() {
     '<div class="browser__button--cancel">' +
     '<button type="button" id="button-cancel" class="boton-invisible"><i class="fa fa-times boton-invisible__icon" aria-hidden="true"></i></button>' +
     '</div>' +
-    // '<button class="browser__button browser__button--"  type="button">' +
-    // '<i class="fa fa-times browser__icon browser__icon--" aria-hidden="true"></i>' +
-    // '</button>' +
     '</div>' +
 
     '<div class="main-dropdown" id="main-drop">' +

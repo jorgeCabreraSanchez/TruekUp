@@ -221,6 +221,30 @@ body {
   padding-top: 10px;
 }
 
+.empezar-trueke {
+  background-color: #FFB847;
+  border-color: #F3A62B;
+  color: white;
+  outline: none !important;
+}
+
+.empezar-trueke:hover {
+  background-color: #ffab24;
+  border-color: #f3b757;
+  color: white;
+}
+
+.empezar-trueke:focus {
+  background-color: #ffab24 !important;
+  border-color: #f3b757 !important;
+  box-shadow: none !important;
+}
+
+.empezar-trueke:active {
+  background-color: #ffab24 !important;
+  border-color: #f3b757 !important;
+}
+
 .navbar-list__item {
   display: flex;
   padding-bottom: 10px;
@@ -510,6 +534,8 @@ body {
 
 .boton-eliminar {
   padding: 7px !important;
+  background-color: #17a2b8;
+  border-color: #1eacc2;
 }
 
 .boton-visible {
@@ -534,6 +560,10 @@ body {
 
 .custom-file {
   margin-left: 65px;
+}
+
+.letra_label {
+  font-family: -apple-system,BlinkMacSystemFont, "Segoe UI",Roboto, "Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 .window-modal {
@@ -737,8 +767,6 @@ body {
 }
 
 /* CSS Document */
-<<<<<<< HEAD
-=======
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -751,7 +779,6 @@ body {
   animation-iteration-count: infinite;
 }
 
->>>>>>> davidChat
 .signup-form-container {
   border-radius: 3px;
   background: #ffffff;
@@ -998,14 +1025,11 @@ slight .mask {
   text-align: justify !important;
 }
 
-<<<<<<< HEAD
 .producto__animacion {
   animation-name: anim_btt;
   animation-duration: 1s;
 }
 
-=======
->>>>>>> davidChat
 .menu-lateral__body__lista {
   padding: 0px;
 }
@@ -1121,21 +1145,18 @@ slight .mask {
   grid-area: izquierda;
   opacity: 1;
   background-color: #01020e;
-<<<<<<< HEAD
-=======
   animation-name: bounceInLeft;
   animation-duration: 1s;
   animation-play-state: running;
->>>>>>> davidChat
 }
 
 .modal-propio__lateral--derecho {
   grid-area: derecha;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-<<<<<<< HEAD
-=======
 .modal-propio__lateral--derecho__animation {
   animation-name: fadeInLeft;
   animation-duration: 1s;
@@ -1148,7 +1169,6 @@ slight .mask {
   animation-play-state: running;
 }
 
->>>>>>> davidChat
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   vertical-align: middle;
@@ -1216,7 +1236,7 @@ slight .mask {
 .contenedor-deseos {
   background-color: white;
   margin: 40px 30px 40px 70px;
-  width: 88%;
+  width: 90%;
   height: 80%;
   border-radius: 5px !important;
   -webkit-border-radius: 5px !important;
@@ -1240,7 +1260,6 @@ slight .mask {
   grid-template-columns: 25% 48% 27%;
   grid-template-rows: min-content auto;
   grid-template-areas: "nombreUsuarios usuario usuario" "usuarios        chat    trade";
-  border: 3px solid black;
   border-radius: 10px !important;
   -webkit-border-radius: 10px !important;
   -moz-border-radius: 10px !important;
@@ -1325,6 +1344,8 @@ slight .mask {
   height: 70px;
   white-space: nowrap;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
 }
 
 .lista-usuarios__item--clicked {
@@ -1351,11 +1372,27 @@ slight .mask {
   border: 2px solid #6f6f6f;
 }
 
+.lista-usuarios__icon {
+  margin-left: auto;
+  font-size: 21px;
+  color: #ec5d5d;
+  margin-right: 5px;
+  visibility: hidden;
+}
+
+.lista-usuarios__icon:hover {
+  color: #e64040;
+}
+
 .trade {
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 100%;
+}
+
+.trade--sinProductos {
+  justify-content: center;
 }
 
 .trade__header {
@@ -1374,12 +1411,12 @@ slight .mask {
   background-color: #f2f2f266;
 }
 
-.trade__header__button--before {
+.--before {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 
-.trade__header__button--after {
+.--after {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -1448,6 +1485,13 @@ slight .mask {
   position: absolute;
 }
 
+.trade__body__nothing {
+  color: #008296;
+  width: 70%;
+  align-self: center;
+  text-align: center;
+}
+
 .trade__body__imagen {
   width: 240px;
   height: 190px;
@@ -1464,6 +1508,7 @@ slight .mask {
   margin-top: 15px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .trade__footer__item {
@@ -1473,6 +1518,7 @@ slight .mask {
   -o-border-radius: 10px !important;
   padding: 5px 13px;
   outline: none !important;
+  margin-bottom: 10px;
 }
 
 .trade__footer__item--inventary {
@@ -1482,6 +1528,14 @@ slight .mask {
 
 .trade__footer__item--accept {
   background-color: #97f57f;
+}
+
+.trade__footer__item--delete {
+  background-color: #f53939;
+}
+
+.trade__footer__item--cancel {
+  background-color: #eeeb4c;
 }
 
 .form-group1 {
@@ -2252,6 +2306,105 @@ datepicker table tr td.day:hover,
 
 .carrusel-activo {
   height: 100% !important;
+}
+
+.capa_fotos {
+  width: 100%;
+  height: 170px;
+  padding: 10px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  border-style: dashed;
+  overflow: auto;
+  flex-wrap: wrap;
+}
+
+.capa_input {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: #F39C12;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #c87f0a;
+}
+
+.boton_label {
+  border-radius: 5px;
+}
+
+.fa-upload {
+  font-size: 30px;
+}
+
+.capa_minifoto {
+  padding: 10px 10px 0px 10px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.capa_parrafo {
+  border: 2px solid gray;
+  margin-top: 5px;
+  width: 30px;
+  border-radius: 5px;
+}
+
+.capa_texto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 30px;
+  color: black;
+}
+
+.parrafo_icon {
+  font-size: 50px;
+  margin-bottom: 0px;
+  color: blue;
+}
+
+.img-product {
+  width: 120px;
+  height: 80px;
+}
+
+.capa_botones-upProduct {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.span-error-foto {
+  color: red;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  font-size: 20px;
 }
 
 /*!
@@ -5444,7 +5597,6 @@ datepicker table tr td.day:hover,
   animation-name: slideOutUp;
 }
 
-<<<<<<< HEAD
 @-webkit-keyframes anim_btt {
   0% {
     -webkit-transform: translate3d(0, 100px, 0);
@@ -5474,129 +5626,6 @@ datepicker table tr td.day:hover,
   animation-name: anim_btt;
 }
 
-.capa_fotos {
-  width: 100%;
-  height: 170px;
-  padding: 10px;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  border-style: dashed;
-  overflow: auto;
-  flex-wrap: wrap;
-}
-
-.capa_input {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 20px;
-}
-
-.inputfile {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
-.inputfile + label {
-  font-size: 1.25em;
-  font-weight: 700;
-  color: white;
-  background-color: #F39C12;
-}
-
-.inputfile:focus + label,
-.inputfile + label:hover {
-  background-color: #c87f0a;
-}
-
-.boton_label {
-  border-radius: 5px;
-}
-
-.fa-upload {
-  font-size: 30px;
-}
-
-.capa_minifoto {
-  padding: 10px 10px 0px 10px;
-  width: 200px;
-  display: flex;
-  flex-direction: column;
-  margin-right: 10px;
-  align-items: center;
-  border-radius: 5px;
-}
-
-.capa_parrafo {
-  border: 2px solid gray;
-  margin-top: 5px;
-  width: 30px;
-  border-radius: 5px;
-}
-
-.capa_texto {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 30px;
-  color: black;
-}
-
-.parrafo_icon {
-  font-size: 50px;
-  margin-bottom: 0px;
-  color: blue;
-}
-
-.img-product {
-  width: 120px;
-  height: 80px;
-}
-
-.capa_botones-upProduct {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-evenly;
-  margin-bottom: 20px;
-}
-
-.span-error-foto {
-  color: red;
-  display: flex;
-  justify-content: center;
-  padding-bottom: 10px;
-  font-size: 20px;
-}
-
-.volver-menu {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 10px;
-}
-
-.centrar-texto {
-  text-align: center;
-}
-
-.boton-trasparente {
-  display: flex;
-  background-color: transparent;
-  border: 0px;
-  outline: none !important;
-  vertical-align: center;
-  padding: 0px !important;
-  color: blue;
-  cursor: pointer;
-}
-
-.listUsers-titulo {
-  text-align: center;
-=======
 .mytext {
   border: 0;
   padding: 10px;
@@ -5739,6 +5768,103 @@ input:focus {
 :-moz-placeholder {
   /* Firefox 18- */
   color: #d4d4d4;
->>>>>>> davidChat
+}
+
+.emergent-window-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emergent-window {
+  display: flex;
+  justify-content: center;
+  width: 40%;
+  background-color: white;
+  height: 200px;
+  margin-top: -20%;
+}
+
+.emergent-window__body {
+  width: 80%;
+  padding: 20px;
+  text-align: center;
+}
+
+.emergent-window__body__title {
+  margin-bottom: 20px;
+}
+
+.emergent-window__body__text {
+  margin-bottom: 27px;
+}
+
+.emergent-window__body__button {
+  outline: none !important;
+}
+
+.emergent-window__body__button--delete {
+  background-color: #dd4848;
+  border-color: #dd4848;
+}
+
+.emergent-window__body__button--delete:hover {
+  background-color: #e02e2e;
+  border-color: #e02e2e;
+}
+
+.emergent-window__body__button--cancel {
+  background-color: #138496;
+  border-color: #138496;
+}
+
+.emergent-window__body__button--cancel:hover {
+  background-color: #16a0b6;
+  border-color: #16a0b6;
+}
+
+.panel-contenedor-historial {
+  padding: 5px;
+}
+
+.tabla-trueke {
+  border: 1px black solid;
+  border-radius: 10px !important;
+  -webkit-border-radius: 10px !important;
+  -moz-border-radius: 10px !important;
+  -o-border-radius: 10px !important;
+}
+
+.fila {
+  height: 100px !important;
+}
+
+.titulo-historial {
+  color: #177FB8;
+}
+
+.panel-central-login {
+  text-align: center;
+}
+
+.titulo-panel {
+  color: #17A2B8;
+}
+
+.boton-trasparente {
+  display: flex;
+  background-color: transparent;
+  border: 0px;
+  outline: none !important;
+  vertical-align: center;
+  padding: 0px !important;
+  cursor: pointer;
+  color: #17A2B8;
+}
+
+.error {
+  color: red;
 }
 /*# sourceMappingURL=main.css.map */

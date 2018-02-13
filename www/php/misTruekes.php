@@ -2,7 +2,7 @@
 $datos=[];
 session_start();
 $id=$_SESSION["id"];
-$conn=mysqli_connect("localhost","root","root","bdtruekup");
+require_once 'configBD.php';
 $sql = "SELECT U.nombre nombre1, U2.nombre nombre2, P.nombre producto1, P.imagen imagen1, P2.nombre producto2, P2.imagen imagen2, fecha_inicio, fecha_fin
 FROM historialtruekes T
 INNER JOIN usuarios U INNER JOIN usuarios U2 
@@ -16,4 +16,5 @@ while($row=mysqli_fetch_array($resultado)){
 }
 header('Content-type: application/json; charset=utf-8');
 echo json_encode($datos);
+$conn->close();
 ?>

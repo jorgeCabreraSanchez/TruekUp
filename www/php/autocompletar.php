@@ -1,10 +1,6 @@
 <?php
 	require_once 'configBD.php';
 
-if ($conn->error) {
-    die('No se puede conectar a la BD' . $conn->connect_error);
-}
-
 $sql="SELECT * FROM palabrasclave where palabra like '%" . $_GET["key"] ."%' ORDER BY length(palabra)";
 
 $palabras=[];
@@ -15,7 +11,9 @@ if ($stmt = $conn -> prepare($sql)) {
     while ($stmt->fetch()) {
         $palabras[] = array("id" =>  $id, "palabra" => $palabra);
     }
+    $stmt->close();
 }
 // header('Content-type: application/json; charset=utf-8');
 echo json_encode($palabras);
+$conn->close();
 ?>

@@ -1,8 +1,5 @@
 <?php
-	require_once 'configBD.php';
-    if ($conn->error) {
-        die('No se puede conectar a la BD' . $conn->connect_error);
-    }
+	require_once 'configBD.php';   
 
     $subcategorias = [];
     $categorias = [];

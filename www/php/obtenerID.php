@@ -1,6 +1,5 @@
 <?php
 session_start();
-$datosPropios[]=$_SESSION['id'];
-$datosPropios[]=$_SESSION['imagen'];
-print_r($datosPropios);
+$datosPropios=array("id"=>$_SESSION['id'],"imagen"=>$_SESSION['imagen']);
+echo json_encode($datosPropios);
 ?>

@@ -1,3 +1,4 @@
+function prepararMostrarProductos() {
   if ($(this).hasClass("dropdown__level2__link")) {
     php = 'php/productos.php';
     key = $(this)[0].id;
@@ -12,7 +13,7 @@
     key = $("#main-desplegable-productos").children()[0].children[0].id;
   }
   mostrarProductos(key, php);
-
+}
 
 //Cargar productos de las subcategorias
 function mostrarProductos(key, php) {
@@ -254,10 +255,6 @@ function cambiarImagen(event) {
 
 function cambiarColor() {
 
-
-
-
-
   var id = this.children[0].id;
   if ($("#" + id).hasClass("estrella-footer")) {
     $("#" + id).removeClass("estrella-footer");
@@ -289,9 +286,10 @@ function guardarProductoDeseado() {
     });
   }
 }
-listaProductosDeseados = [];
+
 async function productosDeseados() {
 
+  var listaProductosDeseados = [];
 
   return new Promise(function (resolve, reject) {
     $.ajax({
@@ -307,11 +305,11 @@ async function productosDeseados() {
 
       }
     });
-    listaProductosDeseados.length = 0;
   });
 }
 
 function eliminarProducto() {
+  console.log("ENtra");
   idEliminar = $(this)[0].id;
   var borrarProducto = this.parentNode.parentNode;
   $.ajax({
@@ -363,6 +361,7 @@ function misProductos() {
           '</tbody>' +
           '</table>' +
           '</div>';
+
         $("#perfil-contenedor-misproductos").append(texto);
         if (json.length == 0) {
           var texto =
@@ -474,6 +473,7 @@ function cambiarVisible() {
         console.log("Fallo al cambiar el valor");
       }
     });
+
   }
 }
 
@@ -484,6 +484,7 @@ function comprobarMisproductos() {
     dataType: "json",
     success: function (json) {
       json.forEach(n => {
+
         $("#" + n.id).addClass("boton-color");
       });
     }
@@ -512,9 +513,11 @@ function subirProducto() {
   if (!$("#perfil-contenedor-subirProducto").length) {
     if ($("#modal-propio-lateral-derecho").children().length != 0) {
       borrarContenidoCapaDerecha();
+
     }
     var texto = '<div id="perfil-contenedor-subirProducto" class="contenedor-deseos">' +
       '</div>';
+     $("#modal-propio-lateral-derecho").addClass("modal-propio__lateral--derecho__animation");
 
     $("#modal-propio-lateral-derecho").append(texto);
 
@@ -592,6 +595,7 @@ function rellenarCategorias() {
     dataType: 'json',
     success: function (json) {
       json.forEach(n => {
+
         $('#categoria').append('<option value="' + n.id + '">' + n.nombre + '</option>');
       });
     }

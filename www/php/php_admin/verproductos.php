@@ -26,7 +26,7 @@ echo "<table class='table'>";
 		echo "</thead>";
 		echo "<tbody>";
 
-		$service_url = "http://localhost/proyecto/truekup/php/php_admin/productos/".$id;
+		$service_url = "http://localhost/2DAW/truekup/php/php_admin/productos/".$id;
 			$method="GET";
 			$CURL = new CURL($service_url,$method);
     	if(isset($fields)){
@@ -59,7 +59,7 @@ echo "</form>";
 <script>
 	function sacarIdProducto(id) {
 		$.ajax({
-        url: "http://localhost/proyecto/truekup/php/php_admin/productos/"+id,
+        url: "http://localhost/2DAW/truekup/php/php_admin/productos/"+id,
         type: 'DELETE',
         dataType: 'json',
 	});

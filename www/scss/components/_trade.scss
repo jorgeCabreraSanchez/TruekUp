@@ -5,13 +5,17 @@
     width: 100%;
 }
 
+.trade--sinProductos{
+    justify-content: center;
+}
+
 .trade__header {
     display: flex;
     justify-content: center;
     margin: 20px;
 }
 
-.trade__header__button {
+.trade__header__button{
     display: inline-block;
     color: black;
     float: left;
@@ -21,12 +25,12 @@
     background-color: #f2f2f266;
 }
 
-.trade__header__button--before {
+.--before {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-.trade__header__button--after {
+.--after {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -95,6 +99,13 @@
     position: absolute;
 }
 
+.trade__body__nothing{
+    color: #008296;
+    width: 70%;
+    align-self: center;
+    text-align: center;
+}
+
 .trade__body__imagen {
     width: 240px;
     height: 190px;
@@ -111,12 +122,14 @@
     margin-top: 15px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .trade__footer__item {
     @include border-radius(10px);
     padding: 5px 13px;
     outline: none !important;
+    margin-bottom: 10px;
 }
 
 .trade__footer__item--inventary {
@@ -127,5 +140,15 @@
 .trade__footer__item--accept {
     background-color: #97f57f;
 }
+
+
+.trade__footer__item--delete {
+    background-color:rgb(245, 57, 57);
+}
+
+.trade__footer__item--cancel{
+    background-color:rgb(238, 235, 76);
+}
+
 
 .trade__footer__icon {}

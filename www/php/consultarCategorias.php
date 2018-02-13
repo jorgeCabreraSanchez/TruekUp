@@ -1,6 +1,7 @@
 <?php
 $datos=[];
-$conn=mysqli_connect("localhost","root","root","bdtruekup");
+require_once 'configBD.php';
+
 $sql="SELECT id,nombre FROM categorias";
 $resultado=mysqli_query($conn,$sql);
 while($row=mysqli_fetch_array($resultado)){
@@ -8,4 +9,5 @@ while($row=mysqli_fetch_array($resultado)){
 }
 header('Content-type: application/json; charset=utf-8');
 echo json_encode($datos);
+$conn->close();
 ?>

@@ -1,0 +1,50 @@
+.lista-usuarios {
+    padding: 0px;
+}
+
+.lista-usuarios__item {
+    padding: 10px 15px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: wheat;
+    overflow: hidden;
+    height: 70px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+}
+
+.lista-usuarios__item--clicked {
+    background-color: #3b3d4a;
+}
+
+.lista-usuarios__item--clicked+.lista-usuarios__imagen {
+    border: 2px solid #4a4a4a !important;
+}
+
+.lista-usuarios__item:hover {
+    cursor: pointer;
+    background-color: #3b3d4a;
+}
+
+.lista-usuarios__imagen {
+    width: 45px;
+    height: 45px;
+    @include border-radius(30px);
+    margin-right: 10px;
+    border: 2px solid #6f6f6f;
+}
+
+.lista-usuarios__icon {
+    margin-left: auto;
+    font-size: 21px;
+    color: #ec5d5d;
+    margin-right: 5px;
+    visibility: hidden;
+}
+
+.lista-usuarios__icon:hover {
+    color: #e64040;
+}
+
+.lista-usuarios__nombre {}

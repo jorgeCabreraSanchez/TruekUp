@@ -17,14 +17,14 @@ include("menu.inc.php");
 	<h1 class="titulo">Listado de usuarios</h1>
 	</div>
 	<div>
-		<p>Opciones de administrador: <a href='add.php'>Añadir nuevo administrador </a>--
+		<p>Opciones de administrador: <a href='add.php'>Añadir nuevo usuario </a>--
 		<a href='index.php'> Cerrar sesion</a></p>
 		
 	</div>
 	<?php
 	if(isset($_GET['id'])){
 		$id=$_GET["id"];
-		$service_url = "http://localhost/proyecto/truekup/php/php_admin/usuarios/".$id;
+		$service_url = "http://localhost/2DAW/truekup/php/php_admin/usuarios/".$id;
 		$method="DELETE";
 		$CURL = new CURL($service_url,$method);
     	if(isset($fields)){
@@ -54,7 +54,7 @@ include("menu.inc.php");
 		echo "<tbody>";
 
 			# realizamos un bucle por toda la base de datos para mostrar todos los registros
-			$service_url = "http://localhost/proyecto/truekup/php/php_admin/usuarios";
+			$service_url = "http://localhost/2DAW/truekup/php/php_admin/usuarios";
 			$method="GET";
 			$CURL = new CURL($service_url,$method);
     	if(isset($fields)){

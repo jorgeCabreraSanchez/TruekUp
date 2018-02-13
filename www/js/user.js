@@ -121,7 +121,7 @@ function mostrarPerfil() {
     '<i class="fa fa-comments-o" aria-hidden="true"></i> Chats' +
     '</li>' +
     '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">' +
-    '<i class="fa fa-handshake-o" aria-hidden="true"></i> Trades realizados' +
+    '<i class="fa fa-handshake-o" aria-hidden="true"></i> Truekes realizados' +
     '</li>' +
     '</li>' +
     '<li class="menu-lateral__body__lista__item menu-lateral__body__lista__item--normal">' +
@@ -155,6 +155,7 @@ function mostrarPerfil() {
   $("#menu-lateral-perfil").children()[6].addEventListener("click", subirProducto);
   $("#menu-lateral-perfil").children()[7].addEventListener("click", desloguearse);
   $("#menu-lateral-perfil").children()[8].addEventListener("click", salirPerfil);
+  $("#menu-lateral-perfil").children().on("click", animaciones);
 
 };
 
@@ -195,11 +196,32 @@ function crearCarrito() {
             '</tr>';
 
           $("#cuerpoCarritoProductosDeseados").append(texto);
+        } else {
+          $("#perfil-contenedor-deseos").on("click", "div table tbody tr td a.empezar-trueke", crearTrade);
+          $("#perfil-contenedor-deseos").on("click", "div table tbody tr td a.trueke-iniciado", event => {
+            var idTrade;
+            if (event.target.classList.contains("trueke-iniciado")) {
+              idTrade = event.target.getAttribute("value");
+            } else {
+              idTrade = event.target.parentElement.getAttribute("value");
+            }
+            irAlTrade(idTrade);
+
+          });
+          $("#cuerpoCarritoProductosDeseados").on('click', "tr td.tabla button.boton-eliminar", eliminarProducto);
+          $("#cuerpoCarritoProductosDeseados").on("click", "tr td div div h4.volver-carrito", event => {
+            key = "modal-carrito";
+            productosDetallados(event)
+            salirPerfil()
+          });
+
+
+          json.forEach(n => {
+            mostrarCarrito(n);
+          });
         }
 
-        json.forEach(n => {
-          mostrarCarrito(n.idProducto);
-        });
+
       },
       error: function (jqXHR, status, error) {
         console.log("Fallo en la peticion de deseados");
@@ -208,53 +230,49 @@ function crearCarrito() {
   }
 }
 
-function mostrarCarrito(numero) {
+function crearTrade() {
   $.ajax({
-    url: "php/productosCarrito.php",
-    data: {
-      key: numero
-    },
+    url: "php/iniciarTrade.php",
     type: 'GET',
-    dataType: 'json',
-    success: function (json) {
-
-      json.forEach(n => {
-        var texto =
-          '<tr id=' + n.id + '>' +
-          '<td data-th="Product">' +
-          '<div class="row">' +
-          '<div class="col-sm-2 hidden-xs"><img src="' + n.imagen + '" alt="..." class="img-responsive img-carro volver-carrito"/></div>' +
-          '<div class="col-sm-8 td-texto--central">' +
-          '<h4 class="nomargin volver-carrito">' + n.nombre + '</h4>' +
-          '<p>' + n.descripcion + '</p>' +
-          '</div>' +
-          '</div>' +
-          '</td>' +
-          '<td  class="tabla" data-th="Quantity">' +
-          '<button id=' + n.id + ' class="btn btn-info btn-sm boton-eliminar">Eliminar</button>' +
-          '</td>' +
-          '<td><a href="#" class="btn btn-success btn-block">Iniciar conversación  <i class="fa fa-commenting" aria-hidden="true"></i></a></td>' +
-          '</tr>';
-
-
-        $("#cuerpoCarritoProductosDeseados").append(texto);
-
-      });
-      $(".tabla").on('click', "button.boton-eliminar", eliminarProducto);
-      $(".volver-carrito").on("click", event => {
-        key = "modal-carrito";
-        productosDetallados(event)
-        salirPerfil()
-      });
-
+    data: {
+      idProducto: this.parentElement.parentElement.id
     },
-    //Termina success    
+    dataType: 'text',
+    success: function (idTrade) {
+      irAlTrade(idTrade);
+    },
     error: function (jqXHR, status, error) {
-      console.log("Fallo en la peticion ajax para los productos");
+
     }
-
   });
+}
 
+function mostrarCarrito(producto) {
+
+  var texto =
+    '<tr id=' + producto.idProducto + '>' +
+    '<td data-th="Product">' +
+    '<div class="row">' +
+    '<div class="col-sm-2 hidden-xs"><img src="' + producto.imagen + '" alt="..." class="img-responsive img-carro volver-carrito"/></div>' +
+    '<div class="col-sm-8 td-texto--central">' +
+    '<h4 class="nomargin volver-carrito">' + producto.nombre + '</h4>' +
+    '<p>' + producto.descripcion + '</p>' +
+    '</div>' +
+    '</div>' +
+    '</td>' +
+    '<td  class="tabla" data-th="Quantity">' +
+    '<button id=' + producto.idProducto + ' class="btn btn-info btn-sm boton-eliminar">Eliminar</button>' +
+    '</td>';
+
+  if (producto.idTrade === null) {
+    texto += '<td><a href="#" class="btn btn-block empezar-trueke">Iniciar Trueke <i class="fa fa-commenting" aria-hidden="true"></i></a></td>' +
+      '</tr>'
+  } else {
+    texto += '<td><a href="#" value="' + producto.idTrade + '" class="btn btn-success btn-block trueke-iniciado">Ir al Trueke <i class="fa fa-commenting" aria-hidden="true"></i></a></td>' +
+      '</tr>'
+  }
+
+  $("#cuerpoCarritoProductosDeseados").append(texto);
 
 }
 
@@ -274,23 +292,11 @@ function tradesRealizados() {
         $("#modal-propio-lateral-derecho").addClass("modal-propio__lateral--derecho__animation");
         $("#modal-propio-lateral-derecho").append(texto);
         var texto = '<div class="container contenedor-historial">' +
-          '<h1>Historial de Truekes</h1>' +
-          '<table id="cart" class="table table-hover table-condensed">' +
-          '<thead>' +
-          '<tr class="carrito-header">' +
-          '<th style="width:10%;border-top: 0px;border-bottom: 0px">Usuario 1</th>' +
-          '<th style="width:10%;border-top: 0px;border-bottom: 0px">Usuario 2</th>' +
-          '<th style="width:10%;border-top: 0px;border-bottom: 0px">Produc 1</th>' +
-          '<th style="width:15%;border-top: 0px;border-bottom: 0px">Foto 1</th>' +
-          '<th style="width:10%;border-top: 0px;border-bottom: 0px">Produc 2</th>' +
-          '<th style="width:15%;border-top: 0px;border-bottom: 0px">Foto 2</th>' +
-          '<th style="width:15%;border-top: 0px;border-bottom: 0px">Fecha Inicio</th>' +
-          '<th style="width:15%;border-top: 0px;border-bottom: 0px">Fecha Fin</th>' +
-          '</tr>' +
-          '</thead>' +
-          '<tbody id="cuerpoCarritoMisProductos">' +
-          '</tbody>' +
-          '</table>' +
+        '<h1 class = "titulo">Historial de Truekes</h1>'+
+          '<div id="cart">' +
+          '<div id="cuerpoCarritoMisProductos">' +
+          '</div>' +
+          '</div>' +
           '</div>';
         $("#perfil-contenedor-trades").append(texto);
         if (json.length == 0) {
@@ -304,16 +310,27 @@ function tradesRealizados() {
 
         json.forEach(n => {
           var texto =
-            '<tr>' +
-            '<td>' + n.Nombre1 + '</td>' +
-            '<td>' + n.Nombre2 + '</td>' +
-            '<td>' + n.Producto1 + '</td>' +
-            '<td><img src="' + n.imagen1 + '" alt="..." class="img-responsive imagen-pequeña"/></td>' +
-            '<td>' + n.Producto2 + '</td>' +
-            '<td><img src="' + n.imagen2 + '" alt="..." class="img-responsive imagen-pequeña"/></td>' +
-            '<td>' + n.fecha_inicio + '</td>' +
-            '<td>' + n.fecha_fin + '</td>' +
-            '</tr>';
+          
+            '<div class="panel-contenedor-historial table-hover">' +
+            '<h5 class="titulo-historial"><strong>'+n.fecha_inicio+' / '+n.fecha_fin+'</strong></h5>'+
+            '<table class="tabla-trueke">'+
+            '<tr class="tabla-trueke fila">'+
+            '<td style="width:10%;"><img src="' + n.imagen1 + '" alt="..." class="img-responsive imagen-pequeña"/>'+
+            '<td style="width:50%;"><b class="titulo-historial">Nombre del producto</b>'+
+            '<h3>' + n.Producto1 + '</h3></td>' +
+            '<td style="width:30%;"><b class="titulo-historial">Nombre de usuario</b>'+
+            '<h3>' + n.Nombre1 + '</h3></td>' +
+            '</tr>'+
+            '<tr class="tabla-trueke fila">'+
+            '<td><img src="' + n.imagen2 + '" alt="..." class="img-responsive imagen-pequeña"/>'+
+            '<td><b class="titulo-historial">Nombre del producto</b>'+
+            '<h3>' + n.Producto2 + '</h3></td>' +
+            '<td><b class="titulo-historial">Nombre de usuario</b>'+
+            '<h3>' + n.Nombre2 + '</h3></td>' +
+            '</tr>'+
+            '</table>';
+          
+            '</div>';
 
 
           $("#cuerpoCarritoMisProductos").append(texto);
@@ -322,7 +339,7 @@ function tradesRealizados() {
 
       },
       error: function (jqXHR, status, error) {
-        console.log("Fallo en la peticion de mis productos");
+        console.log("Fallo en la peticion de mis truekes");
       }
     });
   }
@@ -330,7 +347,9 @@ function tradesRealizados() {
 
 }
 
-
+function irAlTrade(idTrade) {
+  chats(idTrade);
+}
 
 function salirPerfil() {
   $("#modal-propio-trasera").remove();
@@ -362,13 +381,8 @@ async function borrarCookieSiExiste() {
 }
 
 function borrarContenidoCapaDerecha() {
-  // $("#modal-propio-lateral-derecho").addClass("modal-propio__lateral--derecho__animation--exit");
   $("#modal-propio-lateral-derecho").empty();
   $("#modal-propio-lateral-derecho").removeClass("modal-propio__lateral--derecho__animation");
-  // setTimeout(function(){
-  //   $("#modal-propio-lateral-derecho").empty();
-  //   $("#modal-propio-lateral-derecho").removeClass("modal-propio__lateral--derecho__animation");
-  //   }, 2000);
 
 }
 
@@ -422,7 +436,7 @@ function perfilExtendido() {
           }
 
         });
-        var texto = '   <div id="container-perfil" class="container container-perfil">  ' +
+        var texto = '   <div id="container-perfil" class="contenedor-deseos">  ' +
           '    <form enctype="multipart/form-data" class="form-horizontal" method="post" role="form" id="edit-form1" autocomplete="off">  ' +
           '<div class="container-perfil--titulo">' +
           '       <h1>Editar el perfil de @' + nombre + '</h1>  ' + '       <h3>Miembro desde el ' + fechaAlta + '</h3>  ' +
@@ -542,12 +556,6 @@ function perfilExtendido() {
           '                 <input id="idEmail" name="email" class="form-control" value="' + email + '" type="text">  ' +
           '               </div>  ' +
           '             </div>  ' +
-          // '             <div class="form-group">  ' +
-          // '               <label class="col-md-3 control-label">Username:</label>  ' +
-          // '               <div class="col-md-8">  ' +
-          // '                 <input class="form-control" value="janeuser" type="text">  ' +
-          // '               </div>  ' +
-          // '             </div>  ' +
           '             <div class="form-group">  ' +
           '               <label class="col-md-3 control-label">Contraseña:</label>  ' +
           '               <div class="col-md-8">  ' +
@@ -696,9 +704,15 @@ function perfilExtendido() {
 function alertaMensaje(campo) {
   mensaje = '<a class="panel-close close" data-dismiss="alert">X' +
     '</a><i class="fa fa-coffee"></i>' +
-    '<strong>Aviso!</strong>. El ' + campo + 'debe tener como mínimo 5 caracteres.';
+    '<strong>Aviso!</strong>. El ' + campo + ' debe tener como mínimo 5 caracteres.';
   $('#alertmessageperfil').removeClass('alert-info').addClass('alert-danger');
   $('#alertmessageperfil').removeClass('alert-success').addClass('alert-danger');
   $('#alertmessageperfil').html("");
   $('#alertmessageperfil').html('</div>' + mensaje + '</div>');
+}
+
+
+
+function animaciones(){
+  $("#modal-propio-lateral-derecho").children()[0]
 }
