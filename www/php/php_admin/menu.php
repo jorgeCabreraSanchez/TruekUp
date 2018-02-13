@@ -17,7 +17,7 @@ include("menu.inc.php");
 	<h1 class="titulo">Listado de usuarios</h1>
 	</div>
 	<div>
-		<p>Opciones de administrador: <a href='add.php'>Añadir nuevo usuario </a>--
+		<p>Opciones de administrador: <a href='add.php'>Añadir nuevo administrador </a>--
 		<a href='index.php'> Cerrar sesion</a></p>
 		
 	</div>
