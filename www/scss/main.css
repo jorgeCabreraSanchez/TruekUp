@@ -737,6 +737,21 @@ body {
 }
 
 /* CSS Document */
+<<<<<<< HEAD
+=======
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.animated.infinite {
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+>>>>>>> davidChat
 .signup-form-container {
   border-radius: 3px;
   background: #ffffff;
@@ -983,11 +998,14 @@ slight .mask {
   text-align: justify !important;
 }
 
+<<<<<<< HEAD
 .producto__animacion {
   animation-name: anim_btt;
   animation-duration: 1s;
 }
 
+=======
+>>>>>>> davidChat
 .menu-lateral__body__lista {
   padding: 0px;
 }
@@ -1103,6 +1121,12 @@ slight .mask {
   grid-area: izquierda;
   opacity: 1;
   background-color: #01020e;
+<<<<<<< HEAD
+=======
+  animation-name: bounceInLeft;
+  animation-duration: 1s;
+  animation-play-state: running;
+>>>>>>> davidChat
 }
 
 .modal-propio__lateral--derecho {
@@ -1110,6 +1134,21 @@ slight .mask {
   display: flex;
 }
 
+<<<<<<< HEAD
+=======
+.modal-propio__lateral--derecho__animation {
+  animation-name: fadeInLeft;
+  animation-duration: 1s;
+  animation-play-state: running;
+}
+
+.modal-propio__lateral--derecho__animation--exit {
+  animation-name: fadeInLeft;
+  animation-duration: 1s;
+  animation-play-state: running;
+}
+
+>>>>>>> davidChat
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   vertical-align: middle;
@@ -5405,6 +5444,7 @@ datepicker table tr td.day:hover,
   animation-name: slideOutUp;
 }
 
+<<<<<<< HEAD
 @-webkit-keyframes anim_btt {
   0% {
     -webkit-transform: translate3d(0, 100px, 0);
@@ -5556,5 +5596,149 @@ datepicker table tr td.day:hover,
 
 .listUsers-titulo {
   text-align: center;
+=======
+.mytext {
+  border: 0;
+  padding: 10px;
+  background: whitesmoke;
+}
+
+.text {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+}
+
+.text > p:first-of-type {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: auto;
+  line-height: 13px;
+  font-size: 14px;
+}
+
+.text > p:last-of-type {
+  width: 100%;
+  text-align: right;
+  color: silver;
+  margin-bottom: -7px;
+  margin-top: auto;
+}
+
+.text-l {
+  float: left;
+  padding-right: 10px;
+}
+
+.text-r {
+  float: right;
+  padding-left: 10px;
+}
+
+.imagenChat {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border: 2px solid #1fbff0;
+}
+
+.avatar1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  float: left;
+  padding-right: 10px;
+}
+
+.macro {
+  margin-top: 5px;
+  width: 85%;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+}
+
+.msj-rta {
+  float: right;
+  background: whitesmoke;
+}
+
+.msj {
+  float: left;
+  background: white;
+}
+
+.frame {
+  background: #e0e0de;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+
+.frame > div:last-of-type {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  display: flex;
+}
+
+.listaChat {
+  width: 100%;
+  list-style-type: none;
+  padding: 18px;
+  position: absolute;
+  bottom: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.msj:before {
+  width: 0;
+  height: 0;
+  content: "";
+  top: -5px;
+  left: -14px;
+  position: relative;
+  border-style: solid;
+  border-width: 0 13px 13px 0;
+  border-color: transparent #ffffff transparent transparent;
+}
+
+.msj-rta:after {
+  width: 0;
+  height: 0;
+  content: "";
+  top: -5px;
+  left: 14px;
+  position: relative;
+  border-style: solid;
+  border-width: 13px 13px 0 0;
+  border-color: whitesmoke transparent transparent transparent;
+}
+
+input:focus {
+  outline: none;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #d4d4d4;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #d4d4d4;
+}
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #d4d4d4;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #d4d4d4;
+>>>>>>> davidChat
 }
 /*# sourceMappingURL=main.css.map */
