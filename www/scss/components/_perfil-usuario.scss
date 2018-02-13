@@ -1,0 +1,616 @@
+body {
+    margin-top: 20px;
+}
+
+.container-perfil {
+    background-color: #eee;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    overflow: auto;
+}
+
+.row-perfil {
+    width: 100%;
+}
+
+.img-circle {
+    border-radius: 65px 10px 69px 10px;
+    -moz-border-radius: 65px 10px 69px 10px;
+    -webkit-border-radius: 65px 10px 69px 10px;
+    border: 6px groove #1fbff0;
+}
+
+//BOTON SUBIR IMAGEN
+
+/**********File Inputs**********/
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.container-perfil--titulo {
+    text-align: center;
+}
+
+.personal-info--right {
+    padding-left: 100px !important;
+}
+
+.inputfile+label {
+    max-width: 80%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+}
+
+.inputfile+label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    margin-right: 0.25em;
+}
+
+.iborrainputfile {
+    font-size: 16px;
+    font-weight: normal;
+    font-family: 'Lato';
+}
+
+.imagen-perfil {
+    max-width: 250px;
+}
+
+
+/* style 1 */
+
+.inputfile-1+label {
+    color: #fff;
+    background-color: #ec9b1b;
+}
+
+.inputfile-1:focus+label,
+.inputfile-1.has-focus+label,
+.inputfile-1+label:hover {
+    background-color: #d47e03;
+}
+
+
+/* style 2 */
+
+.inputfile-2+label {
+    color: #ec9b1b;
+    border: 2px solid currentColor;
+}
+
+.inputfile-2:focus+label,
+.inputfile-2.has-focus+label,
+.inputfile-2+label:hover {
+    color: #d47e03;
+}
+
+
+/* style 3 */
+
+.inputfile-3+label {
+    color: #ccc;
+}
+
+.inputfile-3:focus+label,
+.inputfile-3.has-focus+label,
+.inputfile-3+label:hover {
+    color: #ec9b1b;
+}
+
+
+/* style 4 */
+
+.inputfile-4+label {
+    color: #ccc;
+}
+
+.inputfile-4:focus+label,
+.inputfile-4.has-focus+label,
+.inputfile-4+label:hover {
+    color: #ec9b1b;
+}
+
+
+/* style 5 */
+
+.inputfile-5+label {
+    color: #ec9b1b;
+}
+
+.inputfile-5:focus+label,
+.inputfile-5.has-focus+label,
+.inputfile-5+label:hover {
+    color: #d47e03;
+}
+
+.inputfile-5+label figure {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ec9b1b;
+    display: block;
+    padding: 20px;
+    margin: 0 auto 10px;
+}
+
+.inputfile-5:focus+label figure,
+.inputfile-5.has-focus+label figure,
+.inputfile-5+label:hover figure {
+    background-color: #d47e03;
+}
+
+.inputfile-5+label svg {
+    width: 100%;
+    height: 100%; // fill: #17A2B8;
+}
+
+
+/* style 6 */
+
+.inputfile-6+label {
+    color: #ec9b1b;
+}
+
+.inputfile-6:focus+label,
+.inputfile-6.has-focus+label,
+.inputfile-6+label:hover {
+    color: #d47e03;
+}
+
+.inputfile-6+label figure {
+    width: 100px;
+    height: 135px;
+    background-color: #ec9b1b;
+    display: block;
+    position: relative;
+    padding: 30px;
+    margin: 0 auto 10px;
+}
+
+.inputfile-6:focus+label figure,
+.inputfile-6.has-focus+label figure,
+.inputfile-6+label:hover figure {
+    background-color: #d47e03;
+}
+
+.inputfile-6+label figure::before,
+.inputfile-6+label figure::after {
+    width: 0;
+    height: 0;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.inputfile-6+label figure::before {
+    border-top: 20px solid #05354e;
+    border-left: 20px solid transparent;
+}
+
+.inputfile-6+label figure::after {
+    border-bottom: 20px solid #d47e03;
+    border-right: 20px solid transparent;
+}
+
+.inputfile-6:focus+label figure::after,
+.inputfile-6.has-focus+label figure::after,
+.inputfile-6+label:hover figure::after {
+    border-bottom-color: #ec9b1b;
+}
+
+.inputfile-6+label svg {
+    width: 100%;
+    height: 100%;
+    fill: #f1e5e6;
+}
+
+
+/* style 7 */
+
+.inputfile-7+label {
+    color: #ec9b1b;
+}
+
+.inputfile-7+label {
+    border: 1px solid #ec9b1b;
+    background-color: #fff;
+    padding: 0;
+}
+
+.inputfile-7:focus+label,
+.inputfile-7.has-focus+label,
+.inputfile-7+label:hover {
+    border-color: #d47e03;
+}
+
+.inputfile-7+label span,
+.inputfile-7+label strong {
+    padding: 0.625rem 1.25rem;
+}
+
+.inputfile-7+label span {
+    width: 200px;
+    min-height: 2em;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.inputfile-7+label strong {
+    height: 100%;
+    color: #fff;
+    background-color: #ec9b1b;
+    display: inline-block;
+}
+
+.inputfile-7:focus+label strong,
+.inputfile-7.has-focus+label strong,
+.inputfile-7+label:hover strong {
+    background-color: #d47e03;
+}
+
+@media screen and (max-width: 50em) {
+    .inputfile-7+label strong {
+        display: block;
+    }
+}
+
+
+/**********End File Inputs**********/
+
+// DATEPICKER
+@import url(https://fonts.googleapis.com/css?family=Jaldi);
+body {
+    font-family: 'Jaldi', sans-serif !important;
+}
+
+.datepicker-dropdown {
+    top: 0;
+    left: 0;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 4px;
+}
+
+.datepicker table tr td,
+.datepicker table tr th {
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    border: none;
+    color: #000;
+    cursor: pointer !important;
+}
+
+datepicker table tr td.day:hover,
+.datepicker table tr td.focused {
+    background: red;
+}
+
+.datepicker table tr td.old,
+.datepicker table tr td.new {
+    color: #999;
+}
+
+.datepicker table tr td.today {
+    color: white !important;
+    background-color: #FFA953;
+    border-color: #FFB76F;
+}
+
+.datepicker table tr td.today:hover {
+    color: #FFFFFF;
+    background-color: #FF8273;
+    border-color: #f59e00;
+    cursor: pointer !important;
+}
+
+.datepicker .datepicker-switch {
+    width: 145px;
+}
+
+.datepicker .datepicker-switch:hover,
+.datepicker .prev:hover,
+.datepicker .next:hover,
+.datepicker tfoot tr th:hover {
+    background: #f8f8f8;
+}
+
+.ui-datepicker {
+    width: 15.20em !important;
+    font-family: 'Jaldi', sans-serif !important;
+    border: 1px solid #ccc !important;
+}
+
+.ui-datepicker-header {
+    border-radius: 0px !important;
+    background-color: #ededed !important;
+    background: #ededed !important;
+    border: none !important;
+}
+
+.ui-datepicker-next {
+    color: #000 !important;
+    top: 3px !important;
+    right: 3px !important;
+}
+
+.ui-datepicker-prev {
+    color: #000 !important;
+    top: 3px !important;
+    left: 3px !important;
+}
+
+.ui-datepicker-next:hover {
+    border: none !important;
+    top: 3px !important;
+    right: 3px !important;
+    background: white !important;
+    cursor: pointer;
+}
+
+.ui-datepicker-prev:hover {
+    border: none !important;
+    top: 3px !important;
+    left: 3px !important;
+    background: white !important;
+    cursor: pointer;
+}
+
+.ui-state-default {
+    background: none !important;
+    background-color: #ededed;
+}
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight {
+    background: none !important;
+    background-color: #eaeaea !important;
+    border: 1px solid #A51E1E !important;
+    border-radius: 10% !important;
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active {
+    background-color: #a1a1a1 !important;
+    color: whitesmoke !important;
+    font-weight: bold !important;
+    border: 1px solid #d3d3d3 !important;
+}
+
+#date-picker-expirate .ui-datepicker-calendar {
+    display: none;
+}
+
+.ui-widget select {
+    font-family: 'Jaldi', sans-serif !important;
+    font-size: 14px !important;
+}
+
+.ui-priority-primary,
+.ui-widget-content {
+    font-weight: normal !important;
+}
+
+.ui-datepicker-close {
+    color: #fff !important;
+    background-color: #5cb85c !important;
+    border-color: #4cae4c !important;
+    font-size: 14px !important;
+}
+
+.hide-calendar .ui-datepicker-calendar {
+    display: none;
+}
+
+#startDate {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 6px;
+}
+
+.ui-datepicker-current {
+    display: none !important;
+}
+
+.ui-datepicker-buttonpane {
+    float: left !important;
+    padding: 0 !important;
+}
+
+// /**
+//  * User Profile
+//  */
+// .user-profile__avatar,
+// .user-avatar {
+//   padding: 10px;
+//   margin-bottom: 30px;
+//   border: 1px solid #eee;
+//   border-radius: 3px;
+// }
+// .user-profile__avatar > img,
+// .user-avatar > img {
+//   margin-bottom: 10px;
+//   border-radius: 2px;
+// }
+// .user-profile__title {
+//   font-weight: 700;
+// }
+// .user-profile__desc {
+//   color: #777777;
+// }
+// .user-profile__url {
+//   margin-bottom: 20px;
+// }
+// .user-profile__info {
+//   margin: 20px 0;
+//   padding-left: 0;
+//   list-style: none;
+// }
+// .user-profile__info > li {
+//   padding: 5px 0;
+// }
+// .user-profile__info > li .fa {
+//   margin-right: 10px;
+// }
+// .user-profile__tabs {
+//   margin-top: 40px;
+// }
+// /**
+//  * Portfolio
+//  */
+// /* Portfolio navigation */
+// .portfolio__nav {
+//   list-style: none;
+//   padding-left: 0;
+//   margin-bottom: 40px;
+//   margin-top: -20px;
+//   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+// }
+// .portfolio__nav > li {
+//   display: inline-block;
+// }
+// .portfolio__nav > li > a {
+//   display: block;
+//   padding: 20px 10px;
+//   margin-bottom: -1px;
+//   border-bottom: 2px solid transparent;
+//   color: #757575;
+//   -webkit-transition: all .05s linear;
+//        -o-transition: all .05s linear;
+//           transition: all .05s linear;
+// }
+// .portfolio__nav > li > a:hover,
+// .portfolio__nav > li > a:focus {
+//   color: #333333;
+//   text-decoration: none;
+// }
+// .portfolio__nav > li.active > a {
+//   color: #ed3e49;
+//   border-bottom-color: #ed3e49;
+// }
+// @media (max-width: 767px) {
+//   .portfolio__nav {
+//     border-bottom: 0;
+//   }
+//   .portfolio__nav > li {
+//     display: block;
+//   }
+//   .portfolio__nav > li > a {
+//     padding: 10px 15px;
+//     margin-bottom: 10px;
+//     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+//   }
+//   .portfolio__nav > li.active > a {
+//     font-weight: 600;
+//   }
+// }
+// /* Portfolio thumbnails */
+// .isotope-item {
+//   padding-left: 10px;
+//   padding-right: 10px;
+// }
+// /* Firefox bug fix */
+// @media (min-width: 1200px) {
+//   .col-lg-4.isotope-item {
+//     width: 33%;
+//   }
+// }
+// .portfolio__item {
+//   margin-bottom: 20px;
+// }
+// .portfolio-item__img {
+//   position: relative;
+//   overflow: hidden;
+//   cursor: pointer;
+// }
+// .portfolio-item__img:hover .portfolio-item__mask {
+//   background: rgba(255, 255, 255, 0.9);
+// }
+// .portfolio-item__img:hover .portfolio-item-mask__content {
+//   top: 0;
+// }
+// .portfolio-item__mask {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: rgba(255, 255, 255, 0);
+//   -webkit-transition: background .3s;
+//        -o-transition: background .3s;
+//           transition: background .3s;
+// }
+// @media (max-width: 767px) {
+//   .portfolio-item__mask {
+//     visibility: hidden;
+//   }
+// }
+// .portfolio-item-mask__content {
+//   position: absolute;
+//   display: block;
+//   top: -100%;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   padding: 40px 20px;
+//   overflow: hidden;
+//   color: #333333;
+//   text-decoration: none;
+//   -webkit-transition: top .3s;
+//        -o-transition: top .3s;
+//           transition: top .3s;
+// }
+// .portfolio-item-mask__title {
+//   margin-bottom: 20px;
+//   font-weight: 600;
+//   text-transform: uppercase;
+// }
+// .portfolio-item-mask__summary {
+//   font-size: 12px;
+// }
+// .portfolio-item__recent > [class*="col-"] {
+//   padding-left: 10px;
+//   padding-right: 10px;
+// }
+// .tab-pane {
+//     padding-top: 20px;
+// }
+// .panel-body > ul {
+//     list-style-type: none;
+//     padding: 0;
+//     margin: 0;
+// }
+// .panel-body > ul > li {
+//     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+// }
+// .panel-body > ul > li > a {
+//     display: block;
+//     padding: 8px 0;
+//     font-weight: 600;
+//     font-size: 11px;
+//     color: #777777;
+//     text-transform: uppercase;
+//     text-decoration: none;
+// }

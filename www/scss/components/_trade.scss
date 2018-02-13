@@ -1,0 +1,154 @@
+.trade {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.trade--sinProductos{
+    justify-content: center;
+}
+
+.trade__header {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.trade__header__button{
+    display: inline-block;
+    color: black;
+    float: left;
+    padding: 8px 16px !important;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    background-color: #f2f2f266;
+}
+
+.--before {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.--after {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.trade__header__container__list {
+    overflow: hidden;
+    max-width: 100px;
+}
+
+.trade__header__list {
+    margin: 0px;
+    display: flex;
+    padding: 0px;
+}
+
+.trade__header__list__item {
+    display: inline-block;
+    color: black;
+    float: left;
+    padding: 8px 14px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+}
+
+.trade__header__list__item:hover:not(.trade__header__list__item--selected) {
+    background-color: #ddd;
+}
+
+.trade__header__list__item--selected {
+    background-color: #17a2b8;
+    color: white;
+    border: 1px solid #17a2b8
+}
+
+.trade__body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.trade__body__separator {
+    width: 80%;
+    border-bottom: 2px solid gray;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.trade__body__item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    width: 90%;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.trade__body__item--accept {
+    width: 100%;
+    height: 100%;
+    background: green;
+    opacity: 0.2;
+    position: absolute;
+}
+
+.trade__body__nothing{
+    color: #008296;
+    width: 70%;
+    align-self: center;
+    text-align: center;
+}
+
+.trade__body__imagen {
+    width: 240px;
+    height: 190px;
+    margin-top: 20px;
+}
+
+.trade__body__nombre {
+    padding: 15px;
+}
+
+.trade__footer {
+    width: 100%;
+    padding-bottom: 20px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.trade__footer__item {
+    @include border-radius(10px);
+    padding: 5px 13px;
+    outline: none !important;
+    margin-bottom: 10px;
+}
+
+.trade__footer__item--inventary {
+    background-color: rgba(33, 228, 228, 0.822);
+    margin-right: 10px;
+}
+
+.trade__footer__item--accept {
+    background-color: #97f57f;
+}
+
+
+.trade__footer__item--delete {
+    background-color:rgb(245, 57, 57);
+}
+
+.trade__footer__item--cancel{
+    background-color:rgb(238, 235, 76);
+}
+
+
+.trade__footer__icon {}

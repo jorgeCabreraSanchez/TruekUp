@@ -1,0 +1,38 @@
+.panel-contenedor-historial{
+    padding: 5px;
+    
+}
+.tabla-trueke{
+    border: 1px black solid;
+    @include border-radius(10px);
+}
+.fila{
+    height: 100px !important;
+}
+
+.titulo-historial{
+    color: #177FB8;
+}
+
+.panel-central-login {
+    text-align: center;
+}
+
+.titulo-panel {
+    color: #17A2B8;
+}
+
+.boton-trasparente {
+    display: flex;
+    background-color: transparent;
+    border: 0px;
+    outline: none !important;
+    vertical-align: center;
+    padding: 0px !important;
+    cursor: pointer;
+    color: #17A2B8;
+}
+
+.error{
+    color: red;
+}

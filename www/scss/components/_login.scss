@@ -1,0 +1,156 @@
+.login {}
+
+.login__header {
+    display: grid;
+    grid-template-columns: 5% 95%;
+    grid-template-rows: 5% 95%;
+    grid-template-areas: "cancel ." ". title";
+}
+
+.login__header__cancel {
+    color: #515253;
+    grid-area: cancel;
+    justify-self: start;
+    cursor: pointer;
+}
+
+.login__header__title {
+    color: #17a2b8;
+    grid-area: title;
+    justify-self: center;
+    margin-right: 5%;
+}
+
+.login__body {
+    color: #212121;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(2, 1fr) 10% 1fr;
+    grid-template-areas: "email" 
+                        "password" 
+                        "remember" 
+                        "entrar";
+    padding-top: 30px;
+}
+
+.login__body__input {
+    margin-bottom: 15px;
+    height: 35px;
+    justify-self: center;
+    padding: 5px;
+    @include border-radius(5px);
+    outline: none !important;
+    border: 1px solid #b9b9b9;
+    font-size: 14px;
+    line-height: 1.42857143;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.login__body__input:focus {
+    border-color: rgb(92, 166, 201);
+    box-shadow: 0 0 3px rgb(92, 166, 201);
+}
+
+.login__body__input--email {
+    grid-area: email;
+}
+
+.login__body__input--password {
+    grid-area: password;
+}
+
+.login__body__entrar {
+    grid-area: entrar;
+    justify-self: center;
+    padding: 5px 20px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    outline: none !important; // pointer-events: none !important;
+    background-color: hsl(188, 68%, 53%);
+    @include border-radius(20px);
+    border: 1px solid rgb(56, 205, 228);
+    cursor: pointer;
+}
+
+.login__body__entrar:hover {
+    background-color: rgb(29, 218, 247);
+    border: 1px solid rgb(56, 206, 230);
+}
+
+.login__body__error {
+    grid-area: error;
+    justify-self: center;
+    color: red;
+    margin-bottom: 15px;
+    font-size: 14px;
+    margin-top: -7px;
+}
+
+.login__body__remember {
+    grid-area: remember;
+    justify-self: center;
+    margin-bottom: 15px;
+    color: #838383;
+    font-size: 14px;
+    cursor:default;
+    height: 21px;   
+    justify-content: center; 
+    display:flex;   
+    position: relative; 
+}
+
+.login__body__checkbox__text{
+    margin-left:5px;
+    overflow: hidden;
+    margin-bottom: 0px;
+}
+
+.login__body__checkbox {
+    @include appearance(none);    
+    width: 18px;
+    background-color: #eee;
+    height: 16px;
+    border-radius: 2px;  
+    align-self: center;   
+    position: absolute;        
+    left: -20px;
+}
+
+.login__body__checkbox:hover{
+    background-color: #ccc;
+}
+
+.login__body__checkbox:checked{
+    background-color: #17a2b8;
+}
+
+.login__body__checkbox:after{
+    content: ""; 
+    position: absolute;
+    display: none;    
+}
+
+.login__body__checkbox:checked::after{
+    display: block !important;    
+}
+
+.login__body__checkbox:after{
+    left: 6px;    
+    width: 7px;
+    height: 14px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.login__body__checkbox:focus{    
+    outline: none;
+}
+
+

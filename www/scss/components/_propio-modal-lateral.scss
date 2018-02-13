@@ -1,0 +1,70 @@
+.modal-propio__capa-trasera {
+    opacity: .7;
+    background-color: black;
+}
+
+.modal-propio {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1041;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-propio__conteiner {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 100%;
+    grid-template-areas: "izquierda derecha";
+}
+
+.modal-propio__lateral {}
+
+.modal-propio__lateral--izquierdo {
+    grid-area: izquierda;
+    opacity: 1;
+    background-color: rgb(1, 2, 14);
+    animation-name: bounceInLeft;
+    animation-duration: 1s;
+    animation-play-state: running;
+}
+
+.modal-propio__lateral--derecho {
+    grid-area: derecha;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     // animation-name: bounceInLeft !important;
+    // animation-duration: 1s !important;
+    // animation-play-state: running !important;
+    // position: fixed;
+    // margin: auto;
+    // -webkit-transform: translate3d(0%, 0, 0);
+    //     -ms-transform: translate3d(0%, 0, 0);
+    //      -o-transform: translate3d(0%, 0, 0);
+    //         transform: translate3d(0%, 0, 0);
+    // overflow-y: auto;
+    // -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    //    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+    //      -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+    //         transition: opacity 0.3s linear, left 0.3s ease-out;
+    // -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    //    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    //      -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    //         transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal-propio__lateral--derecho__animation {
+    animation-name: fadeInLeft;
+    animation-duration: 1s;
+    animation-play-state: running;
+}
+
+.modal-propio__lateral--derecho__animation--exit {
+    animation-name: fadeInLeft;
+    animation-duration: 1s;
+    animation-play-state: running;
+}

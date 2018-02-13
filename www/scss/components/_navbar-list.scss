@@ -1,0 +1,39 @@
+.navbar-list {}
+
+.navbar-list__item {
+    display: flex;
+    padding-bottom: 10px ;    
+    padding-top: 10px ; 
+    height: 40px;
+}
+
+.navbar-list__item--highlighted {
+    margin-right: 10px;
+}
+
+@media (min-width:992px) {
+    .navbar-list__item--highlighted {
+        margin-right: 10px;
+    }
+    .navbar-list__item--highlighted:hover {
+        border-bottom: 1px solid white;
+    }
+}
+
+
+.navbar-list__item--perfil{
+    border-left: 1px solid rgba(255, 255, 255, .5);
+    padding-left: 10px !important;    
+    font-weight: 900;
+}
+
+.navbar-list__item__imagen{
+    margin-left: 10px;
+    @include border-radius(15px);
+}
+
+// .navbar-list__link--movement {
+//     transition: all 0.3s;
+// navbar-list__item esto iba como clase en el js
+// }
+

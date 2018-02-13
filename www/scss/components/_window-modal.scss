@@ -1,0 +1,57 @@
+.window-modal {
+    opacity: 1 !important;
+    display: block;  
+}
+
+
+.window-dialog{
+    transform: translate(0, 0%) !important;    
+    margin: 40px;
+    margin-top: 54px;
+    // width: auto;
+    overflow: hidden;
+    animation-name: fadeInDown;
+    animation-duration: 1s;
+    animation-play-state: running;
+    
+}
+
+@media (min-width:576px) {
+    .window-dialog{
+        margin: 53px auto !important;  
+    }  
+}
+
+
+@media (min-width:768px) {
+    .window-dialog{
+        margin: 64px auto !important;  
+    }  
+}
+
+@media (min-width:992px){
+    .window-dialog{
+        margin: 75px auto !important;  
+    }    
+}
+
+.modal-open {
+    overflow: hidden;
+    padding-right: 17px;
+}
+
+.navbar-modal-open {
+    padding-right: 33px;
+}
+
+// .modal-backdrop {
+//     opacity: .5;
+//     position: fixed;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     z-index: 1040;
+//     background-color: #000;
+//     transition: opacity .15s linear;
+// }

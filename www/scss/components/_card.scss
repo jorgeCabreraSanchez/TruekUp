@@ -1,0 +1,123 @@
+.card.card-cascade.narrower {
+    margin-top: 20px;
+}
+.card.card-cascade {
+    width: 100%;
+}
+.card:not([class*=card-outline-]) {
+    border: 0;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.card.card-cascade.narrower .view {
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: -20px;
+}
+.card.card-cascade .view {
+    border-radius: 4px;
+}
+.card.card-cascade .view{
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+}
+.view {
+    overflow: hidden;
+    position: relative;
+    cursor: default;
+}
+.section img {
+    max-width: 100%;
+    height: auto;
+}
+.hm-zoom img, .hm-zoom video, .overlay img, .overlay video {
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+    
+}
+.hm-zoom:hover img {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+.view img, .view video {
+    display: block;
+    position: relative;
+}
+.card img {
+    border-radius: 2px 2px 0 0;
+}
+.img-fluid-producto{
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+}
+.img-fluid-producto {
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+slight .mask {
+    background-color: rgba(255,255,255,.1);
+}
+.overlay .mask {
+    opacity: 0;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+.view .full-bg-img, .view .mask {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+.view .mask {
+    background-attachment: fixed;
+}
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 1;
+}
+.card-footer-modificado{
+    background-color: transparent;
+}
+.card-text-centrado{
+    text-align: justify !important;
+}
+
+.producto__animacion{
+    animation-name: anim_btt;
+    animation-duration: 1s;
+}
+// .start_animation{
+//     animation-name: anim_btt;
+//     animation-duration: 3s;
+// }

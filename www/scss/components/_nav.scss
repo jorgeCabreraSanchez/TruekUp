@@ -1,0 +1,12 @@
+@media (min-width:992px) {
+    .nav-item--highlighted {
+        margin-right: 10px;
+    }
+    .nav-item--highlighted:hover {
+        border-bottom: 1px solid white;
+    }
+}
+
+.nav-link--movement{
+    transition: all 0.3s;
+}

@@ -1,0 +1,90 @@
+.capa_fotos{
+    width: 100%;
+    height: 170px;
+    padding: 10px;
+    background-color: white;
+    display:flex;
+    justify-content: center;
+    border-style: dashed;
+    overflow: auto;
+    flex-wrap: wrap;
+    
+}
+.capa_input{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: #F39C12;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: darken(#F39C12  ,10%);
+}
+.boton_label{
+border-radius: 5px;
+
+}
+
+.fa-upload{
+    font-size: 30px;
+}
+.capa_minifoto{
+    
+    padding: 10px 10px 0px 10px;
+    width: 200px;
+    display:flex;
+    flex-direction: column;
+    margin-right: 10px;
+    align-items: center;
+    border-radius: 5px;
+}
+.capa_parrafo{
+    border: 2px solid gray;
+    margin-top: 5px;
+    width: 30px;
+    border-radius: 5px;
+}
+.capa_texto{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 30px;
+    color: black;
+}
+.parrafo_icon{
+    font-size: 50px;
+    margin-bottom: 0px;
+    color:blue;
+}
+.img-product{
+    width: 120px;
+    height: 80px;
+}
+.capa_botones-upProduct{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+.span-error-foto{
+    color:red;
+    display:flex;
+    justify-content: center;
+    padding-bottom:10px;
+    font-size: 20px;
+}
