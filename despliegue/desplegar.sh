@@ -1,17 +1,23 @@
 #!/bin/bash
+# este script debe tener permisos de ejecucion --> # git update-index --chmod=+x desplegar.sh
 # git clone https://github.com/jorgeCabreraSanchez/TruekUp.git truekup → desde /opt/proyectoTruekup
 # git config --global http.proxy http://172.16.0.9:8080
-cd /opt/proyectoTruekup
-mkdir html
+cd ../..
+mkdir www
 mkdir mysql
 mkdir database
-cp -a truekup/html/. html/
-cp -a truekup/database/. database/
-docker run -d -p 80:8080 --net=red_docker --ip 192.168.1.80 --name html-truekup -v /opt/truekup/html:/var/www/html logongas/apache2-php7-ssl
+cp -a TruekUp/www/. www/
+cp -a TruekUp/database/. database/
 
-docker run -d -p 3306:3306 --net=red_docker --ip 192.168.1.81 --name mysql-truekup -v /opt/truekup/mysql:/var/lib/mysql -v /opt/truekup/database:/database -e MYSQL_ROOT_PASSWORD=root mysql
+# docker network create -d bridge red_truekup
 
-             
+docker run -d -p 8080:80 --network=red_truekup --name html-truekup --hostname html-truekup -v /opt/truekup/www:/var/www/html logongas/apache2-php7-ssl
+
+docker run -d -p 3306:3306 --network=red_truekup  --name mysql-truekup --hostname mysql-truekup -v /opt/truekup/mysql:/var/lib/mysql -v /opt/truekup/database:/database -e MYSQL_ROOT_PASSWORD=root mysql
+
+sleep 1m
+
+
 # git update-index --chmod=+x import.sh → al crearlo
 
 # Contenido del import.sh
