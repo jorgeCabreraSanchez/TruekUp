@@ -1,5 +1,5 @@
 <?php
-	define('DBhost', 'localhost');
+	define('DBhost', 'mysql-truekup:3306');
 	define('DBuser', 'root');
 	define('DBPass', 'root');
 	define('DBname', 'bdtruekup');

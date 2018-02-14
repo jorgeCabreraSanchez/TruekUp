@@ -24,7 +24,7 @@
   }
 
   .menu-lateral__body__lista__item--title {
-    color: #17a2b8;
+    color: $turquesa;
     font-size: 1rem;
   }
 
@@ -48,7 +48,7 @@
 
   
   .menu-lateral__body__lista__item--normal:hover, .menu-lateral__body__lista__item--logout:hover{               
-    background-color: #17a2b8;
+    background-color: $turquesa;
   }
 
   .menu-lateral__body__lista__item--logout:hover{
