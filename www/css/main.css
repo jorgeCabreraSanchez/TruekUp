@@ -16,6 +16,7 @@ body {
 
 .navbar {
   z-index: 201 !important;
+  background-color: #17a2b8 !important;
 }
 
 @media (min-width: 576px) {
