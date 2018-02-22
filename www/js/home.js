@@ -55,6 +55,9 @@ function home() {
                 $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
                 $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
                 $("#main-desplegable-productos").addClass("mostrar");
+                $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
+                $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
+                $("#main-desplegable-productos").addClass("mostrar");
                 palabrasClave.push({
                   "id": value.id,
                   "palabra": value.palabra
