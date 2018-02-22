@@ -18,7 +18,7 @@ function home() {
     if ($(this).val() == "") {
       $("#main-desplegable-categorias,#main-desplegable-subcategorias").removeClass("ocultar");
       $("#main-desplegable-productos").removeClass("mostrar");
-      $("#main-desplegable-productos").children().remove();
+     
       anterior = undefined;
     } else {
       if (event.which == 13) {
@@ -30,6 +30,9 @@ function home() {
           $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
           $("#main-desplegable-productos").addClass("mostrar");
           anterior = undefined;
+          $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
+          $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
+          $("#main-desplegable-productos").addClass("mostrar");
         }
 
         if (event.which == 9) {
@@ -49,6 +52,12 @@ function home() {
               $("#main-desplegable-productos").children().remove();
               palabrasClave = [];
               $.each(json, (index, value) => {
+                $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
+                $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
+                $("#main-desplegable-productos").addClass("mostrar");
+                $("#main-desplegable-subcategorias").height($("#main-desplegable-categorias").height());
+                $("#main-desplegable-categorias,#main-desplegable-subcategorias").addClass("ocultar");
+                $("#main-desplegable-productos").addClass("mostrar");
                 palabrasClave.push({
                   "id": value.id,
                   "palabra": value.palabra
