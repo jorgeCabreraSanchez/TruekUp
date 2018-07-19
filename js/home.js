@@ -206,7 +206,7 @@ function quitarMainBrowserMin() {
 
 function mostrarMiddleContainer() {
   $(".middle-conteiner").html('<div class="row row-middle">' +
-
+    '<h1 class="row-middle-title col-lg-12">Deportes de temporada</h1>'+    
     '<div class="col-lg-4 col-md-6 mb-4">' +
     '<div class="card-body">' +
     ' <h4 class="card-title">' +

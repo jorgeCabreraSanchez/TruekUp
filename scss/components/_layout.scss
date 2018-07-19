@@ -85,6 +85,10 @@ body {
     @include border-radius(5px);
 }
 
+.row-middle-title{
+    color: #007bff;
+}
+
 .main-dropdown {
     display: none !important;
     position: absolute;

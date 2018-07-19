@@ -88,6 +88,10 @@ body {
   -o-border-radius: 5px !important;
 }
 
+.row-middle-title {
+  color: #007bff;
+}
+
 .main-dropdown {
   display: none !important;
   position: absolute;
